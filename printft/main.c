@@ -1,62 +1,108 @@
 #include <stdio.h>
+#include <string.h>
 #include <limits.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "libftprintf.h"
+#include "libft.h"
+
+#define GREEN "\033[32m"
+#define RED   "\033[31m"
+#define RESET "\033[0m"
+
+// --- Macros para testes ---
+
+// Sem argumentos variádicos
+#define RUN0(desc, fmt) do { \
+    char expected[500]; \
+    int ret_ft, ret_std; \
+    sprintf(expected, fmt); \
+    ret_std = (int)strlen(expected); \
+    ret_ft = ft_printf(fmt); \
+    if (ret_ft == ret_std) \
+        printf("[%02d] %s✅ OK%s | %s (len=%d)\n", test_i++, GREEN, RESET, desc, ret_ft); \
+    else \
+        printf("[%02d] %s❌ FAIL%s | %s (len=%d, esperado=%d)\n", test_i++, RED, RESET, desc, ret_ft, ret_std); \
+} while(0)
+
+// Com argumentos variádicos
+#define RUN(desc, fmt, ...) do { \
+    char expected[500]; \
+    int ret_ft, ret_std; \
+    sprintf(expected, fmt, __VA_ARGS__); \
+    ret_std = (int)strlen(expected); \
+    ret_ft = ft_printf(fmt, __VA_ARGS__); \
+    if (ret_ft == ret_std) \
+        printf("[%02d] %s✅ OK%s | %s (len=%d)\n", test_i++, GREEN, RESET, desc, ret_ft); \
+    else \
+        printf("[%02d] %s❌ FAIL%s | %s (len=%d, esperado=%d)\n", test_i++, RED, RESET, desc, ret_ft, ret_std); \
+} while(0)
+
+// -------------------------------------------------------------
 
 int main(void)
 {
-	int len1, len2;
-	char c = 'A';
-	char *str = "Hello, ft_printf!";
-	int d = -12345;
-	unsigned int u = 4294967295;
-	void *p = &d;
-	int zero = 0;
+    int test_i = 1;
+    int a = 42;
+    char *str = "teste";
+    char *null_str = NULL;
 
-	printf("===== Testando %%c =====\n");
-	len1 = printf("printf:    [%c]\n", c);
-	len2 = ft_printf("ft_printf: [%c]\n", c);
-	printf("len: printf=%d, ft_printf=%d\n\n", len1, len2);
+    printf("\n===== TESTES AUTOMATIZADOS FT_PRINTF =====\n\n");
 
-	printf("===== Testando %%s =====\n");
-	len1 = printf("printf:    [%s]\n", str);
-	len2 = ft_printf("ft_printf: [%s]\n", str);
-	printf("len: printf=%d, ft_printf=%d\n\n", len1, len2);
+    // 1–10: básicos
+    RUN0("Texto simples", "Texto simples\n");
+    RUN("Char simples", "Char: %c\n", 'A');
+    RUN("String", "String: %s\n", str);
+    RUN("String NULL", "String NULL: %s\n", null_str);
+    RUN("Decimal", "Int: %d\n", 123);
+    RUN("Negativo", "Negativo: %i\n", -456);
+    RUN("Zero", "Zero: %d\n", 0);
+    RUN("Unsigned max", "Unsigned: %u\n", 4294967295U);
+    RUN("Hex minúsculo", "Hexa min: %x\n", 0x1234abcd);
+    RUN("Hex maiúsculo", "Hexa mai: %X\n", 0x1234ABCD);
 
-	printf("===== Testando %%p =====\n");
-	len1 = printf("printf:    [%p]\n", p);
-	len2 = ft_printf("ft_printf: [%p]\n", p);
-	printf("len: printf=%d, ft_printf=%d\n\n", len1, len2);
+    // 11–20: ponteiros e combinações
+    RUN("Pointer variável", "Pointer: %p\n", &a);
+    RUN("Pointer NULL", "Pointer NULL: %p\n", NULL);
+    RUN0("Percent", "Percent: %%\n");
+    RUN("Múltiplos chars", "%c%c%c\n", 'A', 'B', 'C');
+    RUN("Múltiplas strings", "%s%s%s\n", "A", "B", "C");
+    RUN("Múltiplos decimais", "%d%d%d\n", 1, 22, 333);
+    RUN("Múltiplos unsigned", "%u%u%u\n", 1U, 22U, 333U);
+    RUN("Múltiplos hex min", "%x %x %x\n", 0, 1, 15);
+    RUN("Múltiplos hex mai", "%X %X %X\n", 0, 1, 15);
+    RUN("Mix curto", "Mix: %d %s %c\n", 9, "abc", 'Z');
 
-	printf("===== Testando %%d/%%i =====\n");
-	len1 = printf("printf:    [%d] [%i]\n", d, d);
-	len2 = ft_printf("ft_printf: [%d] [%i]\n", d, d);
-	printf("len: printf=%d, ft_printf=%d\n\n", len1, len2);
+    // 21–30: combinações complexas
+    RUN("Mix longo", "Mix longo: %d %s %p %u %x %%\n", -99, "test", &a, 1234U, 255);
+    RUN("Hex negativos", "Hex negativos: %x %X\n", -1, -42);
+    RUN("Grande número", "Grande: %d\n", 1000000);
+    RUN("String longa", "String longa: %s\n", "abcdefghijklmnopqrstuvwxyz");
+    RUN("String vazia", "String vazia: \"%s\"\n", "");
+    RUN("INT_MIN/MAX", "INT_MIN/MAX: %d %d\n", INT_MIN, INT_MAX);
+    RUN("UINT_MAX", "Unsigned MAX: %u\n", UINT_MAX);
+    RUN("Hex 0", "Hex zero: %x %X\n", 0, 0);
+    RUN("Mix completo", "Mix: %d %u %x %X %c %s %%\n", -42, 42U, 255, 255, 'Z', "ok");
+    RUN("Char especial", "Chars: %c %c %c\n", '\n', '\t', ' ');
 
-	printf("===== Testando %%u =====\n");
-	len1 = printf("printf:    [%u]\n", u);
-	len2 = ft_printf("ft_printf: [%u]\n", u);
-	printf("len: printf=%d, ft_printf=%d\n\n", len1, len2);
+    // 31–40: sequências
+    RUN("Seq números", "%d %d %d %d\n", 1, 2, 3, 4);
+    RUN("Seq unsigned", "%u %u %u %u\n", 10U, 20U, 30U, 40U);
+    RUN("Seq hex", "%x %x %x %x\n", 10, 11, 12, 13);
+    RUN("Seq chars", "%c %c %c %c\n", 'a', 'b', 'c', 'd');
+    RUN("Seq strings", "%s %s %s %s\n", "um", "dois", "tres", "quatro");
+    RUN("Pointer repetido", "%p %p %p\n", &a, &a, &a);
+    RUN("Mix variado", "%d %s %x %X %u %c %%\n", 123, "txt", 15, 15, 99U, '!');
+    RUN("Zeros variados", "%d %u %x %X\n", 0, 0U, 0, 0);
+    RUN("Negativos mistos", "%d %i %x %X\n", -1, -99, -1, -99);
+    RUN("String repetida", "%s%s%s%s\n", "x", "x", "x", "x");
 
-	printf("===== Testando %%x/%%X =====\n");
-	len1 = printf("printf:    [%x] [%X]\n", u, u);
-	len2 = ft_printf("ft_printf: [%x] [%X]\n", u, u);
-	printf("len: printf=%d, ft_printf=%d\n\n", len1, len2);
+    // 41–70: testes automáticos repetidos
+    for (int i = 41; i <= 70; i++) {
+        RUN("Loop auto", "Teste %d: %d %u %x %X %c %s %%\n",
+            i, i, (unsigned)i, i, i, 'A', "ok");
+    }
 
-	printf("===== Testando %% com zero e %%c %%s =====\n");
-	len1 = printf("printf:    %% %c %s %d\n", c, str, zero);
-	len2 = ft_printf("ft_printf: %% %c %s %d\n", c, str, zero);
-	printf("len: printf=%d, ft_printf=%d\n\n", len1, len2);
-
-	printf("===== Testando string NULL =====\n");
-	char *null_str = NULL;
-	len1 = printf("printf:    [%s]\n", null_str);
-	len2 = ft_printf("ft_printf: [%s]\n", null_str);
-	printf("len: printf=%d, ft_printf=%d\n\n", len1, len2);
-	
-	/*printf("===== Testando ZERO =====\n");
-	//printf(0);
-	ft_printf(0);*/
-
-	return 0;
+    printf("\n===== FIM DOS TESTES =====\n");
+    return 0;
 }
-

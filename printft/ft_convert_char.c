@@ -27,9 +27,10 @@ int	ft_convert_char(va_list ap, char cvt)
 	else if (cvt == 'p')
 	{
 		p = va_arg(ap, void *);
+		if (!p)
+			return (write(1, "(nil)", 5));
 		write(1, "0x", 2);
-		ft_hex_fd((unsigned long)p, 1, 'p');
-		return (14);
+		return (ft_hex_fd((unsigned long)p, 1, 'p') + 2);
 	}
 	return (0);
 }
