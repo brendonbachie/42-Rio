@@ -4,7 +4,7 @@
 
 int main(void)
 {
-	int len1, len2;
+	/*int len1, len2;
 	char c = 'A';
 	char *str = "Hello, ft_printf!";
 	int d = -12345;
@@ -52,6 +52,10 @@ int main(void)
 	len1 = printf("printf:    [%s]\n", null_str);
 	len2 = ft_printf("ft_printf: [%s]\n", null_str);
 	printf("len: printf=%d, ft_printf=%d\n\n", len1, len2);
+	
+	*/printf("===== Testando ZERO =====\n");
+	//printf(0);
+	ft_printf(0);
 
 	return 0;
 }

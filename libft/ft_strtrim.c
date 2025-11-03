@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-int	start(const char *s1, const char *set, int len)
+static	int	start(const char *s1, const char *set, int len)
 {
 	int	i;
 	int	j;
@@ -31,7 +31,7 @@ int	start(const char *s1, const char *set, int len)
 	return (i);
 }
 
-int	end(const char *s1, const char *set, int n, int len)
+static	int	end(const char *s1, const char *set, int n, int len)
 {
 	int	j;
 

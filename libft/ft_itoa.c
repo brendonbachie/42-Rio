@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/03 12:49:10 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 12:49:11 by bgomes-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include <stdio.h>
 #include <string.h>
 
-static int numlen(int n)
+static	int	numlen(int n)
 {
 	int	len;
 	int	num;
@@ -21,13 +33,13 @@ static int numlen(int n)
 	return (len);
 }
 
-void	rstring(char *s)
+static	void	rstring(char *s)
 {
-	int	i;
-	int	j;
-	int	len;
+	int		i;
+	int		j;
+	int		len;
 	char	temp;
-	
+
 	i = 0;
 	len = ft_strlen(s);
 	j = len;
@@ -43,28 +55,27 @@ void	rstring(char *s)
 
 char	*ft_itoa(int n)
 {
-	int	i;
-	int	sign; 
+	int		i;
+	int		sign;
 	char	*s;
-	
+
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	sign = n;
-	if (n < 0 )
+	if (n < 0)
 		sign = -sign;
 	i = 0;
 	s = ft_calloc(numlen(n) + 1, sizeof(char));
-	if(!s)
-		return (NULL); 
+	if (!s)
+		return (NULL);
 	while (sign >= 10)
 	{
 		s[i++] = sign % 10 + '0';
 		sign /= 10;
 	}
 	s[i++] = sign % 10 + '0';
-	if (n < 0) 
+	if (n < 0)
 		s[i++] = '-';
 	rstring(s);
 	return (s);
 }
-
