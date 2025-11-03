@@ -7,7 +7,8 @@ SRC = ft_convert_char.c \
       ft_numlen.c \
       ft_printf.c \
       ft_put_uns_fd.c \
-      ft_convert_string.c
+      ft_convert_string.c \
+      ft_verity.c
       
 OBJ=$(SRC:.c=.o)
 NAME=libftprintf.a

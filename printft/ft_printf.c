@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/03 16:07:47 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:07:48 by bgomes-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "libftprintf.h"
 #include <stdarg.h>
 
-int	ft_printf(const char *str , ...)
+int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 
 	i = 0;
 	len = 0;
@@ -18,19 +30,15 @@ int	ft_printf(const char *str , ...)
 		if (str[i] == '%')
 		{
 			i++;
-			if (ft_strchr("cpxX", str[i]))
-				len += ft_convert_char(ap, str[i]);
-			else if (ft_strchr("diu%", str[i]))
-				len += ft_convert_num(ap, str[i]);
-			else if (str[i] == 's')
-				len += ft_convert_string(ap);
+			if (ft_strchr("cpxdiusX", str[i]))
+				len += ft_verify(ap, str[i]);
 		}
 		else
 			len += (ft_putchar_fd(str[i], 1), 1);
 		i++;
 	}
 	va_end (ap);
-	return(len);
+	return (len);
 }
 /*
 #include "libft.h"
@@ -49,24 +57,3 @@ int	main(void)
 	printf("%d\n", ft_printf("%u\n", a));
 	return (0);
 }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

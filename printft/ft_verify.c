@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_uns_fd.c                                    :+:      :+:    :+:   */
+/*   ft_verify.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:07:53 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 16:07:54 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:14:25 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:14:26 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.a"
+#include "libftprintf.a"
 
-#include "libftprintf.h"
-
-int	ft_put_uns_fd(unsigned int n, int fd)
+int	ft_verify(va_list ap, char s)
 {
-	int	count;
-	
-	count = 0;
-	if (n >= 10)
-		count += ft_put_uns_fd(n / 10, fd);
-	write(fd, &"0123456789"[n % 10], 1);
-	count += 1;
-	return (count);
+	int	len;
+
+	len = 0;
+	if (ft_strchr("cpxX", s))
+		len += ft_convert_char(ap, s);
+	else if (ft_strchr("diu%", s))
+		len += ft_convert_num(ap, s);
+	else if (s == 's')
+		len += ft_convert_string(ap);
+	return (len);
 }
