@@ -15,7 +15,7 @@
 int	ft_put_uns_fd(unsigned int n, int fd)
 {
 	int	count;
-	
+
 	count = 0;
 	if (n >= 10)
 		count += ft_put_uns_fd(n / 10, fd);

@@ -1,4 +1,4 @@
-CC=gcc
+CC=cc
 CFLAGS=-Wall -Werror -Wextra
 HEADER = libftprintf.h
 SRC = ft_convert_char.c \
@@ -8,14 +8,14 @@ SRC = ft_convert_char.c \
       ft_printf.c \
       ft_put_uns_fd.c \
       ft_convert_string.c \
-      ft_verity.c
+      ft_verify.c \
       
 OBJ=$(SRC:.c=.o)
 NAME=libftprintf.a
 
 all: $(NAME)
 
-%.o: %.c $(HEADER)
+.o: .c $(HEADER)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJ)

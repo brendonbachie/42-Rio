@@ -9,8 +9,8 @@
 /*   Updated: 2025/11/03 16:14:26 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.a"
-#include "libftprintf.a"
+#include "libft.h"
+#include "libftprintf.h"
 
 int	ft_verify(va_list ap, char s)
 {

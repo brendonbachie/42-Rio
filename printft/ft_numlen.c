@@ -17,6 +17,8 @@ int	ft_numlen(int n)
 
 	len = 0;
 	num = n;
+	if (num == -2147483648)
+		return (11);
 	if (num <= 0)
 		len++;
 	if (num < 0)
