@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_convert_num.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/03 16:07:00 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:07:02 by bgomes-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "libftprintf.h"
 
 int	ft_convert_num(va_list ap, char cvt)
 {
 	unsigned int	u;
-	int		d;
-	
+	int				d;
+
 	if (cvt == 'd' || cvt == 'i')
 	{
 		d = va_arg(ap, int);
@@ -24,4 +36,3 @@ int	ft_convert_num(va_list ap, char cvt)
 	}
 	return (0);
 }
-
