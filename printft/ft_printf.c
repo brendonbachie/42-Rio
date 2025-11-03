@@ -10,6 +10,8 @@ int	ft_printf(const char *str , ...)
 
 	i = 0;
 	len = 0;
+	if (!str)
+		return (0);
 	va_start(ap, str);
 	while (str[i] != '\0')
 	{
