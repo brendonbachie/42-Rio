@@ -14,29 +14,29 @@
 #include "libftprintf.h"
 #include <stdarg.h>
 
-int	ft_printf(const char *str, ...)
+int	ft_printf(const char *s, ...)
 {
-	va_list	ap;
+	va_list	a;
 	int		i;
 	int		len;
 
+	if (!s)
+		return (-1);
+	va_start(a, s);
 	i = 0;
 	len = 0;
-	if (!str)
-		return (-1);
-	va_start(ap, str);
-	while (str[i] != '\0')
+	while (s[i])
 	{
-		if (str[i] == '%' && str[i + 1])
+		if (s[i] == '%' && s[i + 1])
 		{
 			i++;
-			if (ft_strchr("cpxdiusX%", str[i]))
-				len += ft_verify(ap, str[i]);
+			len += ft_verify(a, s[i]);
 		}
 		else
-			len += (ft_putchar_fd(str[i], 1), 1);
+			len += (ft_putchar_fd(s[i], 1), 1);
 		i++;
 	}
-	va_end (ap);
+	va_end(a);
 	return (len);
 }
+
