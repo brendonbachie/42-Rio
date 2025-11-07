@@ -23,5 +23,11 @@ int	ft_verify(va_list ap, char s)
 		len += ft_convert_num(ap, s);
 	else if (s == 's')
 		len += ft_convert_string(ap);
+	else
+	{
+		write(1, "%", 1);
+		write(1, &s, 1);
+		len += 2;
+	}
 	return (len);
 }
