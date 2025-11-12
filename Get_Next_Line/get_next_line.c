@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define BUFFER_SIZE 2
+//#define BUFFER_SIZE 3
 #define MAX_FD 1024
 
 char	*ret(char **str);
@@ -15,7 +15,6 @@ char	*verif(char **str);
 char *get_next_line(int fd)
 {
 	static char *lidos[MAX_FD];
-	char *retorno;
 	char *ch;
 	int len;
 
@@ -28,8 +27,7 @@ char *get_next_line(int fd)
 		lidos[fd] = calloc(1, 1);
 	while ((len = read(fd, ch, BUFFER_SIZE)) > 0)
 	{
-		if (len > 0)
-			ch[len] = '\0';
+		ch[len] = '\0';
 		lidos[fd] = ft_strjoin(lidos[fd], ch);
 		if (strchr(lidos[fd], '\n'))
 		{
@@ -51,19 +49,17 @@ char	*ret(char **str)
 	p = *str;
 	i = 0;
 	r = calloc(strlen(p) + 2, sizeof(char));
-	while (p[i] && p[i] != '\n')
+	while (p[i] != '\n')
 	{
 		r[i] = p[i];
 		i++;
 	}
-	if (p[i] == '\0') 
-		r[i] = '\0';
-	else 
+	if (p[i] == '\n')
 	{
 		r[i] = '\n';
-		r[i + 1] = '\0';
 		i++;
 	}
+	r[i] = '\0';
 	tmp = strdup(p + i);
 	free (*str);
 	*str = tmp;
