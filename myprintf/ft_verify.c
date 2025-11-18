@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hex_fd.c                                        :+:      :+:    :+:   */
+/*   ft_verify.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:07:23 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 16:07:24 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:14:25 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:14:26 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_printf.h"
 
-#include "libft.h"
-
-int	ft_hex_fd(unsigned long n, int fd, char caps)
+int	ft_verify(va_list ap, char s)
 {
-	int	count;
+	int	len;
 
-	count = 0;
-	if (n >= 16)
-		count += ft_hex_fd(n / 16, fd, caps);
-	if (caps == 'X')
-		write(fd, &"0123456789ABCDEF"[n % 16], 1);
+	len = 0;
+	if (ft_strchr("cpxX", s))
+		len += ft_convert_char(ap, s);
+	else if (ft_strchr("diu%+", s))
+		len += ft_convert_num(ap, s);
+	else if (s == 's')
+		len += ft_convert_string(ap);
 	else
-		write(fd, &"0123456789abcdef"[n % 16], 1);
-	count += 1;
-	return (count);
+	{
+		write(1, "%", 1);
+		write(1, &s, 1);
+		len += 2;
+	}
+	return (len);
 }

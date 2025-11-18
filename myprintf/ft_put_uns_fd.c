@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_put_uns_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 09:52:56 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/12 09:52:58 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:07:53 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:07:54 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
-{
-	t_list	*aux;
+#include "ft_printf.h"
 
-	if (!lst || !del)
-		return;
-	while (*lst)
-	{
-		aux = (*lst)->next;
-		del((*lst)->content);
-		free(*lst);
-		*lst = aux;
-	}
+int	ft_put_uns_fd(unsigned int n, int fd)
+{
+	int	count;
+
+	count = 0;
+	if (n >= 10)
+		count += ft_put_uns_fd(n / 10, fd);
+	write(fd, &"0123456789"[n % 10], 1);
+	count += 1;
+	return (count);
 }

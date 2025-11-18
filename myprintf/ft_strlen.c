@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_verify.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:14:25 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 16:14:26 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 13:07:21 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 13:07:22 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
-#include "libftprintf.h"
 
-int	ft_verify(va_list ap, char s)
+#include "ft_printf.h"
+
+size_t	ft_strlen(const char *s)
 {
-	int	len;
+	int	i;
+	int	count;
 
-	len = 0;
-	if (ft_strchr("cpxX", s))
-		len += ft_convert_char(ap, s);
-	else if (ft_strchr("diu%", s))
-		len += ft_convert_num(ap, s);
-	else if (s == 's')
-		len += ft_convert_string(ap);
-	else
+	i = 0;
+	count = 0;
+	while (s[i] != '\0')
 	{
-		write(1, "%", 1);
-		write(1, &s, 1);
-		len += 2;
+		count++;
+		i++;
 	}
-	return (len);
+	return (count);
 }

@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_string.c                                :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:07:16 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 16:07:17 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 12:57:21 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 12:57:22 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	ft_convert_string(va_list ap)
+void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	len;
-	char	*s;
+	int	i;
 
-	s = va_arg(ap, char *);
 	if (!s)
+		return ;
+	i = 0;
+	while (s[i] != '\0')
 	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
+		write(fd, &s[i], 1);
+		i++;
 	}
-	ft_putstr_fd(s, 1);
-	len = ft_strlen(s);
-	return (len);
 }

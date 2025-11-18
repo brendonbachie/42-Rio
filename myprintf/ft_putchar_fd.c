@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 09:52:56 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/12 09:52:58 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 12:56:51 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 12:56:53 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
-{
-	t_list	*aux;
+#include "ft_printf.h"
 
-	if (!lst || !del)
-		return;
-	while (*lst)
-	{
-		aux = (*lst)->next;
-		del((*lst)->content);
-		free(*lst);
-		*lst = aux;
-	}
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
 }
