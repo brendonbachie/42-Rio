@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_numlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 09:52:56 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/12 09:52:58 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:07:35 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:07:36 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-typedef struct s_list
+#include "ft_printf.h"
+int	ft_numlen(int n)
 {
-	void			*content;
-	struct s_list	*next;
-}	t_list;
+	int	len;
+	int	num;
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
-{
-	t_list	*aux;
-
-	if (!lst || !del)
-		return;
-	while (*lst)
+	len = 0;
+	num = n;
+	if (num == -2147483648)
+		return (11);
+	if (num <= 0)
+		len++;
+	if (num < 0)
+		num = -num;
+	while (num > 0)
 	{
-		aux = (*lst)->next;
-		del((*lst)->content);
-		free(*lst);
-		*lst = aux;
+		len++;
+		num /= 10;
 	}
+	return (len);
 }

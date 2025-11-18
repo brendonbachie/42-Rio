@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 09:52:56 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/12 09:52:58 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 12:57:10 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 12:57:12 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
-{
-	t_list	*aux;
+#include "ft_printf.h"
 
-	if (!lst || !del)
-		return;
-	while (*lst)
+void	ft_putnbr_fd(int n, char c)
+{	
+	if (n == -2147483648)
 	{
-		aux = (*lst)->next;
-		del((*lst)->content);
-		free(*lst);
-		*lst = aux;
+		write(1, "-2147483648", 11);
+		return ;
 	}
+	if (n > 0 && c == '+')
+		write(1, "+", 1);
+	if (n < 0)
+	{
+		n *= -1;
+		write(1, "-", 1);
+	}
+	if (n >= 10)
+		ft_putnbr_fd(n / 10, c);
+	write(1, &"0123456789"[n % 10], 1);
 }

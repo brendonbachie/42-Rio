@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_numlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:07:35 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 16:07:36 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/12 10:17:14 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/12 10:17:15 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-int	ft_numlen(int n)
+typedef struct	s_list
 {
-	int	len;
-	int	num;
+	void		*content;
+	struct	s_list	*next;
+}			t_list;
 
-	len = 0;
-	num = n;
-	if (num == -2147483648)
-		return (11);
-	if (num <= 0)
-		len++;
-	if (num < 0)
-		num = -num;
-	while (num > 0)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	if (!lst)
+		return ;
+	while (lst != NULL)
 	{
-		len++;
-		num /= 10;
+		f(lst->content);
+		lst = lst->next;
 	}
-	return (len);
 }

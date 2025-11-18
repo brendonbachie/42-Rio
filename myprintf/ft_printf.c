@@ -1,31 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 09:52:56 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/12 09:52:58 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:07:47 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:07:48 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
-{
-	t_list	*aux;
+#include "ft_printf.h"
 
-	if (!lst || !del)
-		return;
-	while (*lst)
+int	ft_printf(const char *s, ...)
+{
+	va_list	a;
+	int		i;
+	int		len;
+
+	va_start(a, s);
+	i = 0;
+	len = 0;
+	while (s[i])
 	{
-		aux = (*lst)->next;
-		del((*lst)->content);
-		free(*lst);
-		*lst = aux;
+		if (s[i] == '%')
+		{
+			i++;
+			if (strchr("+diuxXpsc%", s[i]))
+			{
+				if (s[i] == '+')
+					len += ft_verify(a, s[i++]);
+			}
+			len += ft_verify(a, s[i]);
+		}
+		else
+			len += (ft_putchar_fd(s[i], 1), 1);
+		i++;
 	}
+	va_end(a);
+	return (len);
 }
+

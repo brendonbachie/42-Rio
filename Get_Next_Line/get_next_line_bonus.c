@@ -3,12 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "get_next_line_bonus.h"
 //#define BUFFER_SIZE 3
 #define MAX_FD 1024
 
 char	*ret(char **str);
 
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin(char **s1, char *s2);
 
 char	*verif(char **str);
 
@@ -18,19 +19,17 @@ char *get_next_line(int fd)
 	char *ch;
 	int len;
 
-	if (fd < 0 || fd >= MAX_FD)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
-	ch = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	ch = calloc(((unsigned int)BUFFER_SIZE + 1), sizeof(char));
 	if (!ch)
 		return (NULL);
 	if (!lidos[fd])
-		lidos[fd] = calloc(1, 1);
-	while ((len = read(fd, ch, BUFFER_SIZE)) > 0)
+		lidos[fd] = gnl_calloc(1, 1);
+	while (read(fd, ch, BUFFER_SIZE))
 	{
-		printf("%s", ch);
-		ch[len] = '\0';
-		lidos[fd] = ft_strjoin(lidos[fd], ch);
-		if (strchr(lidos[fd], '\n'))
+		lidos[fd] = ft_strjoin(&lidos[fd], ch);
+		if (gnl_strchr(lidos[fd], '\n'))
 		{
 			free(ch);
 			return (ret(&lidos[fd]));
@@ -48,26 +47,26 @@ char	*ret(char **str)
 	char	*tmp;
 	
 	p = *str;
-	i = 0;
-	r = calloc(strlen(p) + 2, sizeof(char));
-	while (p[i] != '\n')
-	{
+	i = -1;
+	r = gnl_calloc(gnl_strlen(p) + 2, sizeof(char));
+	while (p[++i] != '\n')
 		r[i] = p[i];
-		i++;
-	}
 	if (p[i] == '\n')
+		r[i++] = '\n';
+	if (p[i] == '\0')
 	{
-		r[i] = '\n';
-		i++;
+		free(*str);
+		*str = NULL;
+		return (r);
 	}
 	r[i] = '\0';
-	tmp = strdup(p + i);
+	tmp = gnl_strdup(p + i);
 	free (*str);
 	*str = tmp;
 	return (r);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char **s1, char *s2)
 {
 	char	*str;
 	int		len;
@@ -76,17 +75,17 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s2)
 		return (NULL);
 	if (!s1)
-		s1 = calloc(1, 1);
+		s1 = gnl_calloc(1, 1);
 	if (!s1)
 		return (NULL);
-	len_s1 = strlen(s1);
-	len = len_s1 + (strlen(s2));
-	str = calloc(len + 1, sizeof(char));
+	len_s1 = gnl_strlen(*s1);
+	len = len_s1 + (gnl_strlen(s2));
+	str = gnl_calloc(len + 1, sizeof(char));
 	if (!str)
 		return (NULL);
-	memcpy(str, s1, len_s1);
-	memcpy(str + len_s1, s2, strlen(s2));
-	free (s1);
+	gnl_memcpy(str, s1, len_s1);
+	gnl_memcpy(str + len_s1, s2, gnl_strlen(s2));
+	free (*s1);
 	return (str);
 }
 
@@ -100,10 +99,14 @@ char *verif(char **str)
 		*str = NULL;
 		return (NULL);
 	}
-	if (strchr(*str, '\n'))
+	if (gnl_strchr(*str, '\n'))
 		return (ret(str));
-	retorno = strdup(*str);
-	free(*str);
-	*str = NULL;
+	if (gnl_strchr(*str, '\0'))
+	{
+		retorno = gnl_strdup(*str);
+		free(*str);
+		*str = NULL;
+		return (retorno);
+	}
 	return (retorno);
 }
