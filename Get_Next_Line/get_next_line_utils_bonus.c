@@ -35,8 +35,8 @@ void	*gnl_calloc(size_t nmemb, size_t size)
 		return (NULL);
 	while (i < total)
     	{
-    	str[i] = '\0';
-    	i++;
+    		str[i] = '\0';
+    		i++;
     	}
 	return (str);
 }
