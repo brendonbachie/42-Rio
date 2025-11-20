@@ -34,8 +34,6 @@ int main(void)
 	free(linha1);
 	linha2 = get_next_line(fd2);
 	printf("%s", linha2);
-
-	
 	free(linha2);
 
 	return (0);
