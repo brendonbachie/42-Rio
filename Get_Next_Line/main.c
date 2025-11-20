@@ -14,7 +14,7 @@ int main(void)
 
 	fd1 = open("teste1.txt", O_RDONLY);
 	
-	fd2 = open("teste3.txt", O_RDONLY);
+	fd2 = open("teste2.txt", O_RDONLY);
 	//fd2 = open("teste3.txt", O_RDONLY);
 	
 	printf("%d\n%d\n", fd1, fd2);
