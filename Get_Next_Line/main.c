@@ -1,40 +1,21 @@
+#include "get_next_line.h"
 #include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-char	*get_next_line(int fd);
 
 int main(void)
 {
-	int	fd1;
-	char *linha1;
-	char *linha2;
-	int	fd2;
+	int     fd;
+	char    *linha;
 
-	fd1 = open("teste1.txt", O_RDONLY);
-	
-	fd2 = open("teste2.txt", O_RDONLY);
-	
-	printf("%d\n%d\n", fd1, fd2);
-	linha1 = get_next_line(fd1);
-	printf("%s", linha1);
-	free(linha1);
-	linha2 = get_next_line(fd2);
-	printf("%s", linha2);
-	free(linha2);
-	linha1 = get_next_line(fd1);
-	printf("%s", linha1);
-	free(linha1);
-	linha2 = get_next_line(fd2);
-	printf("%s", linha2);
-	free(linha2);
-	linha1 = get_next_line(fd1);
-	printf("%s", linha1);
-	free(linha1);
-	linha2 = get_next_line(fd2);
-	printf("%s", linha2);
-	free(linha2);
+	fd = open("teste1.txt", O_RDONLY);
+	if (fd < 0)
+		return (1);
 
+	while ((linha = get_next_line(fd)) != NULL)
+	{
+		printf("%s", linha);
+		free(linha);
+	}
+
+	close(fd);
 	return (0);
 }
