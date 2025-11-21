@@ -16,5 +16,6 @@ char	*gnl_strchr(const char *s, int c);
 void	*gnl_memcpy(void *dest, const void *src, size_t n);
 char	*ft_strjoin(char **s1, char *s2);
 char	*ret(char **str);
+void	*free_and_null(char *ptr);
 
 #endif

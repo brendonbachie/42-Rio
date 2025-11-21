@@ -1,28 +1,35 @@
 #include "get_next_line.h"
 
+void	*free_and_null(char *ptr)
+{
+	free(ptr);
+	ptr = NULL;
+	return (ptr);
+}
+
 char	*ret(char **str)
 {
 	char	*p;
 	int	i;
 	char	*r;
 	 
-	if (!str || !*str)
-		return (NULL);
 	p = *str;
-	i = 0;
+	i = -1;
+	if (p[0] == '\0')
+	{
+		*str = free_and_null(*str);
+		return (NULL);
+	}
 	r = gnl_calloc(gnl_strlen(p) + 2, sizeof(char));
 	if (!r) 
 		return NULL;
-	while (p[i] && p[i] != '\n')
-		r[i++] = p[i];
+	while (p[++i] && p[i] != '\n')
+		r[i] = p[i];
 	if (p[i] == '\n')
 		r[i++] = '\n';
 	r[i] = '\0';
 	if (p[i] == '\0')
-	{
-		free(*str);
-		*str = NULL;
-	}
+		*str = free_and_null(*str);
 	else
 		*str = gnl_strdup(*str, p + i);
 	return (r);
@@ -38,9 +45,9 @@ char	*ft_strjoin(char **s1, char *s2)
 		return (NULL);
 	if (!*s1)
 		*s1 = gnl_calloc(1, 1);
-	if (!s1)
+	if (!s1 || !*s1)
 		return (NULL);
-	len_s1 = gnl_strlen(s1[0]);
+	len_s1 = gnl_strlen(*s1);
 	len = len_s1 + (gnl_strlen(s2));
 	str = gnl_calloc(len + 1, sizeof(char));
 	if (!str)
@@ -77,8 +84,10 @@ char *get_next_line(int fd)
 		len = read(fd, ch, BUFFER_SIZE);
 	}
 	free(ch);
-	return (NULL);
+	return (ret(&lidos[fd]));
 }
+
+
 
 /*
 char *verif(char **str)
