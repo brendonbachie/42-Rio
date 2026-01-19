@@ -26,19 +26,15 @@ int	ft_printf(const char *s, ...)
 	len = 0;
 	while (s[i])
 	{
-		if (s[i] == '%')
+		if (s[i] == '%' && s[++i])
+			len += ft_verify(a, s[i])
 		{
 			i++;
-			if (ft_strchr("+ #", s[i]))
-			{
-				len += plus(a, s[i], s[i + 1]);
-				i++;
-			}
-			else
+			if (ft_strchr("uidxXpsc%", s[i]))
 				len += ft_verify(a, s[i]);
 		}
 		else
-			len += (ft_putchar_fd(s[i], 1), 1);
+				len += (ft_putchar_fd(s[i], 1), 1);
 		i++;
 	}
 	va_end(a);
