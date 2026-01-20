@@ -10,15 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_convert_char(va_list ap, char cvt)
 {
 	void	*p;
+	int		count;
 
 	if (cvt == 'x' || cvt == 'X')
-		return (ft_hex_fd(va_arg(ap, unsigned int), 1, cvt));
+	{
+		count = ft_hex_fd(va_arg(ap, unsigned int), 1, cvt);
+		return (count);
+	}
 	else if (cvt == 'c')
 	{
 		ft_putchar_fd((char) va_arg(ap, int), 1);
@@ -30,7 +33,8 @@ int	ft_convert_char(va_list ap, char cvt)
 		if (!p)
 			return (write(1, "(nil)", 5));
 		write(1, "0x", 2);
-		return (ft_hex_fd((unsigned long)p, 1, 'p') + 2);
+		count = ft_hex_fd((unsigned long)p, 1, 'p') + 2;
+		return (count);
 	}
 	return (0);
 }

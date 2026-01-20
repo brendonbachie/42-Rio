@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_string.c                                :+:      :+:    :+:   */
+/*   ft_convert_num.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:07:16 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 16:07:17 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:07:00 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:07:02 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	ft_convert_string(va_list ap)
+int	ft_convert_num(va_list ap, char cvt)
 {
-	size_t	len;
-	char	*s;
+	unsigned int	u;
+	int				d;
 
-	s = va_arg(ap, char *);
-	if (!s)
+	if (cvt == 'd' || cvt == 'i')
 	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
+		d = va_arg(ap, int);
+		ft_putnbr_fd(d, 1);
+		return (ft_numlen(d));
 	}
-	ft_putstr_fd(s, 1);
-	len = ft_strlen(s);
-	return (len);
+	else if (cvt == 'u')
+	{
+		u = va_arg(ap, unsigned int);
+		return (ft_put_uns_fd(u, 1));
+	}
+	else if (cvt == '%')
+	{
+		write(1, "%", 1);
+		return (1);
+	}
+	return (0);
 }

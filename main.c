@@ -1,4 +1,4 @@
-#include "libftprintf.h"  // ou onde você tiver declarado ft_printf
+#include "ft_printf.h"  // ou onde você tiver declarado ft_printf
 #include <stdio.h>
 
 int main(void)
@@ -14,7 +14,7 @@ int main(void)
     ft_printf("Test 4: %%05d -> %05d\n", a);
     ft_printf("Test 5: %%c -> %c\n", c);
     ft_printf("Test 6: %%s -> %s\n", str);
-    ft_printf("Test 7: %%d %%d -> %d %d\n", a, b);
+    ft_printf("%d\n", ft_printf(0));
 
     return 0;
 }
