@@ -15,8 +15,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "libftprintf.h"
-#include "libft.h"
+#include "ft_printf.h"
 
 #define GREEN "\033[32m"
 #define RED   "\033[31m"

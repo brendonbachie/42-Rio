@@ -1,4 +1,16 @@
-#include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/12 11:15:28 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/12/12 11:15:30 by bgomes-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line_bonus.h"
 
 void	*free_and_null(char *ptr)
 {
@@ -10,9 +22,9 @@ void	*free_and_null(char *ptr)
 char	*ret(char **str)
 {
 	char	*p;
-	int	i;
+	int		i;
 	char	*r;
-	 
+
 	p = *str;
 	i = -1;
 	if (p[i + 1] == '\0')
@@ -21,8 +33,8 @@ char	*ret(char **str)
 		return (NULL);
 	}
 	r = gnl_calloc(gnl_strlen(p) + 2, sizeof(char));
-	if (!r) 
-		return NULL;
+	if (!r)
+		return (NULL);
 	while (p[++i] && p[i] != '\n')
 		r[i] = p[i];
 	if (p[i] == '\n')
@@ -58,52 +70,31 @@ char	*ft_strjoin(char **s1, char *s2)
 	return (str);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static char *lidos[MAX_FD];
-	char *ch;
-	int	len;
-	
+	static char	*readed[MAX_FD];
+	char		*buffer;
+	int			len;
+
 	if (fd < 0 || fd >= MAX_FD)
 		return (NULL);
-	ch = gnl_calloc((BUFFER_SIZE + 1), sizeof(char));
-	if (!ch)
+	buffer = gnl_calloc((BUFFER_SIZE + 1), sizeof(char));
+	if (!buffer)
 		return (NULL);
-	if (!lidos[fd])
-		lidos[fd] = gnl_calloc(1, 1);
-	len = read(fd, ch, BUFFER_SIZE);
+	if (!readed[fd])
+		readed[fd] = gnl_calloc(1, 1);
+	len = read(fd, buffer, BUFFER_SIZE);
 	while (len > 0)
 	{
-		ch[len] = '\0';
-		lidos[fd] = ft_strjoin(&lidos[fd], ch);
-		if (gnl_strchr(lidos[fd], '\n') || len < BUFFER_SIZE)
+		buffer[len] = '\0';
+		readed[fd] = ft_strjoin(&readed[fd], buffer);
+		if (gnl_strchr(readed[fd], '\n') || len < BUFFER_SIZE)
 		{
-			free(ch);
-			return (ret(&lidos[fd]));
+			free(buffer);
+			return (ret(&readed[fd]));
 		}
-		len = read(fd, ch, BUFFER_SIZE);
+		len = read(fd, buffer, BUFFER_SIZE);
 	}
-	free(ch);
-	return (ret(&lidos[fd]));
+	free(buffer);
+	return (ret(&readed[fd]));
 }
-
-
-
-/*
-char *verif(char **str)
-{
-	char *retorno;
-
-	if (!*str || **str == '\0')
-	{
-		free(*str);
-		*str = NULL;
-		return (NULL);
-	}
-	if (strchr(*str, '\n'))
-		return (ret(str));
-	retorno = strdup(*str);
-	free(*str);
-	*str = NULL;
-	return (retorno);
-}*/

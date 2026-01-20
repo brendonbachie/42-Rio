@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_num.c                                   :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:07:00 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 16:07:02 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 12:57:10 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 12:57:12 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	ft_convert_num(va_list ap, char cvt)
+void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int	u;
-	int				d;
-
-	if (cvt == 'd' || cvt == 'i')
+	if (n == -2147483648)
 	{
-		d = va_arg(ap, int);
-		ft_putnbr_fd(d, 1);
-		return (ft_numlen(d));
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	else if (cvt == 'u')
+	if (n < 0)
 	{
-		u = va_arg(ap, unsigned int);
-		return (ft_put_uns_fd(u, 1));
+		n *= -1;
+		write(fd, "-", 1);
 	}
-	else if (cvt == '%')
-	{
-		write(1, "%", 1);
-		return (1);
-	}
-	return (0);
+	if (n >= 10)
+		ft_putnbr_fd(n / 10, fd);
+	write(fd, &"0123456789"[n % 10], 1);
 }

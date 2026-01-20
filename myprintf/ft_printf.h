@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <stddef.h>
 # include <string.h>
@@ -19,17 +19,20 @@
 # include <stdio.h>
 # include <stdint.h>
 # include <stdlib.h>
-# include "libft.h"
 # include <stdarg.h>
 
-int	ft_convert_char(va_list ap, char cvt);
-int	ft_convert_num(va_list ap, char cvt);
-int	ft_hex_fd(unsigned long n, int fd, char caps);
-int	ft_numlen(int n);
-int	ft_printf(const char *str, ...);
-int	ft_put_uns_fd(unsigned int n, int fd);
-int	ft_convert_string(va_list ap);
-int	ft_verify(va_list ap, char s);
-int	plus(va_list ap, char c, char b);
+int		ft_convert_char(va_list ap, char cvt);
+int		ft_convert_num(va_list ap, char cvt);
+int		ft_hex_fd(unsigned long n, int fd, char caps);
+int		ft_numlen(int n);
+int		ft_printf(const char *str, ...);
+int		ft_put_uns_fd(unsigned int n, int fd);
+int		ft_convert_string(va_list ap);
+int		ft_verify(va_list ap, char s);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putnbr_fd(int n, int fd);
+void	ft_putstr_fd(char *s, int fd);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
 
 #endif

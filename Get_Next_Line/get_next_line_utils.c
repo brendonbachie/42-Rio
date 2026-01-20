@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/12 11:15:52 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/12/12 11:15:53 by bgomes-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*gnl_strdup(char *str, char *str2)
 {
 	char	*s;
-	int	len;
-	int	i;
-	
+	int		len;
+	int		i;
+
 	i = 0;
 	len = gnl_strlen(str2);
 	s = malloc(len + 1);
@@ -23,10 +35,10 @@ char	*gnl_strdup(char *str, char *str2)
 
 void	*gnl_calloc(size_t nmemb, size_t size)
 {
-	size_t	total;
 	unsigned char	*str;
-	size_t	i;
-	
+	size_t			total;
+	size_t			i;
+
 	i = 0;
 	if (nmemb && size > SIZE_MAX / nmemb)
 		return (NULL);
@@ -35,18 +47,17 @@ void	*gnl_calloc(size_t nmemb, size_t size)
 	if (!str)
 		return (NULL);
 	while (i < total)
-    	{
-    	str[i] = '\0';
-    	i++;
-    	}
+	{
+		str[i] = '\0';
+		i++;
+	}
 	return (str);
 }
 
-
 size_t	gnl_strlen(const char *s)
 {
-	size_t i;
-	size_t count;
+	size_t	i;
+	size_t	count;
 
 	i = 0;
 	count = 0;
@@ -60,12 +71,11 @@ size_t	gnl_strlen(const char *s)
 	return (count);
 }
 
-
 void	*gnl_memcpy(void *dest, const void *src, size_t n)
 {
 	unsigned char	*d;
 	unsigned char	*s;
-	size_t		i;
+	size_t			i;
 
 	if (n == 0 || dest == src)
 		return (dest);

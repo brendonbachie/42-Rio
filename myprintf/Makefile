@@ -1,6 +1,6 @@
 CC=cc
 CFLAGS=-Wall -Werror -Wextra
-HEADER = libftprintf.h
+HEADER = ft_printf.h
 SRC = ft_convert_char.c \
       ft_convert_num.c \
       ft_hex_fd.c \
@@ -9,7 +9,11 @@ SRC = ft_convert_char.c \
       ft_put_uns_fd.c \
       ft_convert_string.c \
       ft_verify.c \
-      ft_plus.c
+      ft_putchar_fd.c \
+      ft_putnbr_fd.c \
+      ft_putstr_fd.c \
+      ft_strchr.c \
+      ft_strlen.c \
       
 OBJ=$(SRC:.c=.o)
 NAME=libftprintf.a
