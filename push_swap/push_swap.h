@@ -1,18 +1,6 @@
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef ERRORS_H
+# define ERRORS_H
 
-/* ================= INCLUDES ================= */
-
-# include <unistd.h>
-# include <stdlib.h>
-
-/* ================= PROTOTYPES ================= */
-
-/* main */
-int	main(int argc, char **argv);
-
-/* errors.c */
-int	ft_errors(char *msg);
+int ft_errors(int argc, char *argv);
 
 #endif
-
