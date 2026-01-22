@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "errors.c"
+#include "push_swap.h"
 
 typedef struct s_elements
 {
@@ -26,15 +26,16 @@ t_elements	*ft_lstnew(int content)
 int main(int argc, char **argv)
 {
 	int a = 1;
-	int i = 1;
 	t_elements *head = NULL;
 	t_elements *tail = NULL;
-	char 	*b;
-	
 	
 	while (a < argc)
 	{
-		ft_errors(argc, argv[a]);
+		if (ft_errors(argc, argv[a]) < "1")
+		{
+			printf("%s", "Error");
+			return (-1);
+		}
 		a++;
 	
 	}

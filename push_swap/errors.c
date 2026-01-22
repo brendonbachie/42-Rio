@@ -16,34 +16,24 @@
 
 int ft_errors(int argc, char *argv)
 {
-	int i = 1;
+	int i = 0;
 	char 	*b;
-	
-	b = calloc(sizeof(char), argc);
-	while (i < argc)
+
+	while (argv[i] != '\0')
 	{
-		if (argv[i] == '-')
-			i++;
-		if (!(isdigit(argv[i])))
-		{
-			printf("%s", "Error");
+		if (argv[i] != '-' || argv[i] != '+' || !(argv[i] > '0' && argv[i] < '9'))
 			return (0);
-		}
 		i++;
 	}
+	b = calloc(sizeof(char), argc);
 	i = 0;
 	while (i < argc)
 	{
 		if (strchr(b, atoi(argv)) || !(atoi(argv) > -2147483648 && atoi(argv) < 2147483647))
-			return (printf("%s", "Error"));
-		b[i - 1] = atoi(argv);
+			return (0);
+		b[0] = atoi(argv);
 		i++;
 	}
-	i = 0;
-	while (b[i] != '\0')
-	{
-		printf("%d\n", b[i]);
-		i++;
-	}
-	return (0);
+	free (b);
+	return (1);
 }
