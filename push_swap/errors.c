@@ -13,25 +13,45 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <limits.h>
+#include "push_swap.h"
 
-int ft_errors(int argc, char *argv)
+int duplicado (char **argumentos)
 {
-	int i = 0;
-	char 	*b;
+	int i;
+	int j;
 
-	while (argv[i] != '\0')
+	i = 0;
+	while (argumentos[i] != NULL)
 	{
-		if (argv[i] != '-' || argv[i] != '+' || !(argv[i] > '0' && argv[i] < '9'))
-			return (0);
+		j = i + 1;
+		while (argumentos[j] != NULL)
+		{
+			if (strcmp(argumentos[i], argumentos[j]) == 0)
+				return (0);
+			j++;
+		}
 		i++;
 	}
-	b = calloc(sizeof(char), argc);
+	return (1);
+}
+
+int ft_errors(int quantidade, char **argumentos)
+{
+	int i;
+	long int 	*b;
+
+	if (ft_isnum(argumentos) == 0)
+		return (0);
 	i = 0;
-	while (i < argc)
+	if (duplicado(argumentos) == 0)
+		return (0);
+	b = calloc(sizeof(long int), (quantidade));
+	while (argumentos[i] != NULL)
 	{
-		if (strchr(b, atoi(argv)) || !(atoi(argv) > -2147483648 && atoi(argv) < 2147483647))
+		b[i] = atol(argumentos[i]);
+		if (b[i] < INT_MIN || b[i] > INT_MAX)
 			return (0);
-		b[0] = atoi(argv);
 		i++;
 	}
 	free (b);
