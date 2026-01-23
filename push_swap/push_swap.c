@@ -4,45 +4,31 @@
 #include <ctype.h>
 #include "push_swap.h"
 
-typedef struct s_elements
-{
-	int number;
-	struct s_elements *next;
-} t_elements;
-
-t_elements	*ft_lstnew(int content)
-{
-	t_elements	*new;
-	
-	new = malloc(sizeof(t_elements));
-	if (!new)
-		return (NULL);
-	new->number = content;
-	new->next = NULL;
-	
-	return (new);
-}
-
 int main(int argc, char **argv)
 {
-	int a = 1;
-	t_elements *head = NULL;
-	t_elements *tail = NULL;
-	
-	while (a < argc)
+	char **splitejoin;
+	//t_elements *head = NULL;
+	//t_elements *tail = NULL;
+
+	splitejoin = ft_splitejoin(argc, argv);
+	if (ft_errors(argc, splitejoin) == 0)
 	{
-		if (ft_errors(argc, argv[a]) < "1")
-		{
-			printf("%s", "Error");
-			return (-1);
-		}
-		a++;
-	
+		printf("%s", "Error");
+		return (-1);
 	}
-	a = 1;
+	while (*splitejoin)
+	{
+		printf("%s\n", *splitejoin);
+		splitejoin++;
+	}
+	return (0);
+}
+
+	/*
+	a = 0;
 	while (a < argc)
 	{
-		t_elements *new_element = ft_lstnew(atoi(argv[a]));
+		t_elements *new_element = ft_lstnew(atoi(split[a]));
         	if (head == NULL)
         	{
         	    head = new_element;
@@ -63,5 +49,5 @@ int main(int argc, char **argv)
     	}
 	return(0);
 }
-
+*/
 
