@@ -7,8 +7,8 @@
 int main(int argc, char **argv)
 {
 	char **splitejoin;
-	//t_elements *head = NULL;
-	//t_elements *tail = NULL;
+	t_elements *head = NULL;
+	t_elements *head2 = NULL;
 
 	splitejoin = ft_splitejoin(argc, argv);
 	if (ft_errors(argc, splitejoin) == 0)
@@ -16,38 +16,15 @@ int main(int argc, char **argv)
 		printf("%s", "Error");
 		return (-1);
 	}
-	while (*splitejoin)
+	head = ft_lists(splitejoin);
+	if (ft_lstsize(&head) <= 3)
+		ate3(&head);
+	else
+		turco(&head, &head2);
+	while (head != NULL)
 	{
-		printf("%s\n", *splitejoin);
-		splitejoin++;
+		printf("[%d] %d\n", head->index, head->number);
+		head = head->next;
 	}
 	return (0);
 }
-
-	/*
-	a = 0;
-	while (a < argc)
-	{
-		t_elements *new_element = ft_lstnew(atoi(split[a]));
-        	if (head == NULL)
-        	{
-        	    head = new_element;
-        	    tail = new_element;
-        	}
-        	else
-        	{
-        	    tail->next = new_element;
-        	    tail = new_element;
-        	}
-        	a++;
-    	}
-    	tail = head;
-    	while (tail != NULL)
-    	{
-        	printf("%d\n", tail->number);
-      	  tail = tail->next;
-    	}
-	return(0);
-}
-*/
-
