@@ -48,7 +48,7 @@ void    index_b(t_elements *stack_a, t_elements *stack_b)
     }
 }
 
-void    index(t_elements *stack)
+void    indice(t_elements *stack)
 {
     int i;
     t_elements *temp;
@@ -107,7 +107,7 @@ void custo_total(t_elements *stack)
                     temp->custo_total = (custo_a);
                 else
                     temp->custo_total = (custo_b);
-            else if (custo_a < 0 && custo_b < 0)
+            else 
                 if ((custo_a) < (custo_b))
                     temp->custo_total = -(custo_a);
                 else
