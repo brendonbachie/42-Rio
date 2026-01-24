@@ -46,7 +46,7 @@ int ft_errors(int quantidade, char **argumentos)
 	i = 0;
 	if (duplicado(argumentos) == 0)
 		return (0);
-	b = calloc(sizeof(long int), (quantidade));
+	b = calloc((quantidade), sizeof(long int));
 	while (argumentos[i] != NULL)
 	{
 		b[i] = atol(argumentos[i]);

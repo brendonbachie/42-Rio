@@ -4,7 +4,7 @@ HEADER = push_swap.h
 SRC =   calculos.c \
 	errors.c \
 	ft_isnum.c \
-	ft_list.c \
+	ft_lists.c \
 	ft_lstadd_back.c \
 	ft_lstclear.c \
 	ft_lstnew.c \
@@ -38,7 +38,7 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -f $(OBJ)
-fclean: (clean)
-	rm -f $(NAME)
+fclean:
+	rm -f $(NAME) $(OBJ)
 	
 re: fclean all
