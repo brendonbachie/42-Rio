@@ -89,13 +89,13 @@ void    custo(t_elements *stack_a, t_elements *stack_b)
     }
 }
 
-void custo_total(t_elements *stack_a)
+void custo_total(t_elements *stack)
 {
     t_elements *temp;
     int custo_a;
     int custo_b;
 
-    temp = stack_a;
+    temp = stack;
     while (temp)
     {
         custo_a = temp->custo_a;
