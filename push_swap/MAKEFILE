@@ -1,0 +1,44 @@
+CC=cc
+CFLAGS=-Wall -Werror -Wextra
+HEADER = push_swap.h
+SRC =   calculos.c \
+	errors.c \
+	ft_isnum.c \
+	ft_list.c \
+	ft_lstadd_back.c \
+	ft_lstclear.c \
+	ft_lstnew.c \
+	ft_lstsize.c \
+	ft_mod.c \
+	ft_push_swap.c \
+	ft_split.c \
+	ft_splitejoin.c \
+	ft_strjoin.c \
+	mov_final.c \
+	mov_final2.c \
+	mov1.c \
+	mov2.c \
+	mov3.c \
+	push_min_custo.c \
+	push_swap.c \
+	three.c \
+	turco.c \
+	volta.c \
+      
+OBJ=$(SRC:.c=.o)
+NAME=push_swap.a
+
+all: $(NAME)
+
+.o: .c $(HEADER)
+	$(CC) -c $(CFLAGS) $< -o $@
+
+$(NAME): $(OBJ)
+	ar rcs $(NAME) $(OBJ)
+
+clean:
+	rm -f $(OBJ)
+fclean: (clean)
+	rm -f $(NAME)
+	
+re: fclean all

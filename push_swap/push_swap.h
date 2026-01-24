@@ -48,6 +48,10 @@ void    index(t_elements *stack);
 void    index_b(t_elements *stack_a, t_elements *stack_b);
 void    alvo(t_elements *stack_a, t_elements *stack_b);
 void    custo(t_elements *stack_a, t_elements *stack_b);
-void    custo_total(t_elements *stack_b);
+void    custo_total(t_elements *stack);
+t_elements	*push_min_custo(t_elements *stack_a);
+void    mov_final(t_elements **stack_a, t_elements **stack_b, t_elements *min_custo);
+void    volta(t_elements **stack_a, t_elements **stack_b);
+void    mov_final2(t_elements **stack_a, t_elements **stack_b, t_elements *min_custo);
 
 #endif
