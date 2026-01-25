@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   volta.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/25 20:00:58 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/01/25 20:01:22 by bgomes-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	volta(t_elements *stack_a, t_elements *stack_b)
 {
-	t_elements *temp_a;
-	t_elements *temp_b;
-	t_elements *alvo;
-	long best_value;
+	t_elements	*temp_a;
+	t_elements	*temp_b;
+	t_elements	*alvo;
+	long		best_value;
 
 	temp_b = stack_b;
 	while (temp_b)

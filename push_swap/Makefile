@@ -24,6 +24,7 @@ SRC =   calculos.c \
 	three.c \
 	turco.c \
 	volta.c \
+	target.c \
       
 OBJ=$(SRC:.c=.o)
 NAME=push_swap.a

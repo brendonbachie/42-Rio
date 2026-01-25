@@ -6,7 +6,7 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 11:48:26 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 17:15:50 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:47:10 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include <limits.h>
 #include "push_swap.h"
 
-int duplicado (char **argumentos)
+int	duplicado(char **argumentos)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (argumentos[i] != NULL)
@@ -36,12 +36,11 @@ int duplicado (char **argumentos)
 	return (1);
 }
 
-int ft_errors(int quantidade, char **argumentos)
+int	ft_errors(int quantidade, char **argumentos)
 {
-	int i;
-	long int 	*b;
+	int			i;
+	long int	*b;
 
-	
 	if (ft_isnum(argumentos) == 0)
 		return (0);
 	i = 0;

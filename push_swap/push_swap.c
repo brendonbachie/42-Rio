@@ -1,15 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/25 19:07:48 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/01/25 19:09:23 by bgomes-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include "push_swap.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	char **splitejoin;
-	t_elements *head = NULL;
-	t_elements *head2 = NULL;
+	char		**splitejoin;
+	t_elements	*head;
+	t_elements	*head2;
 
+	head = NULL;
+	head2 = NULL;
 	splitejoin = ft_splitejoin(argc, argv);
 	if (ft_errors(argc, splitejoin) == 0)
 	{
