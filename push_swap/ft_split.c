@@ -6,7 +6,7 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:57:34 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 12:57:35 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 18:06:08 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**ft_split(char const *s, char c)
 		while (s[k] == c)
 			k++;
 		if (s[k])
-		{	
+		{
 			len = word_len((char *)s + k, c);
 			str[j] = calloc(len + 1, sizeof(char));
 			if (!str[j])
