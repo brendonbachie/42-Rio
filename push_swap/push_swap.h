@@ -28,7 +28,7 @@ char	**ft_split(char const *s, char c);
 t_elements	*ft_lstnew(int number);
 int ft_isnum(char **str);
 char    **ft_splitejoin(int quantidade, char **argumentos);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char **s1, char const *s2);
 int	ft_lstsize(t_elements **lst);
 void    sa(t_elements **stack_a);
 void    sb(t_elements **stack_b);
@@ -55,4 +55,5 @@ void    volta(t_elements *stack_a, t_elements *stack_b);
 void    mov_final2(t_elements **stack_b, t_elements **stack_a, t_elements *min_custo);
 t_elements *menor_valor(t_elements *stack_a);
 t_elements *maior_valor(t_elements *stack);
+void	free_matriz(char **str);
 #endif

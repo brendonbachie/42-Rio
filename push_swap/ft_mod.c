@@ -19,3 +19,20 @@ t_elements *menor_valor(t_elements *stack_a)
     }
     return (menor);
 }
+
+void	free_matriz(char **str)
+{
+    int    j;
+
+    j = 0;
+    while (str[j] != NULL)
+    {
+        j++;
+    }
+	while (j >= 0)
+	{
+		free(str[j]);
+		j--;
+	}
+	free(str);
+}

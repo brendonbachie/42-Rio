@@ -13,6 +13,7 @@ int main(int argc, char **argv)
 	splitejoin = ft_splitejoin(argc, argv);
 	if (ft_errors(argc, splitejoin) == 0)
 	{
+		free(splitejoin);
 		printf("%s", "Error");
 		return (-1);
 	}
@@ -21,11 +22,8 @@ int main(int argc, char **argv)
 		ate3(&head);
 	else
 		turco(&head, &head2);
-	
-	while (head != NULL)
-	{
-		printf("[%d] %d\n", head->index, head->number);
-		head = head->next;
-	}
+	free_matriz(splitejoin);
+	ft_lstclear(&head);
+	ft_lstclear(&head2);
 	return (0);
 }

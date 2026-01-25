@@ -7,11 +7,13 @@ char   **ft_splitejoin(int quantidade, char **argumentos)
     int     i;
 
     i = 1;
-    temp = calloc(1, sizeof(char));
+    temp = calloc(1, 1);
+    resultado = NULL;
     while (i < quantidade)
     {
-        temp = ft_strjoin(temp, argumentos[i]);
-        temp = ft_strjoin(temp, " ");
+        temp = ft_strjoin(&temp, argumentos[i]);
+        if (i + 1 < quantidade)
+            temp = ft_strjoin(&temp, " ");
         i++;
     }
     resultado = ft_split(temp, ' ');

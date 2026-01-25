@@ -6,10 +6,10 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 11:48:26 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/20 11:48:27 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:15:50 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
@@ -41,6 +41,7 @@ int ft_errors(int quantidade, char **argumentos)
 	int i;
 	long int 	*b;
 
+	
 	if (ft_isnum(argumentos) == 0)
 		return (0);
 	i = 0;
