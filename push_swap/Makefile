@@ -1,5 +1,5 @@
 CC=cc
-CFLAGS=-Wall -Werror -Wextra
+CFLAGS=-Wall -Werror -Wextra -g
 HEADER = push_swap.h
 SRC =   calculos.c \
 	errors.c \

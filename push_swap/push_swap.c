@@ -21,6 +21,7 @@ int main(int argc, char **argv)
 		ate3(&head);
 	else
 		turco(&head, &head2);
+	
 	while (head != NULL)
 	{
 		printf("[%d] %d\n", head->index, head->number);
