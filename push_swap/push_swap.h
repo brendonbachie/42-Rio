@@ -52,6 +52,7 @@ void    custo_total(t_elements *stack);
 t_elements	*push_min_custo(t_elements *stack_a);
 void    mov_final(t_elements **stack_a, t_elements **stack_b, t_elements *min_custo);
 void    volta(t_elements *stack_a, t_elements *stack_b);
-void    mov_final2(t_elements **stack_a, t_elements **stack_b, t_elements *min_custo);
-
+void    mov_final2(t_elements **stack_b, t_elements **stack_a, t_elements *min_custo);
+t_elements *menor_valor(t_elements *stack_a);
+t_elements *maior_valor(t_elements *stack);
 #endif

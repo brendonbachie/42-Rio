@@ -1,27 +1,51 @@
 #include "push_swap.h"
 
-void    alvo(t_elements *stack_a, t_elements *stack_b)
+t_elements *maior_valor(t_elements *stack)
 {
-    t_elements *temp_a;
-    t_elements *temp_b;
-    t_elements *alvo;
+    t_elements *temp;
+    t_elements *maior;
 
-    temp_a = stack_a;
-    temp_b = stack_b;
-    while (temp_a)
+    temp = stack;
+    maior = stack;
+    while (temp)
     {
-        alvo = NULL;
-        temp_b = stack_b;
-        while (temp_b)
+        if (temp->number > maior->number)
+            maior = temp;
+        temp = temp->next;
+    }
+    return (maior);
+}
+
+void alvo(t_elements *stack_a, t_elements *stack_b)
+{
+    t_elements *a;
+    t_elements *b;
+    t_elements *best;
+    long best_value;
+
+    a = stack_a;
+    while (a)
+    {
+        best = NULL;
+        best_value = -2147483649;
+        b = stack_b;
+        while (b)
         {
-            if (temp_a->number > temp_b->number && (alvo == NULL || temp_b->number > alvo->number))
-                alvo = temp_b;
-            temp_b = temp_b->next;
+            if (b->number < a->number && b->number > best_value)
+            {
+                best_value = b->number;
+                best = b;
+            }
+            b = b->next;
         }
-        temp_a->alvo = alvo;
-        temp_a = temp_a->next;
+        if (!best)
+            best = maior_valor(stack_b);
+        a->alvo = best;
+        a = a->next;
     }
 }
+
+
 
 void    index_b(t_elements *stack_a, t_elements *stack_b)
 {
@@ -42,8 +66,8 @@ void    index_b(t_elements *stack_a, t_elements *stack_b)
                 break;
             }
             temp_b = temp_b->next;
+            i++;
         }
-        i++;
         temp_a = temp_a->next;
     }
 }

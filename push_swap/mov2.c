@@ -16,7 +16,7 @@ void    ra(t_elements **stack_a)
     while (temp->next != NULL)
         temp = temp->next;
     temp->next = first;
-    write(1, "ra\n", 3);
+    //write(1, "ra\n", 3);
 }
 void    rb(t_elements **stack_b)
 {
@@ -34,7 +34,7 @@ void    rb(t_elements **stack_b)
     while (temp->next != NULL)
         temp = temp->next;
     temp->next = first;
-    write(1, "rb\n", 3);
+    //write(1, "rb\n", 3);
 }
 void    rr(t_elements **stack_a, t_elements **stack_b)
 {

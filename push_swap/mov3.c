@@ -19,7 +19,7 @@ void    rra(t_elements **stack_a)
     second_last->next = NULL;
     last->next = *stack_a;
     *stack_a = last;
-    write(1, "rra\n", 4);
+    //write(1, "rra\n", 4);
 }
 
 void    rrb(t_elements **stack_b)
@@ -41,7 +41,7 @@ void    rrb(t_elements **stack_b)
     second_last->next = NULL;
     last->next = *stack_b;
     *stack_b = last;
-    write(1, "rrb\n", 4);
+    //write(1, "rrb\n", 4);
 }
 
 void    rrr(t_elements **stack_a, t_elements **stack_b)
