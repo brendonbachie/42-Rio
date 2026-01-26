@@ -6,15 +6,15 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 18:09:55 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 18:11:41 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 20:35:31 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa(t_elements **stack_a)
+void	sa(t_node **stack_a)
 {
-	t_elements	*temp;
+	t_node	*temp;
 
 	if (stack_a == NULL || *stack_a == NULL || (*stack_a)->next == NULL)
 		return ;
@@ -25,9 +25,9 @@ void	sa(t_elements **stack_a)
 	write(1, "sa\n", 3);
 }
 
-void	sb(t_elements **stack_b)
+void	sb(t_node **stack_b)
 {
-	t_elements	*temp;
+	t_node	*temp;
 
 	if (stack_b == NULL || *stack_b == NULL || (*stack_b)->next == NULL)
 		return ;
@@ -38,16 +38,16 @@ void	sb(t_elements **stack_b)
 	write(1, "sb\n", 3);
 }
 
-void	ss(t_elements **stack_a, t_elements **stack_b)
+void	ss(t_node **stack_a, t_node **stack_b)
 {
 	sa(stack_a);
 	sb(stack_b);
 	write(1, "ss\n", 3);
 }
 
-void	pa(t_elements **stack_a, t_elements **stack_b)
+void	pa(t_node **stack_a, t_node **stack_b)
 {
-	t_elements	*temp;
+	t_node	*temp;
 
 	if (stack_b == NULL || *stack_b == NULL)
 		return ;
@@ -58,9 +58,9 @@ void	pa(t_elements **stack_a, t_elements **stack_b)
 	write(1, "pa\n", 3);
 }
 
-void	pb(t_elements **stack_a, t_elements **stack_b)
+void	pb(t_node **stack_a, t_node **stack_b)
 {
-	t_elements	*temp;
+	t_node	*temp;
 
 	if (stack_a == NULL || *stack_a == NULL)
 		return ;

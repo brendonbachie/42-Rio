@@ -6,69 +6,69 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 18:15:37 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 19:02:34 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 21:35:08 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	mov_final(t_elements **stack_a,
-	t_elements **stack_b, t_elements *min_custo)
+void	final_move(t_node **stack_a,
+	t_node **stack_b, t_node *best_cost)
 {
-	int	custo_a;
-	int	custo_b;
+	int	cost_a;
+	int	cost_b;
 
-	custo_a = min_custo->custo_a;
-	custo_b = min_custo->custo_b;
-	while (custo_a > 0 && custo_b > 0)
+	cost_a = best_cost->cost_a;
+	cost_b = best_cost->cost_b;
+	while (cost_a > 0 && cost_b > 0)
 	{
 		rr(stack_a, stack_b);
-		custo_a--;
-		custo_b--;
+		cost_a--;
+		cost_b--;
 		write(1, "rr\n", 3);
 	}
-	while (custo_a < 0 && custo_b < 0)
+	while (cost_a < 0 && cost_b < 0)
 	{
 		rrr(stack_a, stack_b);
-		custo_a++;
-		custo_b++;
+		cost_a++;
+		cost_b++;
 		write(1, "rrr\n", 4);
 	}
-	if (custo_a > 0 || custo_a < 0)
-		mov_a(stack_a, custo_a);
-	if (custo_b > 0 || custo_b < 0)
-		mov_b(stack_b, custo_b);
+	if (cost_a > 0 || cost_a < 0)
+		mov_a(stack_a, cost_a);
+	if (cost_b > 0 || cost_b < 0)
+		mov_b(stack_b, cost_b);
 	pb(stack_a, stack_b);
 }
 
-void	mov_a(t_elements **stack, int custo)
+void	mov_a(t_node **stack, int cost)
 {
-	while (custo > 0)
+	while (cost > 0)
 	{
 		ra(stack);
 		write(1, "ra\n", 3);
-		custo--;
+		cost--;
 	}
-	while (custo < 0)
+	while (cost < 0)
 	{
 		rra(stack);
 		write(1, "rra\n", 4);
-		custo++;
+		cost++;
 	}
 }
 
-void	mov_b(t_elements **stack, int custo)
+void	mov_b(t_node **stack, int cost)
 {
-	while (custo > 0)
+	while (cost > 0)
 	{
 		rb(stack);
 		write(1, "rb\n", 3);
-		custo--;
+		cost--;
 	}
-	while (custo < 0)
+	while (cost < 0)
 	{
 		rrb(stack);
 		write(1, "rrb\n", 4);
-		custo++;
+		cost++;
 	}
 }

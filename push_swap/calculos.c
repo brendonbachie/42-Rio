@@ -6,68 +6,68 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 17:00:40 by marvin            #+#    #+#             */
-/*   Updated: 2026/01/25 17:45:10 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 21:32:27 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	custo(t_elements *stack_a, t_elements *stack_b)
+void	cost(t_node *stack_a, t_node *stack_b)
 {
-	t_elements	*temp;
-	int			size_a;
-	int			size_b;
+	t_node	*temp;
+	int		size_a;
+	int		size_b;
 
 	size_a = ft_lstsize(&stack_a);
 	size_b = ft_lstsize(&stack_b);
 	temp = stack_a;
 	while (temp)
 	{
-		if (temp->index <= size_a / 2)
-			temp->custo_a = temp->index;
+		if (temp->index_node <= size_a / 2)
+			temp->cost_a = temp->index_node;
 		else
-			temp->custo_a = temp->index - size_a;
+			temp->cost_a = temp->index_node - size_a;
 		if (temp->index_b <= size_b / 2)
-			temp->custo_b = temp->index_b;
+			temp->cost_b = temp->index_b;
 		else
-			temp->custo_b = temp->index_b - size_b;
+			temp->cost_b = temp->index_b - size_b;
 		temp = temp->next;
 	}
 }
 
-void	custo_total(t_elements *stack)
+void	total_cost(t_node *stack)
 {
-	t_elements	*temp;
+	t_node	*temp;
 
 	temp = stack;
-	soma_custos(temp);
+	sum_costs(temp);
 }
 
-void	soma_custos(t_elements *stack_a)
+void	sum_costs(t_node *stack_a)
 {
 	while (stack_a)
 	{
-		if ((stack_a->custo_a >= 0 && stack_a->custo_b >= 0)
-			|| (stack_a->custo_a < 0 && stack_a->custo_b < 0))
+		if ((stack_a->cost_a >= 0 && stack_a->cost_b >= 0)
+			|| (stack_a->cost_a < 0 && stack_a->cost_b < 0))
 		{
-			if (stack_a->custo_a >= 0 && stack_a->custo_b >= 0)
+			if (stack_a->cost_a >= 0 && stack_a->cost_b >= 0)
 			{
-				if ((stack_a->custo_a) > (stack_a->custo_b))
-					stack_a->custo_total = (stack_a->custo_a);
+				if ((stack_a->cost_a) > (stack_a->cost_b))
+					stack_a->total_cost = (stack_a->cost_a);
 				else
-					stack_a->custo_total = (stack_a->custo_b);
+					stack_a->total_cost = (stack_a->cost_b);
 			}
 			else
 			{
-				if ((stack_a->custo_a) < (stack_a->custo_b))
-					stack_a->custo_total = -(stack_a->custo_a);
+				if ((stack_a->cost_a) < (stack_a->cost_b))
+					stack_a->total_cost = -(stack_a->cost_a);
 				else
-					stack_a->custo_total = -(stack_a->custo_b);
+					stack_a->total_cost = -(stack_a->cost_b);
 			}
 		}
 		else
-			stack_a->custo_total = ft_mod(stack_a->custo_a)
-				+ ft_mod(stack_a->custo_b);
+			stack_a->total_cost = ft_mod(stack_a->cost_a)
+				+ ft_mod(stack_a->cost_b);
 		stack_a = stack_a->next;
 	}
 }

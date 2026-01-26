@@ -6,58 +6,58 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:33:32 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 20:00:21 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 20:53:35 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	turco(t_elements **stack_a, t_elements **stack_b)
+void	turkey(t_node **stack_a, t_node **stack_b)
 {
 	pb(stack_a, stack_b);
 	if (ft_lstsize(stack_a) > 3)
 		pb(stack_a, stack_b);
 	while (ft_lstsize(stack_a) > 3)
-		mount_node_go(stack_a, stack_b);
+		a_to_b(stack_a, stack_b);
 	three(stack_a);
 	while (ft_lstsize(stack_b) > 0)
-		mount_node_back(stack_a, stack_b);
+		b_to_a(stack_a, stack_b);
 	last_move(stack_a);
 }
 
-void	mount_node_go(t_elements **stack_a, t_elements **stack_b)
+void	a_to_b(t_node **stack_a, t_node **stack_b)
 {
-	t_elements	*min_custo;
+	t_node	*best_cost;
 
-	indice(*stack_a);
-	alvo(*stack_a, *stack_b);
+	index_node(*stack_a);
+	target(*stack_a, *stack_b);
 	index_b(*stack_a, *stack_b);
-	custo(*stack_a, *stack_b);
-	custo_total(*stack_a);
-	min_custo = push_min_custo(*stack_a);
-	mov_final(stack_a, stack_b, min_custo);
+	cost(*stack_a, *stack_b);
+	total_cost(*stack_a);
+	best_cost = lowest_cost(*stack_a);
+	final_move(stack_a, stack_b, best_cost);
 }
 
-void	mount_node_back(t_elements **stack_a, t_elements **stack_b)
+void	b_to_a(t_node **stack_a, t_node **stack_b)
 {
-	t_elements	*min_custo;
+	t_node	*best_cost;
 
-	indice(*stack_b);
-	volta(*stack_a, *stack_b);
+	index_node(*stack_b);
+	target_b(*stack_a, *stack_b);
 	index_b(*stack_b, *stack_a);
-	custo(*stack_b, *stack_a);
-	custo_total(*stack_b);
-	min_custo = push_min_custo(*stack_b);
-	mov_final2(stack_b, stack_a, min_custo);
+	cost(*stack_b, *stack_a);
+	total_cost(*stack_b);
+	best_cost = lowest_cost(*stack_b);
+	final_move_2(stack_b, stack_a, best_cost);
 }
 
-void	last_move(t_elements **stack_a)
+void	last_move(t_node **stack_a)
 {
-	t_elements	*menor;
+	t_node	*menor;
 
-	menor = menor_valor(*stack_a);
-	indice(*stack_a);
-	if (menor->index <= ft_lstsize(stack_a) / 2)
+	menor = lowest_value(*stack_a);
+	index_node(*stack_a);
+	if (menor->index_node <= ft_lstsize(stack_a) / 2)
 	{
 		while ((*stack_a)->number != menor->number)
 		{

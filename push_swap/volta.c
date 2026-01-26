@@ -6,23 +6,23 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 20:00:58 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 20:01:22 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 21:36:51 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	volta(t_elements *stack_a, t_elements *stack_b)
+void	target_b(t_node *stack_a, t_node *stack_b)
 {
-	t_elements	*temp_a;
-	t_elements	*temp_b;
-	t_elements	*alvo;
-	long		best_value;
+	t_node	*temp_a;
+	t_node	*temp_b;
+	t_node	*target;
+	long	best_value;
 
 	temp_b = stack_b;
 	while (temp_b)
 	{
-		alvo = NULL;
+		target = NULL;
 		best_value = 2147483649;
 		temp_a = stack_a;
 		while (temp_a)
@@ -30,13 +30,13 @@ void	volta(t_elements *stack_a, t_elements *stack_b)
 			if (temp_a->number > temp_b->number && temp_a->number < best_value)
 			{
 				best_value = temp_a->number;
-				alvo = temp_a;
+				target = temp_a;
 			}
 			temp_a = temp_a->next;
 		}
-		if (!alvo)
-			alvo = menor_valor(stack_a);
-		temp_b->alvo = alvo;
+		if (!target)
+			target = lowest_value(stack_a);
+		temp_b->target = target;
 		temp_b = temp_b->next;
 	}
 }

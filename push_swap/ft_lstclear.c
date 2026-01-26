@@ -6,15 +6,15 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 17:55:47 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 17:55:54 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 20:35:31 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_lstclear(t_elements **lst)
+void	ft_lstclear(t_node **lst)
 {
-	t_elements	*tmp;
+	t_node	*tmp;
 
 	if (!lst)
 		return ;
