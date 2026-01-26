@@ -31,6 +31,7 @@ typedef struct s_node
 	int				index_b;
 }	t_node;
 
+
 int			is_ordened(t_node *stack_a);
 int			ft_errors(int quantidade, char **argumentos);
 int			ft_mod(int a);
@@ -69,6 +70,7 @@ void		final_move_2(t_node **stack_b,
 void		free_matriz(char **str);
 void		sum_costs(t_node *stack_a);
 void		mov_a(t_node **stack, int cost);
+void	last_move_b (t_node **stack_b);
 void		mov_b(t_node **stack, int cost);
 char		*ft_strjoin(char **s1, char const *s2);
 char		**ft_splitandjoin(int quantidade, char **argumentos);
@@ -77,6 +79,7 @@ t_node		*ft_lstnew(int number);
 t_node		*ft_lists(char **argumentos);
 t_node		*lowest_value(t_node *stack_a);
 t_node		*greater_value(t_node *stack);
-t_node		*lowest_cost(t_node *stack_a);
+t_node		*lowest_cost_a(t_node *stack_a);
+t_node		*lowest_cost_b(t_node *stack_b);
 
 #endif
