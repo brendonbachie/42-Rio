@@ -6,16 +6,16 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 18:11:48 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 18:13:03 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 20:35:31 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra(t_elements **stack_a)
+void	ra(t_node **stack_a)
 {
-	t_elements	*temp;
-	t_elements	*first;
+	t_node	*temp;
+	t_node	*first;
 
 	if (stack_a == NULL || *stack_a == NULL || (*stack_a)->next == NULL)
 		return ;
@@ -28,10 +28,10 @@ void	ra(t_elements **stack_a)
 	temp->next = first;
 }
 
-void	rb(t_elements **stack_b)
+void	rb(t_node **stack_b)
 {
-	t_elements	*temp;
-	t_elements	*first;
+	t_node	*temp;
+	t_node	*first;
 
 	if (stack_b == NULL || *stack_b == NULL || (*stack_b)->next == NULL)
 		return ;
@@ -44,7 +44,7 @@ void	rb(t_elements **stack_b)
 	temp->next = first;
 }
 
-void	rr(t_elements **stack_a, t_elements **stack_b)
+void	rr(t_node **stack_a, t_node **stack_b)
 {
 	ra(stack_a);
 	rb(stack_b);

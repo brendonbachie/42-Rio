@@ -6,37 +6,37 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:06:13 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 19:06:54 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 21:35:19 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	mov_final2(t_elements **stack_b,
-	t_elements **stack_a, t_elements *min_custo)
+void	final_move_2(t_node **stack_b,
+	t_node **stack_a, t_node *min_custo)
 {
-	int	custo_a;
-	int	custo_b;
+	int	cost_a;
+	int	cost_b;
 
-	custo_a = min_custo->custo_a;
-	custo_b = min_custo->custo_b;
-	while (custo_a > 0 && custo_b > 0)
+	cost_a = min_custo->cost_a;
+	cost_b = min_custo->cost_b;
+	while (cost_a > 0 && cost_b > 0)
 	{
 		rr(stack_a, stack_b);
-		custo_a--;
-		custo_b--;
+		cost_a--;
+		cost_b--;
 		write(1, "rr\n", 3);
 	}
-	while (custo_a < 0 && custo_b < 0)
+	while (cost_a < 0 && cost_b < 0)
 	{
 		rrr(stack_a, stack_b);
-		custo_a++;
-		custo_b++;
+		cost_a++;
+		cost_b++;
 		write(1, "rrr\n", 4);
 	}
-	if (custo_a > 0 || custo_a < 0)
-		mov_b(stack_b, custo_a);
-	if (custo_b > 0 || custo_b < 0)
-		mov_a(stack_a, custo_b);
+	if (cost_a > 0 || cost_a < 0)
+		mov_b(stack_b, cost_a);
+	if (cost_b > 0 || cost_b < 0)
+		mov_a(stack_a, cost_b);
 	pa(stack_a, stack_b);
 }

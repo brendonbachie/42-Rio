@@ -6,7 +6,7 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 18:04:25 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 18:05:10 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 20:41:30 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ int	ft_mod(int a)
 	return (a);
 }
 
-t_elements	*menor_valor(t_elements *stack_a)
+t_node	*lowest_value(t_node *stack_a)
 {
-	t_elements	*menor;
+	t_node	*lowest;
 
-	menor = stack_a;
+	lowest = stack_a;
 	while (stack_a != NULL)
 	{
-		if (stack_a->number < menor->number)
-			menor = stack_a;
+		if (stack_a->number < lowest->number)
+			lowest = stack_a;
 		stack_a = stack_a->next;
 	}
-	return (menor);
+	return (lowest);
 }
 
 void	free_matriz(char **str)

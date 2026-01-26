@@ -6,13 +6,13 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 18:05:50 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 18:05:54 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 20:36:44 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ate3(t_elements **stack_a)
+void	to_three(t_node **stack_a)
 {
 	int	size;
 

@@ -6,13 +6,13 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:32:16 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 19:32:40 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/25 20:35:31 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	three(t_elements **stack_a)
+void	three(t_node **stack_a)
 {
 	if ((*stack_a)->number > (*stack_a)->next->number)
 	{
