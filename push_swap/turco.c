@@ -14,7 +14,7 @@
 
 void	turkey(t_node **stack_a, t_node **stack_b)
 {
-	pb(stack_a, stack_b);
+	
 	if (ft_lstsize(stack_a) > 3)
 		pb(stack_a, stack_b);
 	while (ft_lstsize(stack_a) > 3)

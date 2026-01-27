@@ -27,7 +27,7 @@ void	final_move_2(t_node **stack_b,
 		cost_b--;
 		write(1, "rr\n", 3);
 	}
-	while (cost_a < 0 && cost_b < 0)
+	while (cost_a > 0 && cost_b > 0)
 	{
 		rrr(stack_a, stack_b);
 		cost_a++;
