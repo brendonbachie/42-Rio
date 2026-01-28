@@ -25,12 +25,10 @@ int	main(int argc, char **argv)
 	head = NULL;
 	head2 = NULL;
 	if (argc < 2)
-	{
 		return (-1);
-	}
 	splitandjoin = ft_splitandjoin(argc, argv);
 	head = ft_lists(splitandjoin);
-	if (ft_errors(argc, splitandjoin) == 0
+	if (ft_errors(ft_lstsize(&head), splitandjoin) == 0
 		|| has_duplicate(head) == 1 || !head)
 	{
 		free_matriz(splitandjoin);

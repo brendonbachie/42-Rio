@@ -17,17 +17,27 @@ char	**ft_splitandjoin(int arg_count, char **arguments)
 	char	**result;
 	char	*temp;
 	int		i;
+	int		j;
 
 	i = 1;
 	temp = calloc(1, 1);
 	result = NULL;
-	while (i < arg_count)
+	(void)arg_count;
+	while (arguments[i] != NULL)
 	{
-		temp = ft_strjoin(&temp, arguments[i]);
-		if (i + 1 < arg_count)
-			temp = ft_strjoin(&temp, " ");
+		result = ft_split(arguments[i], ' ');
+		j = 0;
+		while(result[j] != NULL)
+		{
+			temp = ft_strjoin(&temp, result[j]);
+			if (result[j + 1] != NULL || arguments[i + 1] != NULL)
+				temp = ft_strjoin(&temp, " ");
+			j++;
+		}
+		free(result);
 		i++;
 	}
+	result = NULL;
 	result = ft_split(temp, ' ');
 	free(temp);
 	return (result);

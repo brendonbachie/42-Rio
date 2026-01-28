@@ -18,7 +18,7 @@
 # include <string.h>
 # include <ctype.h>
 # include <unistd.h>
-#include <limits.h>
+# include <limits.h>
 
 typedef struct s_node
 {
@@ -31,6 +31,7 @@ typedef struct s_node
 	int				total_cost;
 	int				index_b;
 	int				index;
+	int				dif_cost;
 }	t_node;
 
 
@@ -40,6 +41,7 @@ int			ft_mod(int a);
 int			ft_isnum(char **str);
 int			ft_lstsize(t_node **lst);
 int			has_duplicate(t_node *stack);
+void	five(t_node **stack_a, t_node **stack_b);
 void		find_index(t_node *stack_a);
 void		ft_lstadd_back(t_node **lst, t_node *new);
 void		ft_lstclear(t_node **lst);
@@ -51,6 +53,7 @@ void		sb(t_node **stack_b);
 void		ss(t_node **stack_a, t_node **stack_b);
 void		pa(t_node **stack_a, t_node **stack_b);
 void		pb(t_node **stack_a, t_node **stack_b);
+void	dif_costs(t_node *stack);
 void		ra(t_node **stack_a);
 void		rb(t_node **stack_b);
 void		rr(t_node **stack_a, t_node **stack_b);
@@ -84,5 +87,6 @@ t_node		*lowest_value(t_node *stack_a);
 t_node		*greater_value(t_node *stack);
 t_node		*lowest_cost_a(t_node *stack_a);
 t_node		*lowest_cost_b(t_node *stack_b);
+void    send_to_b(t_node **stack_a, t_node **stack_b);
 
 #endif

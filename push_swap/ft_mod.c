@@ -22,13 +22,15 @@ int	ft_mod(int a)
 t_node	*lowest_value(t_node *stack_a)
 {
 	t_node	*lowest;
+	t_node	*temp;
 
 	lowest = stack_a;
-	while (stack_a != NULL)
+	temp = stack_a;
+	while (temp != NULL)
 	{
-		if (stack_a->number < lowest->number)
-			lowest = stack_a;
-		stack_a = stack_a->next;
+		if (temp->number < lowest->number)
+			lowest = temp;
+		temp = temp->next;
 	}
 	return (lowest);
 }

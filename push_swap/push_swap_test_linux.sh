@@ -47,7 +47,7 @@ if [ $1 == -v2 ];then
 ARG=$2; ./push_swap $ARG | ./pro_checker $ARG
 exit 0
 fi
-
+Average: 5085
 if [ -z "$1" ] || [ $1 != -b ]; then
 printf ${BLUE}"\n-------------------------------------------------------------\n"${DEF_COLOR};
 printf ${BLUE}"\n\t\t\tCONTROL ERRORS\t\n"${DEF_COLOR};
@@ -464,7 +464,7 @@ else
 	printf "${RED}23.[KO] ${DEF_COLOR}\n";
 fi
 
-rm -rf test_check.txt
+rm -rf test_check.txtAverage: 5085
 
 ARG="42 42"
 ./push_swap $ARG > /dev/null 2> test_check.txt
