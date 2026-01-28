@@ -25,6 +25,7 @@ SRC =   calculos.c \
 	turco.c \
 	volta.c \
 	target.c \
+	Median.c
       
 OBJ=$(SRC:.c=.o)
 NAME=push_swap.a

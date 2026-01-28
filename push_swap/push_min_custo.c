@@ -50,11 +50,11 @@ t_node	*lowest_cost_b(t_node *stack_b)
 			low_cost = temp;
 		else if (temp->total_cost < low_cost->total_cost)
 			low_cost = temp;
-		if (temp->total_cost == low_cost->total_cost)
+		/*if (temp->total_cost == low_cost->total_cost)
 		{
 			if (temp->number > low_cost->number)
 				low_cost = temp;
-		}	
+		}*/	
 		temp = temp->next;
 	}
 	return (low_cost);

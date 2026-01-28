@@ -23,11 +23,11 @@ void	cost(t_node *stack_a, t_node *stack_b)
 	temp = stack_a;
 	while (temp)
 	{
-		if (temp->index_node <= size_a / 2)
+		if (temp->index_node < size_a / 2)
 			temp->cost_a = temp->index_node;
 		else
 			temp->cost_a = temp->index_node - size_a;
-		if (temp->index_b <= size_b / 2)
+		if (temp->index_b < size_b / 2)
 			temp->cost_b = temp->index_b;
 		else
 			temp->cost_b = temp->index_b - size_b;
