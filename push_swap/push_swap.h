@@ -18,6 +18,7 @@
 # include <string.h>
 # include <ctype.h>
 # include <unistd.h>
+#include <limits.h>
 
 typedef struct s_node
 {
@@ -29,6 +30,7 @@ typedef struct s_node
 	int				cost_b;
 	int				total_cost;
 	int				index_b;
+	int				index;
 }	t_node;
 
 
@@ -38,6 +40,7 @@ int			ft_mod(int a);
 int			ft_isnum(char **str);
 int			ft_lstsize(t_node **lst);
 int			has_duplicate(t_node *stack);
+void		find_index(t_node *stack_a);
 void		ft_lstadd_back(t_node **lst, t_node *new);
 void		ft_lstclear(t_node **lst);
 void		a_to_b(t_node **stack_a, t_node **stack_b);

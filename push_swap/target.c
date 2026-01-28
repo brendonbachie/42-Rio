@@ -39,7 +39,7 @@ void	target(t_node *stack_a, t_node *stack_b)
 	while (a)
 	{
 		best = NULL;
-		best_value = -2147483649;
+		best_value = INT_MIN;
 		b = stack_b;
 		while (b)
 		{
@@ -56,6 +56,8 @@ void	target(t_node *stack_a, t_node *stack_b)
 		a = a->next;
 	}
 }
+
+
 
 void	index_b(t_node *stack_a, t_node *stack_b)
 {

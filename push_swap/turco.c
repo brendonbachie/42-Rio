@@ -14,9 +14,6 @@
 
 void	turkey(t_node **stack_a, t_node **stack_b)
 {
-	
-	if (ft_lstsize(stack_a) > 3)
-		pb(stack_a, stack_b);
 	while (ft_lstsize(stack_a) > 3)
 		a_to_b(stack_a, stack_b);
 	three(stack_a);
@@ -80,7 +77,7 @@ void	last_move_b (t_node **stack_b)
 {
 	t_node	*menor;
 
-	menor = lowest_value(*stack_b);
+	menor = greater_value(*stack_b);
 	index_node(*stack_b);
 	if (menor->index_node <= ft_lstsize(stack_b) / 2)
 	{
