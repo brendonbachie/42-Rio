@@ -1,19 +1,19 @@
-CC=cc
-CFLAGS=-Wall -Werror -Wextra -g
-HEADER = push_swap.h
-SRC =   calculos.c \
+NAME = libftpushswap.a
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+TARGET = push_swap
+RM = rm -f
+AR = ar -rc
+
+LIBFT_PATH = ./libft
+LIBFT = $(LIBFT_PATH)/libft.a
+
+SRCS = cost_calc.c \
 	errors.c \
-	ft_isnum.c \
 	ft_lists.c \
-	ft_lstadd_back.c \
-	ft_lstclear.c \
-	ft_lstnew.c \
-	ft_lstsize.c \
 	ft_mod.c \
 	ft_push_swap.c \
-	ft_split.c \
 	ft_splitejoin.c \
-	ft_strjoin.c \
 	mov_final.c \
 	mov_final2.c \
 	mov1.c \
@@ -26,21 +26,31 @@ SRC =   calculos.c \
 	volta.c \
 	target.c \
 	Median.c
-      
-OBJ=$(SRC:.c=.o)
-NAME=push_swap.a
 
-all: $(NAME)
+OBJS = $(SRCS:.c=.o)
 
-.o: .c $(HEADER)
-	$(CC) -c $(CFLAGS) $< -o $@
+all: $(TARGET) $(NAME)
 
-$(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+$(TARGET): $(OBJS) $(NAME)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(NAME)
 
-clean:
-	rm -f $(OBJ)
-fclean:
-	rm -f $(NAME) $(OBJ)
-	
+$(LIBFT):
+	@make -C $(LIBFT_PATH)
+
+$(NAME): $(LIBFT)
+	@cp $(LIBFT) $(NAME)
+	@$(CC) $(CFLAGS) -c $(SRCS)
+	@$(AR) $(NAME) $(OBJS)
+
+clean: 
+	@make -C $(LIBFT_PATH) clean
+	@$(RM) $(OBJS)
+
+fclean: clean
+	@make -C $(LIBFT_PATH) fclean
+	@$(RM) $(NAME)
+	@$(RM) $(TARGET)
+
 re: fclean all
+
+.PHONY: all clean fclean re

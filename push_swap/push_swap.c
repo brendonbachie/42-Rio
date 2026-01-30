@@ -28,15 +28,11 @@ int	main(int argc, char **argv)
 		return (-1);
 	splitandjoin = ft_splitandjoin(argc, argv);
 	head = ft_lists(splitandjoin);
-	if (ft_errors(ft_lstsize(&head), splitandjoin) == 0
-		|| has_duplicate(head) == 1 || !head)
+	if (!head || ft_errors(ft_lstsize(&head), splitandjoin, head))
 	{
-		free_matriz(splitandjoin);
-		write(2, "Error\n", 6);
+		return_error(&head, splitandjoin);
 		return (-1);
 	}
-	if (is_ordened(head))
-		return (0);
 	if (ft_lstsize(&head) <= 3)
 		to_three(&head);
 	else
@@ -47,17 +43,3 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-int	is_ordened(t_node *stack_a)
-{
-	t_node	*temp;
-
-	temp = stack_a;
-	while(temp->next)
-	{
-		if (temp->number < temp->next->number)
-			temp = temp->next;
-		else
-			return (0);
-	}
-	return (1);
-}

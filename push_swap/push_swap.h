@@ -19,6 +19,7 @@
 # include <ctype.h>
 # include <unistd.h>
 # include <limits.h>
+# include "libft/libft.h"
 
 typedef struct s_node
 {
@@ -29,14 +30,13 @@ typedef struct s_node
 	int				cost_a;
 	int				cost_b;
 	int				total_cost;
-	int				index_b;
+	int				target_index;
 	int				index;
-	int				dif_cost;
 }	t_node;
 
 
 int			is_ordened(t_node *stack_a);
-int			ft_errors(int quantidade, char **argumentos);
+int			ft_errors(int quantidade, char **args, t_node *stack);
 int			ft_mod(int a);
 int			ft_isnum(char **str);
 int			ft_lstsize(t_node **lst);
@@ -53,11 +53,11 @@ void		sb(t_node **stack_b);
 void		ss(t_node **stack_a, t_node **stack_b);
 void		pa(t_node **stack_a, t_node **stack_b);
 void		pb(t_node **stack_a, t_node **stack_b);
-void	dif_costs(t_node *stack);
 void		ra(t_node **stack_a);
 void		rb(t_node **stack_b);
 void		rr(t_node **stack_a, t_node **stack_b);
 void		rra(t_node **stack_a);
+void		return_error(t_node **stack, char **args);
 void		rrb(t_node **stack_b);
 void		rrr(t_node **stack_a, t_node **stack_b);
 void		three(t_node **stack_a);
@@ -74,11 +74,10 @@ void		target_b(t_node *stack_a, t_node *stack_b);
 void		final_move_2(t_node **stack_b,
 				t_node **stack_a, t_node *min_custo);
 void		free_matriz(char **str);
-void		sum_costs(t_node *stack_a);
+void    send_to_b(t_node **stack_a, t_node **stack_b);
 void		mov_a(t_node **stack, int cost);
 void	last_move_b (t_node **stack_b);
 void		mov_b(t_node **stack, int cost);
-char		*ft_strjoin(char **s1, char const *s2);
 char		**ft_splitandjoin(int quantidade, char **argumentos);
 char		**ft_split(char const *s, char c);
 t_node		*ft_lstnew(int number);
@@ -87,6 +86,5 @@ t_node		*lowest_value(t_node *stack_a);
 t_node		*greater_value(t_node *stack);
 t_node		*lowest_cost_a(t_node *stack_a);
 t_node		*lowest_cost_b(t_node *stack_b);
-void    send_to_b(t_node **stack_a, t_node **stack_b);
 
 #endif

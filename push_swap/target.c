@@ -74,7 +74,7 @@ void	index_b(t_node *stack_a, t_node *stack_b)
 		{
 			if (temp_a->target && temp_a->target == temp_b)
 			{
-				temp_a->index_b = i;
+				temp_a->target_index = i;
 				break ;
 			}
 			temp_b = temp_b->next;
