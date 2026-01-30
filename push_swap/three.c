@@ -37,10 +37,6 @@ void	three(t_node **stack_a)
 
 void	five(t_node **stack_a, t_node **stack_b)
 {
-	t_node	*temp;
-
-	temp = *stack_a;
-
 	while (ft_lstsize(stack_a) > 3)
 	{
 		if ((*stack_a)->number == greater_value(*stack_a)->number)
