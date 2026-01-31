@@ -41,12 +41,12 @@ int			ft_mod(int a);
 int			ft_isnum(char **str);
 int			ft_lstsize(t_node **lst);
 int			has_duplicate(t_node *stack);
-void	five(t_node **stack_a, t_node **stack_b);
+void		five(t_node **stack_a, t_node **stack_b);
 void		find_index(t_node *stack_a);
 void		ft_lstadd_back(t_node **lst, t_node *new);
 void		ft_lstclear(t_node **lst);
 void		a_to_b(t_node **stack_a, t_node **stack_b);
-void		to_three(t_node **stack_a);
+void		few_numbers(t_node **stack_a);
 void		b_to_a(t_node **stack_a, t_node **stack_b);
 void		sa(t_node **stack_a);
 void		sb(t_node **stack_b);
@@ -73,12 +73,11 @@ void		final_move(t_node **stack_a,
 void		target_b(t_node *stack_a, t_node *stack_b);
 void		final_move_2(t_node **stack_b,
 				t_node **stack_a, t_node *min_custo);
-void		free_matriz(char **str);
 void    send_to_b(t_node **stack_a, t_node **stack_b);
 void		mov_a(t_node **stack, int cost);
 void	last_move_b (t_node **stack_b);
 void		mov_b(t_node **stack, int cost);
-char		**ft_splitandjoin(int quantidade, char **argumentos);
+char		**ft_splitandjoin(char **args);
 char		**ft_split(char const *s, char c);
 t_node		*ft_lstnew(int number);
 t_node		*ft_lists(char **argumentos);

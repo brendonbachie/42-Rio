@@ -1,6 +1,6 @@
 NAME = libftpushswap.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 TARGET = push_swap
 RM = rm -f
 AR = ar -rc
@@ -11,9 +11,9 @@ LIBFT = $(LIBFT_PATH)/libft.a
 SRCS = cost_calc.c \
 	errors.c \
 	ft_lists.c \
-	ft_mod.c \
-	ft_push_swap.c \
-	ft_splitejoin.c \
+	utils.c \
+	few_numbers.c \
+	ft_splitandjoin.c \
 	mov_final.c \
 	mov_final2.c \
 	mov1.c \

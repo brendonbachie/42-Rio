@@ -50,14 +50,19 @@ static	void	word_cpy(char *dst, const char *src, char c)
 	}
 }
 
-static	void	free_split(char **str, int j)
+void	free_matrix(char **str)
 {
-	while (j > 0)
+	int	j;
+
+	j = 0;
+	while (str[j] != NULL)
+		j++;
+	while (j >= 0)
 	{
 		free(str[j]);
 		j--;
 	}
-	free(str);
+	free (str);
 }
 
 char	**ft_split(char const *s, char c)
@@ -81,7 +86,7 @@ char	**ft_split(char const *s, char c)
 			len = word_len((char *)s + k, c);
 			str[j] = ft_calloc(len + 1, sizeof(char));
 			if (!str[j])
-				return (free_split(str, j), NULL);
+				return (free_matrix(str), NULL);
 			word_cpy(str[j++], s + k, c);
 			k += len;
 		}

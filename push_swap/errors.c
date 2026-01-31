@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-int	ft_errors(int arg_count, char **args, t_node *stack)
+int ft_errors(int arg_count, char **args, t_node *stack)
 {
-	int			i;
-	long int	b;
+	int i;
+	long int b;
 	(void)arg_count;
 
 	i = 0;
@@ -66,8 +66,7 @@ int ft_isnum(char **str)
 	{
 		if (str[i][a] == ' ')
 			a++;
-		if ((str[i][a] == '-' || str[i][a] == '+') 
-			&& !(str[i][a - 1] == ' ' || a == 0))
+		if ((str[i][a] == '-' || str[i][a] == '+') && !(str[i][a - 1] == ' ' || a == 0))
 			return (1);
 		else if (str[i][a] == '-' || str[i][a] == '+')
 			a++;
@@ -98,11 +97,11 @@ int is_ordened(t_node *stack_a)
 	return (1);
 }
 
-void	return_error(t_node **stack, char **args)
+void return_error(t_node **stack, char **args)
 {
 	if (stack && *stack)
 		ft_lstclear(stack);
 	if (args)
-		free_matriz(args);
+		free_matrix(args);
 	write(2, "Error\n", 6);
 }

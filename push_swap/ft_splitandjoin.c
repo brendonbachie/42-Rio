@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-char	**ft_splitandjoin(int arg_count, char **arguments)
+char	**ft_splitandjoin(char **arguments)
 {
 	char	**result;
 	char	*temp;
@@ -20,9 +20,7 @@ char	**ft_splitandjoin(int arg_count, char **arguments)
 	int		j;
 
 	i = 1;
-	temp = calloc(1, 1);
-	result = NULL;
-	(void)arg_count;
+	temp = ft_calloc(1, 1);
 	while (arguments[i] != NULL)
 	{
 		result = ft_split(arguments[i], ' ');

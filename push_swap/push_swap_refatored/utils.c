@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_mod.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/25 18:05:50 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/25 20:36:44 by bgomes-b         ###   ########.fr       */
+/*   Created: 2026/01/25 18:04:25 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/01/25 20:41:30 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	to_three(t_node **stack_a)
+t_node	*lowest_value(t_node *stack_a)
 {
-	int	size;
+	t_node	*lowest;
+	t_node	*temp;
 
-	size = ft_lstsize(stack_a);
-	if (size <= 1)
-		return ;
-	if (size == 2)
+	lowest = stack_a;
+	temp = stack_a;
+	while (temp != NULL)
 	{
-		if ((*stack_a)->number > (*stack_a)->next->number)
-			sa(stack_a);
-		return ;
+		if (temp->number < lowest->number)
+			lowest = temp;
+		temp = temp->next;
 	}
-	if (size == 3)
-	{
-		three(stack_a);
-		return ;
-	}
+	return (lowest);
 }
+
