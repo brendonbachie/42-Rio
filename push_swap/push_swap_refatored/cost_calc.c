@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-void	cost(t_node *stack_a, t_node *stack_b)
+void cost(t_node *stack_a, t_node *stack_b)
 {
-	t_node	*temp;
-	int		size_a;
-	int		size_b;
+	t_node *temp;
+	int size_a;
+	int size_b;
 
 	temp = stack_a;
 	size_a = ft_lstsize(&stack_a);
@@ -35,15 +35,16 @@ void	cost(t_node *stack_a, t_node *stack_b)
 	}
 }
 
-void	total_cost(t_node *stack_a)
+void total_cost(t_node *stack_a)
 {
-	int	cost_a;
-	int	cost_b;
+	int cost_a;
+	int cost_b;
 
-	cost_a = stack_a->cost_a;
-	cost_b = stack_a->cost_b;
+	
 	while (stack_a)
 	{
+		cost_a = stack_a->cost_a;
+		cost_b = stack_a->cost_b;
 		if ((cost_a >= 0 && cost_b >= 0) || (cost_a < 0 && cost_b < 0))
 		{
 			if (ft_mod(cost_a) > ft_mod(cost_b))
@@ -55,4 +56,11 @@ void	total_cost(t_node *stack_a)
 			stack_a->total_cost = ft_mod(cost_a) + ft_mod(cost_b);
 		stack_a = stack_a->next;
 	}
+}
+
+int ft_mod(int a)
+{
+	if (a < 0)
+		return (-a);
+	return (a);
 }

@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	head2 = NULL;
 	if (argc < 2)
 		return (-1);
-	splitandjoin = ft_splitandjoin(argc, argv);
+	splitandjoin = ft_splitandjoin(argv);
 	head = ft_lists(splitandjoin);
 	if (!head || ft_errors(ft_lstsize(&head), splitandjoin, head))
 	{
@@ -34,10 +34,10 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	if (ft_lstsize(&head) <= 3)
-		to_three(&head);
+		few_numbers(&head);
 	else
 		turkey(&head, &head2);
-	free_matriz(splitandjoin);
+	free_matrix(splitandjoin);
 	ft_lstclear(&head);
 	ft_lstclear(&head2);
 	return (0);

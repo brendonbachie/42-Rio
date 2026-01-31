@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-t_node	*ft_lists(char **arguments)
+t_node *ft_lists(char **arguments)
 {
-	t_node	*head;
-	t_node	*new;
-	int		i;
+	t_node *head;
+	t_node *new;
+	int i;
 
 	i = 0;
 	head = NULL;
@@ -26,7 +26,7 @@ t_node	*ft_lists(char **arguments)
 		if (!new)
 		{
 			ft_lstclear(&head);
-			free_matriz(arguments);
+			free_matrix(arguments);
 			return (NULL);
 		}
 		ft_lstadd_back(&head, new);
