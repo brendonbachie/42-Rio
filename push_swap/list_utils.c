@@ -22,11 +22,11 @@ t_node	*ft_lists(char **arguments)
 	head = NULL;
 	while (arguments[i])
 	{
-		new = ft_lstnew(ft_atoi(arguments[i]));
+		new = ft_lstnew(ft_atol(arguments[i]));
 		if (!new)
 		{
 			ft_lstclear(&head);
-			free_matriz(arguments);
+			free_matrix(arguments);
 			return (NULL);
 		}
 		ft_lstadd_back(&head, new);
@@ -35,16 +35,16 @@ t_node	*ft_lists(char **arguments)
 	return (head);
 }
 
-void ft_lstadd_back(t_node **lst, t_node *new)
+void	ft_lstadd_back(t_node **lst, t_node *new)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	if (!lst || !new)
-		return;
+		return ;
 	if (!*lst)
 	{
 		*lst = new;
-		return;
+		return ;
 	}
 	tmp = *lst;
 	while (tmp->next)
@@ -52,12 +52,12 @@ void ft_lstadd_back(t_node **lst, t_node *new)
 	tmp->next = new;
 }
 
-void ft_lstclear(t_node **lst)
+void	ft_lstclear(t_node **lst)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	if (!lst)
-		return;
+		return ;
 	while (*lst)
 	{
 		tmp = (*lst)->next;
@@ -67,9 +67,9 @@ void ft_lstclear(t_node **lst)
 	*lst = NULL;
 }
 
-t_node *ft_lstnew(int number)
+t_node	*ft_lstnew(int number)
 {
-	t_node *new;
+	t_node	*new;
 
 	new = malloc(sizeof(t_node));
 	if (!new)
@@ -79,10 +79,10 @@ t_node *ft_lstnew(int number)
 	return (new);
 }
 
-int ft_lstsize(t_node **lst)
+int	ft_lstsize(t_node **lst)
 {
-	t_node *temp;
-	int size;
+	t_node	*temp;
+	int		size;
 
 	size = 0;
 	temp = *lst;

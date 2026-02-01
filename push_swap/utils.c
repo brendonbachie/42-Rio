@@ -28,3 +28,18 @@ t_node	*lowest_value(t_node *stack_a)
 	return (lowest);
 }
 
+t_node	*greater_value(t_node *stack)
+{
+	t_node	*temp;
+	t_node	*greater;
+
+	temp = stack;
+	greater = stack;
+	while (temp)
+	{
+		if (temp->number > greater->number)
+			greater = temp;
+		temp = temp->next;
+	}
+	return (greater);
+}

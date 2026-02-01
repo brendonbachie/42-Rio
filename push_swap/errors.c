@@ -12,33 +12,36 @@
 
 #include "push_swap.h"
 
-int ft_errors(int arg_count, char **args, t_node *stack)
+int	ft_errors(char **args, t_node *stack)
 {
-	int i;
-	long int b;
-	(void)arg_count;
+	int		i;
+	long	b;
 
 	i = 0;
-	if (ft_isnum(args))
+	if (ft_isnum(args) || has_duplicate(stack))
+	{
+		write(2, "Error\n", 6);
 		return (1);
-	if (has_duplicate(stack))
-		return (1);
-	if (is_ordened(stack))
-		return (1);
+	}
 	while (args[i] != NULL)
 	{
 		b = ft_atol(args[i]);
 		if (b < INT_MIN || b > INT_MAX)
+		{
+			write(2, "Error\n", 6);
 			return (1);
+		}
 		i++;
 	}
+	if (is_ordened(stack))
+		return (1);
 	return (0);
 }
 
-int has_duplicate(t_node *stack)
+int	has_duplicate(t_node *stack)
 {
-	t_node *a;
-	t_node *b;
+	t_node	*a;
+	t_node	*b;
 
 	a = stack;
 	while (a)
@@ -55,10 +58,10 @@ int has_duplicate(t_node *stack)
 	return (0);
 }
 
-int ft_isnum(char **str)
+int	ft_isnum(char **str)
 {
-	int i;
-	int a;
+	int	i;
+	int	a;
 
 	i = 0;
 	a = 0;
@@ -66,7 +69,8 @@ int ft_isnum(char **str)
 	{
 		if (str[i][a] == ' ')
 			a++;
-		if ((str[i][a] == '-' || str[i][a] == '+') && !(str[i][a - 1] == ' ' || a == 0))
+		if ((str[i][a] == '-' || str[i][a] == '+')
+			&& !(a == 0 || str[i][a - 1] == ' '))
 			return (1);
 		else if (str[i][a] == '-' || str[i][a] == '+')
 			a++;
@@ -82,9 +86,9 @@ int ft_isnum(char **str)
 	return (0);
 }
 
-int is_ordened(t_node *stack_a)
+int	is_ordened(t_node *stack_a)
 {
-	t_node *temp;
+	t_node	*temp;
 
 	temp = stack_a;
 	while (temp->next)
@@ -97,11 +101,10 @@ int is_ordened(t_node *stack_a)
 	return (1);
 }
 
-void return_error(t_node **stack, char **args)
+void	return_error(t_node **stack, char **args)
 {
 	if (stack && *stack)
 		ft_lstclear(stack);
 	if (args)
 		free_matrix(args);
-	write(2, "Error\n", 6);
 }

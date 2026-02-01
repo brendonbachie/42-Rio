@@ -25,14 +25,14 @@ char	**ft_splitandjoin(char **arguments)
 	{
 		result = ft_split(arguments[i], ' ');
 		j = 0;
-		while(result[j] != NULL)
+		while (result[j] != NULL)
 		{
 			temp = ft_strjoin(&temp, result[j]);
 			if (result[j + 1] != NULL || arguments[i + 1] != NULL)
 				temp = ft_strjoin(&temp, " ");
 			j++;
 		}
-		free(result);
+		free_matrix(result);
 		i++;
 	}
 	result = NULL;

@@ -50,7 +50,7 @@ static	void	word_cpy(char *dst, const char *src, char c)
 	}
 }
 
-void	free_matrix(char **str)
+static void	free_matrix(char **str)
 {
 	int	j;
 
@@ -82,7 +82,7 @@ char	**ft_split(char const *s, char c)
 		while (s[k] == c)
 			k++;
 		if (s[k])
-		{	
+		{
 			len = word_len((char *)s + k, c);
 			str[j] = ft_calloc(len + 1, sizeof(char));
 			if (!str[j])

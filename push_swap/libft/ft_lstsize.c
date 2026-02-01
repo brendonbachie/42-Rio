@@ -1,14 +1,22 @@
-typedef struct	s_list
-{
-	void		*content;
-	struct	s_list	*next;
-}	t_list;;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/31 21:33:49 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/01/31 21:34:06 by bgomes-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_lstsize(t_list *lst)
 {
-	int	count;
 	t_list	*aux;
-	
+	int		count;
+
 	if (lst == NULL)
 		return (NULL);
 	aux = lst;

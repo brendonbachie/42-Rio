@@ -12,54 +12,36 @@
 
 #include "push_swap.h"
 
-t_node	*greater_value(t_node *stack)
-{
-	t_node	*temp;
-	t_node	*greater;
-
-	temp = stack;
-	greater = stack;
-	while (temp)
-	{
-		if (temp->number > greater->number)
-			greater = temp;
-		temp = temp->next;
-	}
-	return (greater);
-}
-
 void	target(t_node *stack_a, t_node *stack_b)
 {
+	t_node	*temp_a;
+	t_node	*temp_b;
+	t_node	*target;
 	long	best_value;
-	t_node	*a;
-	t_node	*b;
-	t_node	*best;
 
-	a = stack_a;
-	while (a)
+	temp_b = stack_b;
+	while (temp_b)
 	{
-		best = NULL;
-		best_value = INT_MIN;
-		b = stack_b;
-		while (b)
+		target = NULL;
+		best_value = 2147483649;
+		temp_a = stack_a;
+		while (temp_a)
 		{
-			if (b->number < a->number && b->number > best_value)
+			if (temp_a->number > temp_b->number && temp_a->number < best_value)
 			{
-				best_value = b->number;
-				best = b;
+				best_value = temp_a->number;
+				target = temp_a;
 			}
-			b = b->next;
+			temp_a = temp_a->next;
 		}
-		if (!best)
-			best = greater_value(stack_b);
-		a->target = best;
-		a = a->next;
+		if (!target)
+			target = lowest_value(stack_a);
+		temp_b->target = target;
+		temp_b = temp_b->next;
 	}
 }
 
-
-
-void	index_b(t_node *stack_a, t_node *stack_b)
+void	index_target(t_node *stack_a, t_node *stack_b)
 {
 	int		i;
 	t_node	*temp_a;
@@ -96,5 +78,27 @@ void	index_node(t_node *stack)
 		temp->index_node = i;
 		i++;
 		temp = temp->next;
+	}
+}
+
+void	final_index(t_node *stack_a)
+{
+	t_node	*cur;
+	t_node	*cmp;
+	int		index;
+
+	cur = stack_a;
+	while (cur)
+	{
+		index = 0;
+		cmp = stack_a;
+		while (cmp)
+		{
+			if (cmp->number < cur->number)
+				index++;
+			cmp = cmp->next;
+		}
+		cur->index = index;
+		cur = cur->next;
 	}
 }

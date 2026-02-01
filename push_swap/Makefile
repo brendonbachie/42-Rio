@@ -10,22 +10,17 @@ LIBFT = $(LIBFT_PATH)/libft.a
 
 SRCS = cost_calc.c \
 	errors.c \
-	ft_lists.c \
+	list_utils.c \
 	utils.c \
-	few_numbers.c \
+	small_numbers.c \
 	ft_splitandjoin.c \
-	mov_final.c \
-	mov_final2.c \
-	mov1.c \
-	mov2.c \
-	mov3.c \
-	push_min_custo.c \
+	chose_move.c \
+	switch_push.c \
+	rotate.c \
+	reverse_rotate.c \
 	push_swap.c \
-	three.c \
-	turco.c \
-	volta.c \
+	algorithm.c \
 	target.c \
-	Median.c
 
 OBJS = $(SRCS:.c=.o)
 
