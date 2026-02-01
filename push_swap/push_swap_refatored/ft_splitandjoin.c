@@ -21,17 +21,19 @@ char	**ft_splitandjoin(char **arguments)
 
 	i = 1;
 	temp = ft_calloc(1, 1);
-	while (arguments[++i] != NULL && arguments[i][0] != '\0')
+	while (arguments[i] != NULL)
 	{
 		result = ft_split(arguments[i], ' ');
-		j = -1;
-		while (result[++j] != NULL)
+		j = 0;
+		while(result[j] != NULL)
 		{
 			temp = ft_strjoin(&temp, result[j]);
 			if (result[j + 1] != NULL || arguments[i + 1] != NULL)
 				temp = ft_strjoin(&temp, " ");
+			j++;
 		}
-		free_matrix(result);
+		free(result);
+		i++;
 	}
 	result = NULL;
 	result = ft_split(temp, ' ');
