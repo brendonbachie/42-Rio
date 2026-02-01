@@ -35,10 +35,10 @@ void	cost(t_node *stack_a, t_node *stack_b)
 	}
 }
 
-void total_cost(t_node *stack_a)
+void	total_cost(t_node *stack_a)
 {
-	int cost_a;
-	int cost_b;
+	int	cost_a;
+	int	cost_b;
 
 	while (stack_a)
 	{
@@ -55,6 +55,22 @@ void total_cost(t_node *stack_a)
 			stack_a->total_cost = ft_mod(cost_a) + ft_mod(cost_b);
 		stack_a = stack_a->next;
 	}
+}
+
+t_node	*lowest_cost(t_node *stack_b)
+{
+	t_node	*low_cost;
+	t_node	*temp;
+
+	temp = stack_b;
+	low_cost = stack_b;
+	while (temp)
+	{
+		if (temp->total_cost < low_cost->total_cost)
+			low_cost = temp;
+		temp = temp->next;
+	}
+	return (low_cost);
 }
 
 int	ft_mod(int a)

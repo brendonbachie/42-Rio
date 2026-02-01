@@ -12,14 +12,13 @@
 
 #include "push_swap.h"
 
-void	final_move(t_node **stack_a,
-	t_node **stack_b, t_node *best_cost)
+void	chose_move(t_node **stack_b, t_node **stack_a, t_node *min_custo)
 {
 	int	cost_a;
 	int	cost_b;
 
-	cost_a = best_cost->cost_a;
-	cost_b = best_cost->cost_b;
+	cost_a = min_custo->cost_a;
+	cost_b = min_custo->cost_b;
 	while (cost_a > 0 && cost_b > 0)
 	{
 		rr(stack_a, stack_b);
@@ -35,10 +34,10 @@ void	final_move(t_node **stack_a,
 		write(1, "rrr\n", 4);
 	}
 	if (cost_a > 0 || cost_a < 0)
-		mov_a(stack_a, cost_a);
+		mov_b(stack_b, cost_a);
 	if (cost_b > 0 || cost_b < 0)
-		mov_b(stack_b, cost_b);
-	pb(stack_a, stack_b);
+		mov_a(stack_a, cost_b);
+	pa(stack_a, stack_b);
 }
 
 void	mov_a(t_node **stack, int cost)

@@ -6,17 +6,17 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:06:53 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/29 21:15:42 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/31 21:34:53 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strjoin(char **s1, char const *s2)
+char	*ft_strjoin(char **s1, char const *s2)
 {
-	char *str;
-	int len;
-	int len_s1;
+	char	*str;
+	int		len;
+	int		len_s1;
 
 	if (!s1 || !s2)
 		return (NULL);

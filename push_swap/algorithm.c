@@ -12,11 +12,9 @@
 
 #include "push_swap.h"
 
-void	turkey(t_node **stack_a, t_node **stack_b)
+void	algorithm(t_node **stack_a, t_node **stack_b)
 {
-	find_index(*stack_a);
-	if (ft_lstsize(stack_a) == 4)
-		pb(stack_a, stack_b);
+	final_index(*stack_a);
 	if (ft_lstsize(stack_a) < 6)
 	{
 		while (ft_lstsize(stack_a) > 3)
@@ -33,30 +31,17 @@ void	turkey(t_node **stack_a, t_node **stack_b)
 	last_move(stack_a);
 }
 
-void	a_to_b(t_node **stack_a, t_node **stack_b)
-{
-	t_node	*best_cost;
-
-	index_node(*stack_a);
-	target(*stack_a, *stack_b);
-	index_b(*stack_a, *stack_b);
-	cost(*stack_a, *stack_b);
-	total_cost(*stack_a);
-	best_cost = lowest_cost_a(*stack_a);
-	final_move(stack_a, stack_b, best_cost);
-}
-
 void	b_to_a(t_node **stack_a, t_node **stack_b)
 {
 	t_node	*best_cost;
 
 	index_node(*stack_b);
-	target_b(*stack_a, *stack_b);
-	index_b(*stack_b, *stack_a);
+	target(*stack_a, *stack_b);
+	index_target(*stack_b, *stack_a);
 	cost(*stack_b, *stack_a);
 	total_cost(*stack_b);
-	best_cost = lowest_cost_b(*stack_b);
-	final_move_2(stack_b, stack_a, best_cost);
+	best_cost = lowest_cost(*stack_b);
+	chose_move(stack_b, stack_a, best_cost);
 }
 
 void	last_move(t_node **stack_a)
@@ -83,52 +68,30 @@ void	last_move(t_node **stack_a)
 	}
 }
 
-void	last_move_b (t_node **stack_b)
+void	send_to_b(t_node **stack_a, t_node **stack_b)
 {
-	t_node	*menor;
+	int	size;
+	int	i;
+	int	to_push;
+	int	is_smaller;
+	int	half;
 
-	menor = greater_value(*stack_b);
-	index_node(*stack_b);
-	if (menor->index_node <= ft_lstsize(stack_b) / 2)
+	size = ft_lstsize(stack_a);
+	is_smaller = 1;
+	half = size / 2;
+	to_push = size - 3;
+	i = 0;
+	while (i < size && to_push > 0)
 	{
-		while ((*stack_b)->number != menor->number)
+		while (!((*stack_a)->index <= half) && is_smaller)
 		{
-			rb(stack_b);
-			write(1, "rb\n", 3);
-		}
-	}
-	else
-	{
-		while ((*stack_b)->number != menor->number)
-		{
-			rrb(stack_b);
-			write(1, "rrb\n", 4);
-		}
-	}
-}
-
-void    send_to_b(t_node **stack_a, t_node **stack_b)
-{
-    int     size;
-    int     i;
-    int     to_push;
-
-    size = ft_lstsize(stack_a);    
-    int is_smaller = 1;
-    int half = size / 2;
-    to_push = size - 3;
-    i = 0;
-    while (i < size && to_push > 0) 
-    {
-        while (!((*stack_a)->index <= half) && is_smaller)
-		{
-            ra(stack_a);
+			ra(stack_a);
 			write(1, "ra\n", 3);
 		}
-        pb(stack_a, stack_b);
-        to_push--;
-        if (to_push == half - 3)
-            is_smaller = 0;
-        i++;
-    }    
+		pb(stack_a, stack_b);
+		to_push--;
+		if (to_push == half - 3)
+			is_smaller = 0;
+		i++;
+	}
 }

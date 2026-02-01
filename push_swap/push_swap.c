@@ -27,19 +27,44 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		return (-1);
 	splitandjoin = ft_splitandjoin(argv);
-	head = ft_lists(splitandjoin);
-	if (!head || ft_errors(ft_lstsize(&head), splitandjoin, head))
+	if (!splitandjoin || !splitandjoin[0])
 	{
 		return_error(&head, splitandjoin);
-		return (-1);
+		write (2, "Error\n", 6);
+		return (0);
 	}
-	if (ft_lstsize(&head) <= 3)
-		few_numbers(&head);
-	else
-		turkey(&head, &head2);
+	head = ft_lists(splitandjoin);
+	if (!head || ft_errors(splitandjoin, head))
+	{
+		return_error(&head, splitandjoin);
+		return (0);
+	}
+	push_swap(&head, &head2);
 	free_matrix(splitandjoin);
-	ft_lstclear(&head);
-	ft_lstclear(&head2);
 	return (0);
 }
 
+void	push_swap(t_node **head, t_node **head2)
+{
+	if (ft_lstsize(head) <= 3)
+		small_numbers(head);
+	else
+		algorithm(head, head2);
+	ft_lstclear(head);
+	ft_lstclear(head2);
+}
+
+void	free_matrix(char **str)
+{
+	int	j;
+
+	j = 0;
+	while (str[j] != NULL)
+		j++;
+	while (j >= 0)
+	{
+		free(str[j]);
+		j--;
+	}
+	free(str);
+}
