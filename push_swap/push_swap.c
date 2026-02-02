@@ -18,21 +18,17 @@
 
 int	main(int argc, char **argv)
 {
-	char	**splitandjoin;
 	t_node	*head;
 	t_node	*head2;
+	char	**splitandjoin;
 
 	head = NULL;
 	head2 = NULL;
 	if (argc < 2)
 		return (-1);
-	splitandjoin = ft_splitandjoin(argv);
-	if (!splitandjoin || !splitandjoin[0])
-	{
-		return_error(&head, splitandjoin);
-		write (2, "Error\n", 6);
+	if (args_vrf(argv, argc))
 		return (0);
-	}
+	splitandjoin = ft_splitandjoin(argv);
 	head = ft_lists(splitandjoin);
 	if (!head || ft_errors(splitandjoin, head))
 	{

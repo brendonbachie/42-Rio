@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 13:05:24 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 18:45:44 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 13:10:58 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 13:10:59 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(char *str, char *str2)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*s;
-	int		len;
-	int		i;
+	char	*str;
 
-	i = 0;
-	len = ft_strlen(str2);
-	s = malloc(len + 1);
-	if (!s)
-		return (NULL);
-	while (i < len)
+	if (start >= ft_strlen(s))
 	{
-		s[i] = str2[i];
-		i++;
+		str = ft_calloc(1, 1);
+		return (str);
 	}
-	s[i] = '\0';
-	free(str);
-	return (s);
+	if ((len + start) > ft_strlen(s))
+		len = ft_strlen(s) - start;
+	str = ft_calloc(len + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	ft_memmove(str, s + start, len);
+	return (str);
 }

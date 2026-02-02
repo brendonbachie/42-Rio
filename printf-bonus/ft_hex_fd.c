@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_hex_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 13:05:24 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 18:45:44 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:07:23 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/02/01 21:11:27 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strdup(char *str, char *str2)
+int	ft_hex_fd(unsigned long n, int fd, char caps, t_printf *tab)
 {
-	char	*s;
-	int		len;
-	int		i;
+	int	count;
 
-	i = 0;
-	len = ft_strlen(str2);
-	s = malloc(len + 1);
-	if (!s)
-		return (NULL);
-	while (i < len)
-	{
-		s[i] = str2[i];
-		i++;
-	}
-	s[i] = '\0';
-	free(str);
-	return (s);
+	count = 0;
+	if (n >= 16)
+		count += ft_hex_fd(n / 16, fd, caps, tab);
+	if (caps == 'X')
+		write(fd, &"0123456789ABCDEF"[n % 16], 1);
+	else
+		write(fd, &"0123456789abcdef"[n % 16], 1);
+	count += 1;
+	return (count);
 }

@@ -35,6 +35,7 @@ typedef struct s_node
 }	t_node;
 
 int			is_ordened(t_node *stack_a);
+int			args_vrf(char **argv, int argc);
 int			ft_errors(char **args, t_node *stack);
 int			ft_mod(int a);
 int			ft_isnum(char **str);
@@ -80,5 +81,4 @@ t_node		*ft_lists(char **argumentos);
 t_node		*lowest_value(t_node *stack_a);
 t_node		*greater_value(t_node *stack);
 t_node		*lowest_cost(t_node *stack_b);
-
 #endif

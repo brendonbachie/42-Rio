@@ -24,11 +24,7 @@ t_node	*ft_lists(char **arguments)
 	{
 		new = ft_lstnew(ft_atol(arguments[i]));
 		if (!new)
-		{
-			ft_lstclear(&head);
-			free_matrix(arguments);
 			return (NULL);
-		}
 		ft_lstadd_back(&head, new);
 		i++;
 	}
