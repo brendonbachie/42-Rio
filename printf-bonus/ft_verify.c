@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_verify.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 13:05:24 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 18:45:44 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:14:25 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/02/01 20:57:40 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strdup(char *str, char *str2)
+int	ft_verify(va_list ap, char s, t_printf *rules)
 {
-	char	*s;
-	int		len;
-	int		i;
+	int	len;
 
-	i = 0;
-	len = ft_strlen(str2);
-	s = malloc(len + 1);
-	if (!s)
-		return (NULL);
-	while (i < len)
+	len = 0;
+	if (ft_strchr("cpxX", s))
+		len += ft_convert_char(ap, s, rules);
+	else if (ft_strchr("diu%", s))
+		len += ft_convert_num(ap, s, rules);
+	else if (s == 's')
+		len += ft_convert_string(ap, rules);
+	else
 	{
-		s[i] = str2[i];
-		i++;
+		write(1, "%", 1);
+		write(1, &s, 1);
+		len += 2;
 	}
-	s[i] = '\0';
-	free(str);
-	return (s);
+	return (len);
 }

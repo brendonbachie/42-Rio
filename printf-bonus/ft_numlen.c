@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_numlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 13:05:24 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 18:45:44 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:07:35 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:07:36 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strdup(char *str, char *str2)
+int	ft_numlen(int n)
 {
-	char	*s;
-	int		len;
-	int		i;
+	int	len;
+	int	num;
 
-	i = 0;
-	len = ft_strlen(str2);
-	s = malloc(len + 1);
-	if (!s)
-		return (NULL);
-	while (i < len)
+	len = 0;
+	num = n;
+	if (num == -2147483648)
+		return (11);
+	if (num <= 0)
+		len++;
+	if (num < 0)
+		num = -num;
+	while (num > 0)
 	{
-		s[i] = str2[i];
-		i++;
+		len++;
+		num /= 10;
 	}
-	s[i] = '\0';
-	free(str);
-	return (s);
+	return (len);
 }

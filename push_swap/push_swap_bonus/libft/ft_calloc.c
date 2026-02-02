@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 13:05:24 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 18:45:44 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 12:44:31 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 12:44:33 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(char *str, char *str2)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*s;
-	int		len;
-	int		i;
+	size_t			total;
+	unsigned char	*str;
 
-	i = 0;
-	len = ft_strlen(str2);
-	s = malloc(len + 1);
-	if (!s)
+	if (nmemb && size > SIZE_MAX / nmemb)
 		return (NULL);
-	while (i < len)
-	{
-		s[i] = str2[i];
-		i++;
-	}
-	s[i] = '\0';
-	free(str);
-	return (s);
+	total = nmemb * size;
+	str = malloc(total);
+	if (!str)
+		return (NULL);
+	ft_bzero(str, total);
+	return (str);
 }

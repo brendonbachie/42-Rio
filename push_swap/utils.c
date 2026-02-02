@@ -43,3 +43,28 @@ t_node	*greater_value(t_node *stack)
 	}
 	return (greater);
 }
+
+int	args_vrf(char **argv, int argc)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 1;
+	while (i < argc)
+	{
+		j = ft_strlen(argv[i]);
+		k = 0;
+		while (k <= j)
+		{
+			if (argv[i][0] == '\0' || !ft_strcmp(argv[i], " "))
+			{
+				write (2, "Error\n", 6);
+				return (1);
+			}
+			k++;
+		}
+		i++;
+	}
+	return (0);
+}

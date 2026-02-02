@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 13:05:24 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 18:45:44 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 12:43:57 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/01/31 20:46:24 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(char *str, char *str2)
+long	ft_atol(const char *nptr)
 {
-	char	*s;
-	int		len;
-	int		i;
+	long	i;
+	long	neg;
+	long	res;
 
 	i = 0;
-	len = ft_strlen(str2);
-	s = malloc(len + 1);
-	if (!s)
-		return (NULL);
-	while (i < len)
+	neg = 1;
+	res = 0;
+	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		s[i] = str2[i];
+		if (nptr[i] == '-')
+			neg = -1;
 		i++;
 	}
-	s[i] = '\0';
-	free(str);
-	return (s);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		res = (res * 10) + nptr[i] - '0';
+		i++;
+	}
+	res *= neg;
+	return (res);
 }

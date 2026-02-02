@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_put_uns_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 13:05:24 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 18:45:44 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:07:53 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/03 16:07:54 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_printf.h"
 
-#include "libft.h"
-
-char	*ft_strdup(char *str, char *str2)
+int	ft_put_uns_fd(unsigned int n, int fd)
 {
-	char	*s;
-	int		len;
-	int		i;
+	int	count;
 
-	i = 0;
-	len = ft_strlen(str2);
-	s = malloc(len + 1);
-	if (!s)
-		return (NULL);
-	while (i < len)
-	{
-		s[i] = str2[i];
-		i++;
-	}
-	s[i] = '\0';
-	free(str);
-	return (s);
+	count = 0;
+	if (n >= 10)
+		count += ft_put_uns_fd(n / 10, fd);
+	write(fd, &"0123456789"[n % 10], 1);
+	count += 1;
+	return (count);
 }

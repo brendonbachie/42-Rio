@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 13:05:24 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 18:45:44 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 13:06:53 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/01/31 21:34:53 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(char *str, char *str2)
+char	*ft_strjoin(char **s1, char const *s2)
 {
-	char	*s;
+	char	*str;
 	int		len;
-	int		i;
+	int		len_s1;
 
-	i = 0;
-	len = ft_strlen(str2);
-	s = malloc(len + 1);
-	if (!s)
+	if (!s1 || !s2)
 		return (NULL);
-	while (i < len)
-	{
-		s[i] = str2[i];
-		i++;
-	}
-	s[i] = '\0';
-	free(str);
-	return (s);
+	len_s1 = strlen(*s1);
+	len = len_s1 + (strlen(s2));
+	str = calloc(len + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	memcpy(str, *s1, len_s1);
+	memcpy(str + len_s1, s2, strlen(s2));
+	free(*s1);
+	return (str);
 }
