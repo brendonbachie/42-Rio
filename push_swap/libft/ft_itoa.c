@@ -6,7 +6,7 @@
 /*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:49:10 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/01/31 21:26:52 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/01/31 23:04:28 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ char	*ft_itoa(int n)
 	int		sign;
 	char	*s;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
 	sign = n;
 	if (n < 0)
 		sign = -sign;
 	i = 0;
 	s = ft_calloc(numlen(n) + 1, sizeof(char));
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648", s));
 	if (!s)
 		return (NULL);
 	while (sign >= 10)

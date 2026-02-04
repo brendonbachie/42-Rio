@@ -57,7 +57,7 @@ int	args_vrf(char **argv, int argc)
 		k = 0;
 		while (k <= j)
 		{
-			if (argv[i][0] == '\0' || !ft_strcmp(argv[i], " "))
+			if (argv[i][0] == '\0')
 			{
 				write (2, "Error\n", 6);
 				return (1);

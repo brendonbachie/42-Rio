@@ -46,13 +46,13 @@ void	b_to_a(t_node **stack_a, t_node **stack_b)
 
 void	last_move(t_node **stack_a)
 {
-	t_node	*menor;
+	t_node	*lowest;
 
-	menor = lowest_value(*stack_a);
+	lowest = lowest_value(*stack_a);
 	index_node(*stack_a);
-	if (menor->index_node <= ft_lstsize(stack_a) / 2)
+	if (lowest->index_node <= ft_lstsize(stack_a) / 2)
 	{
-		while ((*stack_a)->number != menor->number)
+		while ((*stack_a)->number != lowest->number)
 		{
 			ra(stack_a);
 			write(1, "ra\n", 3);
@@ -60,7 +60,7 @@ void	last_move(t_node **stack_a)
 	}
 	else
 	{
-		while ((*stack_a)->number != menor->number)
+		while ((*stack_a)->number != lowest->number)
 		{
 			rra(stack_a);
 			write(1, "rra\n", 4);

@@ -69,7 +69,7 @@ void		cost(t_node *stack_a, t_node *stack_b);
 void		total_cost(t_node *stack);
 void		push_swap(t_node **head, t_node **head2);
 void		chose_move(t_node **stack_b,
-				t_node **stack_a, t_node *min_custo);
+				t_node **stack_a, t_node *lowest_cost);
 void		send_to_b(t_node **stack_a, t_node **stack_b);
 void		mov_a(t_node **stack, int cost);
 void		mov_b(t_node **stack, int cost);
@@ -77,7 +77,7 @@ void		free_matrix(char **str);
 char		**ft_splitandjoin(char **args);
 char		**ft_split(char const *s, char c);
 t_node		*ft_lstnew(int number);
-t_node		*ft_lists(char **argumentos);
+t_node		*ft_lists(char **arguments);
 t_node		*lowest_value(t_node *stack_a);
 t_node		*greater_value(t_node *stack);
 t_node		*lowest_cost(t_node *stack_b);
