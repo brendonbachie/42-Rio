@@ -12,13 +12,13 @@
 
 #include "push_swap.h"
 
-void	chose_move(t_node **stack_b, t_node **stack_a, t_node *min_custo)
+void	chose_move(t_node **stack_b, t_node **stack_a, t_node *lowest_cost)
 {
 	int	cost_a;
 	int	cost_b;
 
-	cost_a = min_custo->cost_a;
-	cost_b = min_custo->cost_b;
+	cost_a = lowest_cost->cost_a;
+	cost_b = lowest_cost->cost_b;
 	while (cost_a > 0 && cost_b > 0)
 	{
 		rr(stack_a, stack_b);

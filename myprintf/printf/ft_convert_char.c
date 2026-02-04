@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_convert_char.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brendon <brendon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/03 16:06:53 by bgomes-b          #+#    #+#             */
+/*   Updated: 2025/11/15 23:54:09 by brendon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+
+int	ft_convert_char(va_list ap, char cvt)
+{
+	void	*p;
+	int		count;
+
+	if (cvt == 'x' || cvt == 'X')
+	{
+		count = ft_hex_fd(va_arg(ap, unsigned int), 1, cvt);
+		return (count);
+	}
+	else if (cvt == 'c')
+	{
+		ft_putchar_fd((char) va_arg(ap, int), 1);
+		return (1);
+	}
+	else if (cvt == 'p')
+	{
+		p = va_arg(ap, void *);
+		if (!p)
+			return (write(1, "(nil)", 5));
+		write(1, "0x", 2);
+		count = ft_hex_fd((unsigned long)p, 1, 'p') + 2;
+		return (count);
+	}
+	return (0);
+}

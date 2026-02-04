@@ -67,7 +67,7 @@ int	ft_isnum(char **str)
 	a = 0;
 	while (str[i] != NULL)
 	{
-		if (str[i][a] == ' ')
+		while (str[i][a] == ' ')
 			a++;
 		if ((str[i][a] == '-' || str[i][a] == '+')
 			&& !(a == 0 || str[i][a - 1] == ' '))
