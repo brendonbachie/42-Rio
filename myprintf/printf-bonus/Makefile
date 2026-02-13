@@ -1,5 +1,5 @@
 CC=cc
-CFLAGS=-Wall -Werror -Wextra
+CFLAGS=-Wall -Werror -Wextra -g
 HEADER = ft_printf.h
 SRC = ft_convert_char.c \
       ft_convert_num.c \
@@ -9,11 +9,16 @@ SRC = ft_convert_char.c \
       ft_put_uns_fd.c \
       ft_convert_string.c \
       ft_verify.c \
-      ft_putchar_fd.c \
       ft_putnbr_fd.c \
       ft_putstr_fd.c \
       ft_strchr.c \
       ft_strlen.c \
+	  utils.c \
+	  ft_flags.c \
+	  ft_putchar_fd.c\
+	  putnbr_flags.c \
+	  ft_itoa.c \
+	  ft_itoh.c \
       
 OBJ=$(SRC:.c=.o)
 NAME=libftprintf.a
@@ -28,7 +33,7 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -f $(OBJ)
-fclean:
+fclean: clean
 	rm -f $(NAME)
 	
 re: fclean all

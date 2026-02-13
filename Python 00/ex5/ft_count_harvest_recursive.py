@@ -7,5 +7,4 @@ def ft_count_harvest_recursive():
             return
         print(f"Day {current}")
         helper(current + 1)
-
     helper(1)

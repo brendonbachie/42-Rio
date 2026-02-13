@@ -1,6 +1,6 @@
 def ft_water_reminder():
-	day = int(input("Days since last watering: "))
-	if (day > 2)
-		printf("Water the plants!")
-	else
-		printf("Plants are fine")
+    day = int(input("Days since last watering: "))
+    if (day > 2):
+        print("Water the plants!")
+    else:
+        print("Plants are fine")
