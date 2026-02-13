@@ -6,7 +6,7 @@
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 22:13:47 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/12 22:13:48 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/13 03:57:57 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void	ft_right_cs(t_printf *tab)
 	}
 }
 
-void	ft_right_cs_int(t_printf *tab, int num)
+void	ft_right_cs_int(t_printf *tab, long num)
 {
 	int	i;
 
+	if (num < 0 && tab->zero)
+		tab->width--;
 	i = tab->width;
 	if (tab->zero == 0)
 	{
@@ -51,8 +53,11 @@ void	ft_right_cs_int(t_printf *tab, int num)
 			i--;
 		}
 	}
-	if (num < 0)
+	if (num < 0 && tab->dash == 0)
+	{
 		tab->total_lenght += write(1, "-", 1);
+		tab->sign = 0;
+	}
 	if (tab->hash == 1)
 		i = i - 1;
 	while (i > 0)

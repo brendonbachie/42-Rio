@@ -6,7 +6,7 @@
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:07:16 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/12 22:08:45 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/13 03:28:09 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	ft_convert_string(t_printf *rules)
 	char	*s;
 
 	s = va_arg(rules->args, char *);
-	len = ft_strlen(s);
 	if (!s)
 	{
 		rules->total_lenght += write(1, "(null)", 6);
 		return ;
 	}
+	len = ft_strlen(s);
 	if (rules->precision >= 0 && rules->precision < len)
 		len = rules->precision;
 	if (rules->width && rules->dash == 0)
