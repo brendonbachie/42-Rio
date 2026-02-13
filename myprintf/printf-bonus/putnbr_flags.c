@@ -6,13 +6,42 @@
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 22:14:21 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/12 22:14:52 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/13 04:33:33 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 void	nbr_flags(t_printf *rules, int num)
+{
+	int		len;
+	int		zero;
+	char	*number;
+
+	if(num > 0)
+		rules->width = rules->width - rules->plus;
+	number = ft_itoa(num);
+	len = ft_strlen(number);
+	if (num < 0)
+		rules->sign = 1;
+	if (rules->space && num >= 0)
+		rules->total_lenght += write(1, " ", 1);
+	if (num > 0 && rules->plus)
+		rules->total_lenght += write(1, "+", 1);
+	if (num < 0 && rules->zero == 0)
+		rules->width--;
+	if (rules->width > 0 && rules->dash == 0)
+		ft_print_spaces_int(rules, len, num);
+	zero = rules->precision - len;
+	put_zero(zero, rules, num);
+	len = ft_strlen(number);
+	ft_putnstr(number, len, rules);
+	if (rules->width > 0 && rules->dash)
+		ft_print_spaces_left(rules, len, num);
+	free(number);
+}
+
+void	nbr_unsigned(t_printf *rules, long num)
 {
 	int		len;
 	int		zero;
@@ -34,32 +63,7 @@ void	nbr_flags(t_printf *rules, int num)
 	len = ft_strlen(number);
 	ft_putnstr(number, len, rules);
 	if (rules->width > 0 && rules->dash)
-		ft_print_spaces_int(rules, len, num);
-	free(number);
-}
-
-void	nbr_unsigned(t_printf *rules, int num)
-{
-	int		len;
-	int		zero;
-	char	*number;
-
-	rules->width = rules->width - rules->plus;
-	number = ft_itoa(num);
-	len = ft_strlen(number);
-	if (rules->space && rules->width <= len)
-		rules->total_lenght = write(1, " ", 1);
-	if (rules->width && rules->dash == 0)
-		ft_print_spaces(rules, len);
-	zero = rules->precision - len;
-	if (num > 0 && rules->plus)
-		rules->total_lenght = write(1, "+", 1);
-	put_zero(zero, rules, num);
-	len = ft_strlen(number);
-	ft_putnstr(number, len, rules);
-	if (rules->width && rules->dash)
-		ft_print_spaces(rules, len);
-	len = ft_strlen(number);
+		ft_print_spaces_left(rules, len, num);
 	free(number);
 }
 

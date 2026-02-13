@@ -6,13 +6,13 @@
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:07:53 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/12 18:21:55 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/13 03:14:58 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_put_uns_fd(unsigned int n, int fd)
+int	ft_put_uns_fd(unsigned long n, int fd)
 {
 	int	count;
 

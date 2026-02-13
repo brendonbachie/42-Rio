@@ -19,6 +19,7 @@ SRC = ft_convert_char.c \
 	  putnbr_flags.c \
 	  ft_itoa.c \
 	  ft_itoh.c \
+	  utils2.c \
       
 OBJ=$(SRC:.c=.o)
 NAME=libftprintf.a

@@ -6,7 +6,7 @@
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 22:12:28 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/12 22:12:37 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/13 05:00:01 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	start_stack(t_printf *head)
 	head->zero = 0;
 	head->point = 0;
 	head->hash = 0;
-	head->total_lenght = 0;
 	head->plus = 0;
 	head->space = 0;
 	head->dash = 0;
@@ -37,7 +36,7 @@ int	parse_format(const char *s, int i, t_printf *f)
 			f->zero = 1;
 		if (s[i] == '+')
 			f->plus = 1;
-		if (s[i] == ' ')
+		if (s[i] == ' ' && f->plus == 0)
 			f->space = 1;
 		if (s[i] == '#')
 			f->hash = 1;
@@ -72,10 +71,13 @@ int	parse_width(const char *s, int i, t_printf *f)
 	return (i);
 }
 
-void	put_zero(int zero, t_printf *rules, int num)
+void	put_zero(int zero, t_printf *rules, long num)
 {
-	if (num < 0)
+	if (num < 0 && zero > 0 && rules->sign == 1)
+	{
 		rules->total_lenght += write(1, "-", 1);
+		rules->sign = 0;
+	}
 	while (zero > 0)
 	{
 		rules->total_lenght += write(1, "0", 1);
@@ -83,7 +85,7 @@ void	put_zero(int zero, t_printf *rules, int num)
 	}
 }
 
-void	ft_print_spaces_int(t_printf *rules, int len, int num)
+void	ft_print_spaces_int(t_printf *rules, int len, long num)
 {
 	if (rules->hash == 1 && rules->zero == 0)
 		rules->width = rules->width - 2;
