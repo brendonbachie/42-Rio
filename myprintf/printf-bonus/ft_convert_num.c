@@ -3,35 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_convert_num.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:07:00 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 20:58:28 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/12 22:08:20 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_convert_num(va_list ap, char cvt, t_printf *rules)
+void	ft_convert_num(t_printf *rules, char cvt)
+{
+	int	d;
+
+	if (cvt == 'd' || cvt == 'i')
+	{
+		d = va_arg(rules->args, int);
+		if (d == 0 && (rules->precision == 0))
+			return ;
+		nbr_flags(rules, d);
+	}
+	else if (cvt == 'u')
+		ft_convert_unsigned(rules);
+	else if (cvt == '%')
+	{
+		rules->total_lenght += write(1, "%", 1);
+		return ;
+	}
+	return ;
+}
+
+void	ft_convert_unsigned(t_printf *rules)
 {
 	unsigned int	u;
 	int				d;
 
-	if (cvt == 'd' || cvt == 'i')
+	d = va_arg(rules->args, int);
+	if (d < 0)
 	{
-		d = va_arg(ap, int);
-		ft_putnbr_fd(d, 1);
-		return (ft_numlen(d));
+		u = va_arg(rules->args, unsigned int);
+		rules->total_lenght += ft_put_uns_fd(u, 1);
 	}
-	else if (cvt == 'u')
-	{
-		u = va_arg(ap, unsigned int);
-		return (ft_put_uns_fd(u, 1));
-	}
-	else if (cvt == '%')
-	{
-		write(1, "%", 1);
-		return (1);
-	}
-	return (0);
+	else
+		nbr_flags(rules, d);
 }

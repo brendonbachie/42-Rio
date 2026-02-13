@@ -3,27 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_convert_string.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:07:16 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/01 20:58:52 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/12 22:08:45 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_convert_string(va_list ap, t_printf *rules)
+void	ft_convert_string(t_printf *rules)
 {
-	size_t	len;
+	int		len;
 	char	*s;
 
-	s = va_arg(ap, char *);
+	s = va_arg(rules->args, char *);
+	len = ft_strlen(s);
 	if (!s)
 	{
-		ft_putstr_fd("(null)", 1);
-		return (6);
+		rules->total_lenght += write(1, "(null)", 6);
+		return ;
 	}
-	ft_putstr_fd(s, 1);
-	len = ft_strlen(s);
-	return (len);
+	if (rules->precision >= 0 && rules->precision < len)
+		len = rules->precision;
+	if (rules->width && rules->dash == 0)
+	{
+		rules->width = rules->width - len;
+		ft_right_cs(rules);
+	}
+	ft_putnstr(s, len, rules);
+	if (rules->width && rules->dash)
+	{
+		rules->width = rules->width - len;
+		ft_right_cs(rules);
+	}
 }

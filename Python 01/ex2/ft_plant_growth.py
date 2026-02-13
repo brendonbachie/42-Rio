@@ -16,7 +16,7 @@ if __name__ == "__main__":
 	print(rose.get_info())
 	for _ in range(6):
 		rose.grow()
-		rose.age_one_day()
+		rose.age()
 	print("=== Day 7 ===")
 	print(rose.get_info())
 	print("Growth this week: +6cm")
