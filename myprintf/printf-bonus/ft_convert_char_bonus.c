@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_char.c                                  :+:      :+:    :+:   */
+/*   ft_convert_char_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:06:53 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/13 05:02:49 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:50:30 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 void	ft_convert_char(va_list ap, char cvt, t_printf *rules)
 {

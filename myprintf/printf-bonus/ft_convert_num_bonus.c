@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_num.c                                   :+:      :+:    :+:   */
+/*   ft_convert_num_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:07:00 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/13 05:03:03 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:50:34 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 void	ft_convert_num(t_printf *rules, char cvt)
 {

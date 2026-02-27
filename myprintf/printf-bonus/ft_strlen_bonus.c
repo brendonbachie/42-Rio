@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_verify.c                                        :+:      :+:    :+:   */
+/*   ft_strlen_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:14:25 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/12 22:11:54 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 13:07:21 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/02/25 12:55:23 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-void	ft_verify(va_list ap, char s, t_printf *rules)
+size_t	ft_strlen(const char *s)
 {
-	if (ft_strchr("cpxX", s))
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (s[i] != '\0')
 	{
-		rules->type = 's';
-		ft_convert_char(ap, s, rules);
+		count++;
+		i++;
 	}
-	else if (ft_strchr("diu%", s))
-		ft_convert_num(rules, s);
-	else if (s == 's')
-		ft_convert_string(rules);
-	else
-	{
-		write(1, "%", 1);
-		write(1, &s, 1);
-	}
+	return (count);
 }

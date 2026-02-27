@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:07:47 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/13 05:00:38 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:08:44 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 int	ft_printf(const char *s, ...)
 {
@@ -31,7 +31,7 @@ int	ft_printf(const char *s, ...)
 		{
 			i++;
 			i = parse_format(s, i, rules);
-			ft_verify(a, s[i++], rules);
+			ft_verify(rules->args, s[i++], rules);
 		}
 		else
 			rules->total_lenght += write(1, &s[i++], 1);

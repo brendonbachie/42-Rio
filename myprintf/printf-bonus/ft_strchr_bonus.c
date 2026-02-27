@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strchr_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 12:57:10 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 12:57:12 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 12:57:46 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/02/25 12:51:13 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-void	ft_putnbr_fd(int n, int fd)
+char	*ft_strchr(const char *s, int c)
 {
-	if (n == -2147483648)
+	while (*s)
 	{
-		write(fd, "-2147483648", 11);
-		return ;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
-	if (n < 0)
-	{
-		n *= -1;
-		write(fd, "-", 1);
-	}
-	if (n >= 10)
-		ft_putnbr_fd(n / 10, fd);
-	write(fd, &"0123456789"[n % 10], 1);
+	if (c == '\0')
+		return ((char *)s);
+	return (NULL);
 }

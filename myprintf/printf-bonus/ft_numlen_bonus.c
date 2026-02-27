@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_numlen_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 12:57:46 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 12:57:47 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:07:35 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/02/25 12:54:05 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_numlen(int n)
 {
-	while (*s)
+	int	len;
+	int	num;
+
+	len = 0;
+	num = n;
+	if (num == -2147483648)
+		return (11);
+	if (num <= 0)
+		len++;
+	if (num < 0)
+		num = -num;
+	while (num > 0)
 	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
+		len++;
+		num /= 10;
 	}
-	if (c == '\0')
-		return ((char *)s);
-	return (NULL);
+	return (len);
 }

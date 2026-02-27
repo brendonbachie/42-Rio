@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_numlen.c                                        :+:      :+:    :+:   */
+/*   ft_put_uns_fd_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgomes-b <bgomes-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:07:35 by bgomes-b          #+#    #+#             */
-/*   Updated: 2025/11/03 16:07:36 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:07:53 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/02/25 12:51:06 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_numlen(int n)
-{
-	int	len;
-	int	num;
+#include "ft_printf_bonus.h"
 
-	len = 0;
-	num = n;
-	if (num == -2147483648)
-		return (11);
-	if (num <= 0)
-		len++;
-	if (num < 0)
-		num = -num;
-	while (num > 0)
-	{
-		len++;
-		num /= 10;
-	}
-	return (len);
+int	ft_put_uns_fd(unsigned long n, int fd)
+{
+	int	count;
+
+	count = 0;
+	if (n >= 10)
+		count += ft_put_uns_fd(n / 10, fd);
+	write(fd, &"0123456789"[n % 10], 1);
+	count += 1;
+	return (count);
 }

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_verify_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 12:56:51 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/13 04:58:49 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 16:14:25 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/02/25 12:51:18 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-void	ft_print_char(t_printf *tab)
+void	ft_verify(va_list ap, char s, t_printf *rules)
 {
-	char	a;
-
-	a = va_arg(tab->args, int);
-	if (tab->width && tab->dash == 0)
+	if (ft_strchr("cpxX", s))
 	{
-		tab->width = tab->width - 1;
-		ft_right_cs(tab);
+		rules->type = 's';
+		ft_convert_char(ap, s, rules);
 	}
-	tab->total_lenght += write(1, &a, 1);
-	if (tab->width && tab->dash)
+	else if (ft_strchr("diu%", s))
+		ft_convert_num(rules, s);
+	else if (s == 's')
+		ft_convert_string(rules);
+	else
 	{
-		tab->width = tab->width - 1;
-		ft_right_cs(tab);
+		write(1, "%", 1);
+		write(1, &s, 1);
 	}
 }

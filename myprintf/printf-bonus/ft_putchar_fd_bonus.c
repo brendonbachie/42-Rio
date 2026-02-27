@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_uns_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putchar_fd_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:07:53 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/13 03:14:58 by bgomes-b         ###   ########.fr       */
+/*   Created: 2025/11/03 12:56:51 by bgomes-b          #+#    #+#             */
+/*   Updated: 2026/02/25 12:51:08 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-int	ft_put_uns_fd(unsigned long n, int fd)
+void	ft_print_char(t_printf *tab)
 {
-	int	count;
+	char	a;
 
-	count = 0;
-	if (n >= 10)
-		count += ft_put_uns_fd(n / 10, fd);
-	write(fd, &"0123456789"[n % 10], 1);
-	count += 1;
-	return (count);
+	a = va_arg(tab->args, int);
+	if (tab->width && tab->dash == 0)
+	{
+		tab->width = tab->width - 1;
+		ft_right_cs(tab);
+	}
+	tab->total_lenght += write(1, &a, 1);
+	if (tab->width && tab->dash)
+	{
+		tab->width = tab->width - 1;
+		ft_right_cs(tab);
+	}
 }

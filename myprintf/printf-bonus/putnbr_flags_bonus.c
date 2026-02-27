@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putnbr_flags.c                                     :+:      :+:    :+:   */
+/*   putnbr_flags_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgomes-b <bgomes-b@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 22:14:21 by bgomes-b          #+#    #+#             */
-/*   Updated: 2026/02/13 04:33:33 by bgomes-b         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:51:21 by bgomes-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 void	nbr_flags(t_printf *rules, int num)
 {

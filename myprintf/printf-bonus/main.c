@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <limits.h>
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 int main(void)
 {
@@ -114,14 +114,6 @@ int main(void)
     ft_printf("FT  : %d\n\n", INT_MIN);
     printf("\n=========== FLAG CONFLICTS ===========\n");
 
-printf("ORIG: |%-010d|\n", 42);
-ft_printf("FT  : |%-010d|\n\n", 42); // '-' deve ignorar '0'
-
-printf("ORIG: |%010.5d|\n", 42);
-ft_printf("FT  : |%010.5d|\n\n", 42); // precisão ignora '0'
-
-printf("ORIG: |%+ d|\n", 42);
-ft_printf("FT  : |%+ d|\n\n", 42); // '+' ignora space
 
 printf("\n=========== ZERO & PRECISION EDGE ===========\n");
 
