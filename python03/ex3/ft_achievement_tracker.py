@@ -1,40 +1,52 @@
 import random
 
+
 def gen_player_achievements() -> set:
-    achievements = {'Crafting Genius', 'Strategist', 'World Savior', 'Speed Runner', 'Survivor',
-'Master Explorer', 'Treasure Hunter', 'Unstoppable', 'First Steps', 'Collector Supreme', 'Untouchable', 
-'Sharp Mind', 'Boss Slayer'}
-    return set(random.sample(achievements, random.randint(0, len(achievements))))
+    achievs = ['Crafting Genius', 'Strategist', 'World Savior',
+               'Speed Runner', 'Survivor',
+               'Master Explorer', 'Treasure Hunter', 'Unstoppable',
+               'First Steps', 'Collector Supreme', 'Untouchable',
+               'Sharp Mind', 'Boss Slayer']
+    return set(random.sample(achievs, random.randint(0, len(achievs))))
+
 
 def main() -> None:
-     print("=== Achievement Tracker System ===")
-     players = ['Alice', 'Bob', 'Charlie', 'Dylan']
-     for player in players:
-          player = gen_player_achievements()
+    print("=== Achievement Tracker System ===\n")
+
+    all_achievements = {'Crafting Genius', 'Strategist', 'World Savior',
+                        'Speed Runner', 'Survivor',
+                        'Master Explorer', 'Treasure Hunter', 'Unstoppable',
+                        'First Steps', 'Collector Supreme', 'Untouchable',
+                        'Sharp Mind', 'Boss Slayer'}
+
+    names = ['Alice', 'Bob', 'Charlie', 'Dylan']
+    players = [(name, gen_player_achievements()) for name in names]
+
+    for name, player in players:
+        print(f"Player {name}: {player}")
+
+    all_distict_achievs = set()
+    for player, achievements in players:
+        all_distict_achievs = all_distict_achievs.union(achievements)
+    print(f"\nAll distinct achievements: {all_distict_achievs}")
+
+    common_achievements = set()
+    for player, achievements in players:
+        common_achievements = all_achievements.intersection(achievements)
+    print(f"\nCommon achievements: {common_achievements}\n")
+
+    for name, achievements in players:
+        difference = achievements
+        for player, other_achievements in players:
+            if player != name:
+                difference = difference.difference(other_achievements)
+        print(f"Only {name} has: {difference}")
+
+    print()
+
+    for name, achievement in players:
+        print(f"{name} is missing: {all_achievements.difference(achievement)}")
 
 
-
-
-
-Player Alice: {}
-Player Bob: {'Crafting Genius', 'Strategist', 'World Savior', 'Master Explorer', 'Unstoppable', '
-Collector Supreme', 'Untouchable'}
-Player Charlie: {'Strategist', 'Speed Runner', 'Survivor', 'Master Explorer', 'Treasure Hunter', 'First
-Steps', 'Collector Supreme', 'Untouchable', 'Sharp Mind'}
-Player Dylan: {'Strategist', 'Speed Runner', 'Unstoppable', 'Untouchable', 'Boss Slayer'}
-All distinct achievements: {'Crafting Genius', 'Strategist', 'World Savior', 'Speed Runner', 'Survivor',
-'Master Explorer', 'Treasure Hunter', 'Unstoppable', 'First Steps', 'Collector Supreme', '
-Untouchable', 'Sharp Mind', 'Boss Slayer'}
-Common achievements: {'Untouchable'}
-Only Alice has: set()
-Only Bob has: set()
-Only Charlie has: {'Survivor', 'Treasure Hunter', 'First Steps', 'Sharp Mind'}
-Only Dylan has: set()
-Alice is missing: {'Strategist', 'Speed Runner', 'Survivor', 'Treasure Hunter', 'Unstoppable', 'Hidden
-Path Finder', 'First Steps', 'Sharp Mind'}
-Bob is missing: {'Speed Runner', 'Survivor', 'Treasure Hunter', 'Hidden Path Finder', 'First Steps', '
-Sharp Mind', 'Boss Slayer'}
-Charlie is missing: {'Crafting Genius', 'World Savior', 'Hidden Path Finder', 'Unstoppable', 'Boss
-Slayer'}
-Dylan is missing: {'Crafting Genius', 'World Savior', 'Survivor', 'Master Explorer', 'Treasure Hunter',
-'Hidden Path Finder', 'First Steps', 'Collector Supreme', 'Sharp Mind'}
+if __name__ == "__main__":
+    main()
