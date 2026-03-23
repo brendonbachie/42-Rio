@@ -4,6 +4,7 @@ import sys
 def main() -> None:
     print("== Player Score Analytics ===")
     scores = sys.argv[1:]
+    player_score = []
     if not scores:
         print(
             "No scores provided. Usage: python3 ft_score_analytics.py "
@@ -14,20 +15,21 @@ def main() -> None:
         if not score.isdigit():
             print(f"Invalid parameter: '{score}'")
     try:
-        scores = [int(score) for score in scores]
+        for score in scores:
+            player_score += [int(score)]
     except ValueError:
         print(
             "No scores provided. Usage: python3 ft_score_analytics.py "
             "<score1> <score2> ..."
         )
         return
-    print(f"Scores processed: {scores}")
-    print(f"Total players: {len(scores)}")
-    print(f"Total score: {sum(scores)}")
-    print(f"Average score: {sum(scores) / len(scores)}")
-    print(f"High score: {max(scores)}")
-    print(f"Low score: {min(scores)}")
-    print(f"Score range: {max(scores) - min(scores)}")
+    print(f"Scores processed: {player_score}")
+    print(f"Total players: {len(player_score)}")
+    print(f"Total score: {sum(player_score)}")
+    print(f"Average score: {sum(player_score) / len(player_score)}")
+    print(f"High score: {max(player_score)}")
+    print(f"Low score: {min(player_score)}")
+    print(f"Score range: {max(player_score) - min(player_score)}")
 
 
 if __name__ == "__main__":
