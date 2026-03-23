@@ -16,13 +16,13 @@ def main() -> None:
             print(f"Invalid parameter: '{score}'")
     try:
         for score in scores:
-            player_score += [int(score)]
+            if score.isdigit():
+                player_score += [int(score)]
     except ValueError:
         print(
             "No scores provided. Usage: python3 ft_score_analytics.py "
             "<score1> <score2> ..."
         )
-        return
     print(f"Scores processed: {player_score}")
     print(f"Total players: {len(player_score)}")
     print(f"Total score: {sum(player_score)}")
