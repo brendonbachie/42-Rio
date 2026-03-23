@@ -25,7 +25,7 @@ def consume_event(events: list) -> Generator[tuple, None, None]:
         yield result
 
 
-def main():
+def main() -> None:
     print("=== Game Data Stream Processor ===")
     events = []
     result = gen_event()

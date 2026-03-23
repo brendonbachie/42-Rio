@@ -28,6 +28,7 @@ def main() -> None:
         print(f"Player {name}: {player}")
 
     all_distict_achievs: set[str] = set()
+
     for _, achievements in players:
         all_distict_achievs = all_distict_achievs.union(achievements)
     print(f"\nAll distinct achievements: {all_distict_achievs}")
