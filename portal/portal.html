@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <script>
+        var redirurl = "$PORTAL_REDIRURL$";
+        var action = "$PORTAL_ACTION$";
+        var zone = "$PORTAL_ZONE$";
+        var clientip = "$PORTAL_CLIENT_IP$";
+
+        window.location.href = "http://192.168.56.2:8000/"
+            + "?redirurl=" + encodeURIComponent(redirurl)
+            + "&action=" + encodeURIComponent(action)
+            + "&zone=" + encodeURIComponent(zone)
+            + "&clientip=" + encodeURIComponent(clientip);
+    </script>
+</body>
+
+</html>
