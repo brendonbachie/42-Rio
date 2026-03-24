@@ -1,0 +1,69 @@
+auths:
+  public_v2:
+    version: 2
+    community: public
+
+modules:
+  if_mib:
+    walk:
+      - 1.3.6.1.2.1.2.2.1.10  # ifInOctets
+      - 1.3.6.1.2.1.2.2.1.16  # ifOutOctets
+      - 1.3.6.1.2.1.2.2.1.2   # ifDescr
+      - 1.3.6.1.2.1.2.2.1.8   # ifOperStatus
+      - 1.3.6.1.4.1.14988.1.1.1.1.1.4 # mtxWlanSignal
+      - 1.3.6.1.4.1.14988.1.1.1.1.1.7 # mtxWlanFrequency
+    metrics:
+      - name: ifInOctets
+        oid: 1.3.6.1.2.1.2.2.1.10
+        type: counter
+        indexes:
+          - labelname: ifIndex
+            type: gauge
+        lookups:
+          - labels: [ifIndex]
+            labelname: ifDescr
+            oid: 1.3.6.1.2.1.2.2.1.2
+            type: DisplayString # Adicionado aqui para corrigir o Hexadecimal
+
+      - name: ifOutOctets
+        oid: 1.3.6.1.2.1.2.2.1.16
+        type: counter
+        indexes:
+          - labelname: ifIndex
+            type: gauge
+        lookups:
+          - labels: [ifIndex]
+            labelname: ifDescr
+            oid: 1.3.6.1.2.1.2.2.1.2
+            type: DisplayString
+
+      - name: ifOperStatus
+        oid: 1.3.6.1.2.1.2.2.1.8
+        type: gauge
+        indexes:
+          - labelname: ifIndex
+            type: gauge
+        lookups:
+          - labels: [ifIndex]
+            labelname: ifDescr
+            oid: 1.3.6.1.2.1.2.2.1.2
+            type: DisplayString
+
+      - name: mtxWlanSignal
+        oid: 1.3.6.1.4.1.14988.1.1.1.1.1.4
+        type: gauge
+        indexes:
+          - labelname: ifIndex
+            type: gauge
+        lookups: # Adicionei o lookup aqui também para você saber qual rádio é qual sinal
+          - labels: [ifIndex]
+            labelname: ifDescr
+            oid: 1.3.6.1.2.1.2.2.1.2
+            type: DisplayString
+
+      - name: mtxWlanFrequency
+        oid: 1.3.6.1.4.1.14988.1.1.1.1.1.7
+        type: gauge
+        indexes:
+          - labelname: ifIndex
+            type: gauge
