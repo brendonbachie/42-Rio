@@ -1,9 +1,9 @@
 import os
-import json
-import csv
-from datetime import datetime
+import json # Converte o state OAuth (string JSON) em dicionário Python
+import csv # Escreve métricas de login no arquivo logins.csv
+from datetime import datetime # Gera timestamp de cada login para as métricas
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
+from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse #Resposta no final do arquivo 
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,6 +16,8 @@ load_dotenv()
 
 app = FastAPI(title="Captive Portal API")
 
+# Novo — sem isso o ngrok mostrava uma página de aviso
+# que fazia o code OAuth expirar antes de chegar no backend
 @app.middleware("http")
 async def add_ngrok_header(request: Request, call_next):
     response = await call_next(request)
@@ -55,7 +57,7 @@ async def auth_login_form(username: str = Form(...), password: str = Form(...)):
 
 @app.get("/login/42")
 async def auth_42(request: Request):
-    base_url = os.getenv("BASE_URL_42", "https://api.intra.42.fr")
+    base_url = os.getenv("BASE_URL_42", "https://api.intra.42.fr") # URL correta da API da 42 (estava "https://auth.42.fr")
 
     def get_token(code: str):
         token_url = f"{base_url}/oauth/token"
@@ -63,7 +65,8 @@ async def auth_42(request: Request):
             "grant_type": "authorization_code",
             "client_id": os.getenv("CLIENT_ID_42"),
             "client_secret": os.getenv("CLIENT_SECRET_42"),
-            "redirect_uri": os.getenv("REDIRECT_URI_42", "http://localhost:8000/login/42"),
+            # Configurar o REDIRECT_URI_42 no painel da 42 para apontar para o ngrok que vai ser usado. Esse é o meu.
+            "redirect_uri": os.getenv("REDIRECT_URI_42", "http://localhost:8000/login/42"), # configurável via .env, antes não funcionava no ngrok.
             "code": code
         }
         response = requests.post(token_url, data=data)
@@ -76,6 +79,7 @@ async def auth_42(request: Request):
         response = requests.get(user_url, headers=headers)
         return response.json()
 
+    # Novo — grava cada login em logins.csv para análise posterior (não lembro se passa horário)
     def salvar_metrica(username: str, ip: str):
         with open("logins.csv", "a", newline="") as f:
             csv.writer(f).writerow([datetime.now().isoformat(), username, ip])
@@ -84,6 +88,8 @@ async def auth_42(request: Request):
     if not code:
         return JSONResponse(status_code=400, content={"detail": "Código de autorização ausente"})
 
+    # Novo — o state carrega action, redirurl e zone vindos do portal.html do pfSense, para
+    # que a gente possa redirecionar o usuário de volta pro pfSense com as informações corretas
     state = request.query_params.get("state", "{}")
     try:
         pfsense = json.loads(state)
@@ -107,8 +113,11 @@ async def auth_42(request: Request):
 
     salvar_metrica(username, user_ip)
 
-    # Faz o browser do Ubuntu fazer o POST diretamente pro pfSense
-    # Assim o pfSense vê o IP correto do Ubuntu, não o IP do ngrok
+    # Retorna HTML que faz o browser do Ubuntu
+    # fazer o POST diretamente pro pfSense.
+    # Isso é essencial: se o backend fizesse o POST,
+    # o pfSense veria o IP do ngrok e não liberaria o usuário correto.
+    # Mudança, pra mim, essencial. Ngrok não repassava o IP certo.
     if action:
         return HTMLResponse(content=f"""
 <!DOCTYPE html>
