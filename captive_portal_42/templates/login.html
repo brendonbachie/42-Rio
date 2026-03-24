@@ -28,21 +28,25 @@
         </section>
     </main>
 
+
+    <!--Antes — não capturava nenhum parâmetro da URLDepois — lê os parâmetros que o portal.html passou na URL -->
     <script>
         document.getElementById('login-42').addEventListener('click', function (e) {
             e.preventDefault();
 
             const params = new URLSearchParams(window.location.search);
-            const action = params.get('action') || '';
-            const redirurl = params.get('redirurl') || '';
-            const zone = params.get('zone') || '';
-            const clientip = params.get('clientip') || '';
+            const action = params.get('action') || ''; // endpoint do pfSense pra liberar o IP
+            const redirurl = params.get('redirurl') || ''; // site que o usuário tentou acessar
+            const zone = params.get('zone') || ''; // zona do captive portal
+            const clientip = params.get('clientip') || ''; // IP do cliente na rede
 
             const state = encodeURIComponent(JSON.stringify({ action, redirurl, zone, clientip }));
 
             const clientId = 'u-s4t2ud-8fe2066e7f8e31ce4f1c8dff09942727a4adda6790d73f90c1c22e9b156abef4';
+            // Antes, apontava pro localhost:8000. API não consegue redirecionar. Depois — aponta pro ngrok, acessível publicamente
             const redirectUri = encodeURIComponent('https://unspasmodically-perigynous-lael.ngrok-free.dev/login/42');
 
+            // State carregando os parâmetros do pfSense
             window.location.href =
                 'https://api.intra.42.fr/oauth/authorize' +
                 '?client_id=' + clientId +

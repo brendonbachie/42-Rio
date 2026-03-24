@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Captive Portal - 42</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="card">
+        <h1>Bem-vindo à rede 42</h1>
+        <form id="login-form" method="post" action="/auth/login-form">
+          <label for="username">Usuário</label>
+          <input id="username" name="username" type="text" required />
+
+          <label for="password">Senha</label>
+          <input id="password" name="password" type="password" required />
+
+          <button type="submit" class="btn primary">Entrar</button>
+        </form>
+
+        <div class="divider">ou</div>
+
+        <a class="btn oauth" href="#" id="login-42">Entrar com 42</a>
+      </section>
+    </main>
+
+    <script>
+      // Ao clicar em Entrar com 42, redireciona para o NextAuth (frontend) que deve ter provider 42 configurado.
+      document.getElementById('login-42').addEventListener('click', function(e) {
+        e.preventDefault();
+        // O endereço do NextAuth/Next.js que faz a autenticação com a 42
+        // Ajuste conforme sua implantação
+        window.location.href = 'https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2af-8044be70afb449cc902083a708d290c762856b90880fdc7c666378cb5936d67f&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Flogin%2F42&response_type=code';
+      });
+    </script>
+  </body>
+</html>
