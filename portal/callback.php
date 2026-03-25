@@ -1,16 +1,6 @@
-<?php
-//session_start();
-
-// =============================================
-// CONFIGURAÇÕES
-// =============================================
-define('CLIENT_ID',     'u-s4t2ud-8fe2066e7f8e31ce4f1c8dff09942727a4adda6790d73f90c1c22e9b156abef4');
-define('CLIENT_SECRET', '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');
-define('REDIRECT_URI',  'https://unspasmodically-perigynous-lael.ngrok-free.dev/callback.php');
-
 // =============================================
 // FUNÇÕES
-// =============================================
+// ============================================
 
 function trocar_code_por_token(string $code): string {
     $response = http_post('https://api.intra.42.fr/oauth/token', [
