@@ -3,104 +3,110 @@ from typing import Any
 
 
 class DataProcessor(ABC):
-
-    @abstractmethod
-    def process(self, data: Any) -> str:
-        pass
+    def __init__(self):
+        self._storage = []
+        self._counter = 0
 
     @abstractmethod
     def validate(self, data: Any) -> bool:
         pass
 
-    def format_output(self, result: str) -> str:
-        return f"Output: {result}"
+    @abstractmethod
+    def ingest(self, data: Any) -> None:
+        pass
+
+    def output(self) -> tuple[int, str]:
+        if not self._storage:
+            raise ValueError("No data to output")
+        return self._storage.pop(0)
 
 
 class NumericProcessor(DataProcessor):
-
-    def process(self, data: Any) -> str:
-        if not self.validate(data):
-            raise ValueError("Invalid data for NumericProcessor")
-        total = sum(data)
-        avg = total / len(data)
-        msg = f"Processed {len(data)} numeric values, sum={total}, avg={avg}"
-        return super().format_output(msg)
+    def __init__(self):
+        super().__init__()
 
     def validate(self, data: Any) -> bool:
-        return (isinstance(data, list) and len(data) > 0 and
-                all(isinstance(x, (int, float)) for x in data))
+        if isinstance(data, (int, float)):
+            return True
+        if isinstance(data, list):
+            return all(isinstance(item, (int, float)) for item in data)
+        return False
+
+    def ingest(self, data: Any) -> None:
+        if not self.validate(data):
+            raise ValueError("Improper numeric data")
+        if isinstance(data, (int, float)):
+            item = (self._counter, str(data))
+            self._storage.append(item)
+            self._counter += 1
+        elif isinstance(data, list):
+            for item in data:
+                item = (self._counter, str(item))
+                self._storage.append(item)
+                self._counter += 1
+
 
 
 class TextProcessor(DataProcessor):
-
-    def process(self, data: Any) -> str:
-        if not self.validate(data):
-            raise ValueError("Invalid data for TextProcessor")
-        char_count = len(data)
-        word_count = len(data.split())
-        msg = (f"Processed text: {char_count} characters, "
-               f"{word_count} words")
-        return super().format_output(msg)
+    def __init__(self):
+        super().__init__()
 
     def validate(self, data: Any) -> bool:
-        return isinstance(data, str) and len(data) > 0
+        if isinstance(data, str):
+            return True
+        if isinstance(data, list):
+            if all(isinstance(item, str) for item in data):
+                return True
+        return False
+    
+    def ingest(self, data: Any) -> None:
+        if not self.validate(data):
+            raise ValueError("Improper text data")
+        if isinstance(data, str):
+            item = (self._counter, data)
+            self._storage.append(item)
+            self._counter += 1
+        elif isinstance(data, list):
+            for item in data:
+                item = (self._counter, item)
+                self._storage.append(item)
+                self._counter += 1
 
 
 class LogProcessor(DataProcessor):
-
-    def process(self, data: Any) -> str:
-        if not self.validate(data):
-            raise ValueError("Invalid data for LogProcessor")
-        type_entry = data.split(':')[0]
-        log = data.split(':')[1].strip()
-        if type_entry == "INFO":
-            type = "INFO"
-        elif type_entry == "ERROR":
-            type = "ALERT"
-        msg = f"[{type}] {type_entry} level detected: {log}"
-        return super().format_output(msg)
+    def __init__(self):
+        super().__init__()
 
     def validate(self, data: Any) -> bool:
-        return isinstance(data, str) and ':' in data
+        if isinstance(data, dict):
+            if 'log_level' in data and 'log_message' in data:
+                return True
+        if isinstance(data, list):
+            return all(isinstance(item, dict) and 'log_level' in item and 'log_message' in item for item in data)
+        return False
+
+    def ingest(self, data: Any) -> None:
+        if not self.validate(data):
+            raise ValueError("Improper log data")
+        if isinstance(data, dict):
+            item = (self._counter, f"{data['log_level']}: {data['log_message']}")
+            self._storage.append(item)
+            self._counter += 1
+        elif isinstance(data, list):
+            for item in data:
+                item = (self._counter, f"{item['log_level']}: {item['log_message']}")
+                self._storage.append(item)
+                self._counter += 1
 
 
-def main():
-    print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===\n")
-    print("Initializing Numeric Processor...")
-    numeric_processor = [1, 2, 3, 4, 5]
-    text_processor = "Hello Nexus World"
-    log_processor = "INFO: System initialized successfully"
-
-    try:
-        print(f"Processing data: {numeric_processor}")
-        print("Validation: Numeric data verified")
-        print(NumericProcessor().process(numeric_processor))
-    except ValueError as e:
-        print(e)
-    print("\nInitializing Text Processor...")
-    try:
-        print(f"Processing data: {text_processor}")
-        print("Validation: Text data verified")
-        print(TextProcessor().process(text_processor))
-    except ValueError as e:
-        print(e)
-    print("\nInitializing Log Processor...")
-    try:
-        print(f"Processing data: {log_processor}")
-        print("Validation: Log entry verified")
-        print(LogProcessor().process(log_processor))
-    except ValueError as e:
-        print(e)
-    print("\n=== Polymorphic Processing Demo ===")
-    print("Processing multiple data types through same interface...")
-    try:
-        print("Result 1:", NumericProcessor().process(numeric_processor))
-        print("Result 2:", TextProcessor().process(text_processor))
-        print("Result 3:", LogProcessor().process(log_processor))
-    except ValueError as e:
-        print(e)
-    print("\nFoundation systems online. Nexus ready for advanced streams")
-
+def main() -> None:
+    num = NumericProcessor()
+    if num.validate(42):
+        num.ingest(42)
+    if num.validate([1, 2, 3]):
+        num.ingest([1, 2, 3])
+    print(num.output())
+    print(num.output())
 
 if __name__ == "__main__":
     main()
