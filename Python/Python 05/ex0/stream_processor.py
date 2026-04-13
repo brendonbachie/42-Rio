@@ -46,7 +46,6 @@ class NumericProcessor(DataProcessor):
                 self._counter += 1
 
 
-
 class TextProcessor(DataProcessor):
     def __init__(self):
         super().__init__()
@@ -58,7 +57,7 @@ class TextProcessor(DataProcessor):
             if all(isinstance(item, str) for item in data):
                 return True
         return False
-    
+
     def ingest(self, data: Any) -> None:
         if not self.validate(data):
             raise ValueError("Improper text data")
@@ -100,13 +99,20 @@ class LogProcessor(DataProcessor):
 
 
 def main() -> None:
-    num = NumericProcessor()
-    if num.validate(42):
-        num.ingest(42)
-    if num.validate([1, 2, 3]):
-        num.ingest([1, 2, 3])
-    print(num.output())
-    print(num.output())
+    print("Testing NumericProcessor...")
+
+    number = 42
+    number_list = [1, 2, 3]
+    num_processor = NumericProcessor()
+
+    print(f" Trying to validate input '{number}': {num_processor.validate(number)}")
+    if num_processor.validate(number):
+        num_processor.ingest(number)
+    if num_processor.validate(number_list):
+        num_processor.ingest(number_list)
+    print(num_processor.output())
+    print(num_processor.output())
+
 
 if __name__ == "__main__":
     main()
