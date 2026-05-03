@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Protocol
 
 
 class DataProcessor(ABC):
@@ -29,7 +29,7 @@ class DataProcessor(ABC):
             raise ValueError("No data to output")
         return self._storage.pop(0)
 
-class DataStream:
+class DataStream():
     def __init__(self):
         self._processors = []
 
@@ -55,6 +55,34 @@ class DataStream:
             return
         for processor in self._processors:
             print(f"{processor.processor_name()}: total {processor.total_processed()} items processed, remaining {processor.remaining()} on processor")
+
+    def output_pipeline(self, nb: int, plugin: "ExportPlugin") -> None:
+        for processor in self._processors:
+            output_data = []
+            for _ in range(nb):
+                try:
+                    output_data.append(processor.output())
+                except ValueError as e:
+                    break
+            if output_data:
+                plugin.process_output(output_data)
+
+class ExportPlugin(Protocol):
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        ...
+    
+class CSVExportPlugin():
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        csv: str = ""
+        csv = ",".join(item[1] for item in data)
+        print("CSV Output:")
+        print(csv)
+
+class JSONExportPlugin():
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        pairs = ", ".join(f'"item_{item[0]}": "{item[1]}"' for item in data)
+        print("JSON Output:")
+        print("{" + pairs + "}")
 
 class NumericProcessor(DataProcessor):
     def __init__(self):
@@ -137,13 +165,13 @@ class LogProcessor(DataProcessor):
 
 
 def main() -> None:
-    print("=== Code Nexus - Data Stream ===\n")
+    print("=== Code Nexus - Data Pipeline ===\n")
 
     num = NumericProcessor()
     text = TextProcessor()
     log = LogProcessor()
 
-    print("Initialize Data Stream...")
+    print("Initialize Data Pipeline...")
     batch: list[Any] =  ['Hello world',
                          [3.14, -1, 2.71],
                          [{'log_level': 'WARNING',
@@ -151,36 +179,30 @@ def main() -> None:
                            {'log_level': 'INFO',
                             'log_message': 'User wil is connected'}],
                             42, ['Hi', 'five']]
+    batch2: list[Any] =  [21,
+                         ['I love AI', 'LLMs are wonderful', 'Stay healthy'],
+                         [{'log_level': 'ERROR', 'log_message': '500 server crash'},
+                         {'log_level': 'NOTICE', 'log_message': 'Certificate expires in 10 days'}],
+                         [32, 42, 64, 84, 128, 168], 'World hello'
+                         ]
     data_stream = DataStream()
     data_stream.print_processors_stats()
-    print("\nRegistering Numeric processor\n")
+    print("\nRegistering processors\n")
     data_stream.register_processor(num)
+    data_stream.register_processor(text)
+    data_stream.register_processor(log)
     print(f"Send first batch of data on stream: {batch}")
     data_stream.process_stream(batch)
     data_stream.print_processors_stats()
-    print("\nRegistering other data processors")
-    data_stream.register_processor(text)
-    data_stream.register_processor(log)
-    print("Send the same batch again")
-    data_stream.process_stream(batch)
+    print("\nSend 3 processed data from each processor to a CSV plugin")
+    csv_plugin = CSVExportPlugin()
+    data_stream.output_pipeline(3, csv_plugin)
+    print("Send another batch of data")
+    data_stream.process_stream(batch2)
     data_stream.print_processors_stats()
-    print("\nConsume some elements from the data processors: Numeric 3, Text 2, Log 1")
-    for _ in range(3):
-        try:
-            num.output()
-        except ValueError as e:
-            print(f"Error consuming from {num.processor_name()}: {e}")
-    for _ in range(2):
-        try:
-            text.output()
-        except ValueError as e:
-            print(f"Error consuming from {text.processor_name()}: {e}")
-    for _ in range(1):
-        try:
-            log.output()
-        except ValueError as e:
-            print(f"Error consuming from {log.processor_name()}: {e}")
-
+    print("\nSend 5 processed data from each processor to a JSON plugin")
+    json_plugin = JSONExportPlugin()
+    data_stream.output_pipeline(5, json_plugin)
     data_stream.print_processors_stats()
 if __name__ == "__main__":
     main()
