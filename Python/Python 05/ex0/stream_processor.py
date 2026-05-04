@@ -81,32 +81,39 @@ class LogProcessor(DataProcessor):
             if 'log_level' in data and 'log_message' in data:
                 return True
         if isinstance(data, list):
-            return all(isinstance(item, dict) and 'log_level' in item and 'log_message' in item for item in data)
+            return all(isinstance(item, dict) and 'log_level'
+                       in item and 'log_message' in item for item in data)
         return False
 
     def ingest(self, data: Any) -> None:
         if not self.validate(data):
             raise ValueError("Improper log data")
         if isinstance(data, dict):
-            item = (self._counter, f"{data['log_level']}: {data['log_message']}")
+            item = (self._counter,
+                    f"{data['log_level']}: {data['log_message']}")
             self._storage.append(item)
             self._counter += 1
         elif isinstance(data, list):
             for item in data:
-                item = (self._counter, f"{item['log_level']}: {item['log_message']}")
+                item = (self._counter,
+                        f"{item['log_level']}: {item['log_message']}")
                 self._storage.append(item)
                 self._counter += 1
 
 
 def main_num() -> None:
+    print("=== Code Nexus - Data Processor ===\n")
     print("Testing NumericProcessor...")
 
     number_list = [1, 2, 3, 4, 5]
     num_processor = NumericProcessor()
 
     print(f" Trying to validate input '42': {num_processor.validate(42)}")
-    print(f" Trying to validate input 'Hello': {num_processor.validate('Hello')}")
-    print(f" Test invalid ingestion of string 'foo'without prior validation:")
+    print(
+          f" Trying to validate "
+          f"input 'Hello': {num_processor.validate('Hello')}")
+    print(" Test invalid ingestion of "
+          "string 'foo' without prior validation: ")
     try:
         num_processor.ingest("foo")
     except ValueError as e:
@@ -157,7 +164,8 @@ def main_log() -> None:
     ]
     log_processor = LogProcessor()
 
-    print(f" Trying to validate input 'Hello': {log_processor.validate('Hello')}")
+    print(f" Trying to validate "
+          f"input 'Hello': {log_processor.validate('Hello')}")
 
     print(f"Processing data: {log_list}")
     for item in log_list:

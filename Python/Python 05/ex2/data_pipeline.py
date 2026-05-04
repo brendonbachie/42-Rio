@@ -6,6 +6,7 @@ class DataProcessor(ABC):
     def __init__(self):
         self._storage = []
         self._counter = 0
+        self.name = ""
 
     @abstractmethod
     def validate(self, data: Any) -> bool:
@@ -20,7 +21,7 @@ class DataProcessor(ABC):
 
     def remaining(self) -> int:
         return len(self._storage)
-    
+
     def processor_name(self) -> str:
         return self.name
 
@@ -28,6 +29,7 @@ class DataProcessor(ABC):
         if not self._storage:
             raise ValueError("No data to output")
         return self._storage.pop(0)
+
 
 class DataStream():
     def __init__(self):
@@ -45,8 +47,8 @@ class DataStream():
                     processed = True
                     break
             if not processed:
-                print(f"DataStream error - Can't process element in stream: {item}")
-
+                print(f"DataStream error - "
+                      f"Can't process element in stream: {item}")
 
     def print_processors_stats(self) -> None:
         print("== DataStream statistics ==")
@@ -54,7 +56,9 @@ class DataStream():
             print("No processor found, no data")
             return
         for processor in self._processors:
-            print(f"{processor.processor_name()}: total {processor.total_processed()} items processed, remaining {processor.remaining()} on processor")
+            print(f"{processor.processor_name()}: "
+                  f"total {processor.total_processed()} items processed, "
+                  f"remaining {processor.remaining()} on processor")
 
     def output_pipeline(self, nb: int, plugin: "ExportPlugin") -> None:
         for processor in self._processors:
@@ -62,15 +66,17 @@ class DataStream():
             for _ in range(nb):
                 try:
                     output_data.append(processor.output())
-                except ValueError as e:
+                except ValueError:
                     break
             if output_data:
                 plugin.process_output(output_data)
 
+
 class ExportPlugin(Protocol):
     def process_output(self, data: list[tuple[int, str]]) -> None:
         ...
-    
+
+
 class CSVExportPlugin():
     def process_output(self, data: list[tuple[int, str]]) -> None:
         csv: str = ""
@@ -78,11 +84,13 @@ class CSVExportPlugin():
         print("CSV Output:")
         print(csv)
 
+
 class JSONExportPlugin():
     def process_output(self, data: list[tuple[int, str]]) -> None:
         pairs = ", ".join(f'"item_{item[0]}": "{item[1]}"' for item in data)
         print("JSON Output:")
         print("{" + pairs + "}")
+
 
 class NumericProcessor(DataProcessor):
     def __init__(self):
@@ -147,19 +155,23 @@ class LogProcessor(DataProcessor):
             if 'log_level' in data and 'log_message' in data:
                 return True
         if isinstance(data, list):
-            return all(isinstance(item, dict) and 'log_level' in item and 'log_message' in item for item in data)
+            return all(isinstance(item, dict) and
+                       'log_level' in item and
+                       'log_message' in item for item in data)
         return False
 
     def ingest(self, data: Any) -> None:
         if not self.validate(data):
             raise ValueError("Improper log data")
         if isinstance(data, dict):
-            item = (self._counter, f"{data['log_level']}: {data['log_message']}")
+            item = (self._counter,
+                    f"{data['log_level']}: {data['log_message']}")
             self._storage.append(item)
             self._counter += 1
         elif isinstance(data, list):
             for item in data:
-                item = (self._counter, f"{item['log_level']}: {item['log_message']}")
+                item = (self._counter,
+                        f"{item['log_level']}: {item['log_message']}")
                 self._storage.append(item)
                 self._counter += 1
 
@@ -172,17 +184,19 @@ def main() -> None:
     log = LogProcessor()
 
     print("Initialize Data Pipeline...")
-    batch: list[Any] =  ['Hello world',
-                         [3.14, -1, 2.71],
-                         [{'log_level': 'WARNING',
-                           'log_message': 'Telnet access! Use ssh instead'},
-                           {'log_level': 'INFO',
+    batch: list[Any] = ['Hello world',
+                        [3.14, -1, 2.71],
+                        [{'log_level': 'WARNING',
+                          'log_message': 'Telnet access! Use ssh instead'},
+                         {'log_level': 'INFO',
                             'log_message': 'User wil is connected'}],
-                            42, ['Hi', 'five']]
-    batch2: list[Any] =  [21,
+                        42, ['Hi', 'five']]
+    batch2: list[Any] = [21,
                          ['I love AI', 'LLMs are wonderful', 'Stay healthy'],
-                         [{'log_level': 'ERROR', 'log_message': '500 server crash'},
-                         {'log_level': 'NOTICE', 'log_message': 'Certificate expires in 10 days'}],
+                         [{'log_level': 'ERROR',
+                           'log_message': '500 server crash'},
+                          {'log_level': 'NOTICE',
+                           'log_message': 'Certificate expires in 10 days'}],
                          [32, 42, 64, 84, 128, 168], 'World hello'
                          ]
     data_stream = DataStream()
@@ -204,5 +218,7 @@ def main() -> None:
     json_plugin = JSONExportPlugin()
     data_stream.output_pipeline(5, json_plugin)
     data_stream.print_processors_stats()
+
+
 if __name__ == "__main__":
     main()
