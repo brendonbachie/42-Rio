@@ -1,13 +1,14 @@
 from abc import ABC, abstractmethod
 
+
 class HealCapability(ABC):
     def __init__(self) -> None:
         super().__init__()
 
-
     @abstractmethod
     def heal(self) -> str:
         pass
+
 
 class TransformCapability(ABC):
     def __init__(self):

@@ -1,18 +1,5 @@
-'''Testing factory
-Flameling is a Fire type Creature
-Flameling uses Ember!
-Pyrodon is a Fire/Flying type Creature
-Pyrodon uses Flamethrower!
-...
-Testing battle
-Flameling is a Fire type Creature
- vs.
-Aquabub is a Water type Creature
- fight!
-Flameling uses Ember!
-Aquabub uses Water Gun!'''
-
 import ex0
+
 
 def test_factory(factory: ex0.CreatureFactory):
     print("Testing factory")
@@ -22,6 +9,7 @@ def test_factory(factory: ex0.CreatureFactory):
     print(base.attack())
     print(evolved.describe())
     print(evolved.attack())
+
 
 def test_battle(factory1: ex0.CreatureFactory, factory2: ex0.CreatureFactory):
     print("Testing battle")
@@ -33,6 +21,7 @@ def test_battle(factory1: ex0.CreatureFactory, factory2: ex0.CreatureFactory):
     print(" fight!")
     print(creature1.attack())
     print(creature2.attack())
+
 
 if __name__ == "__main__":
     flame_factory = ex0.FlameFactory()

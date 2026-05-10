@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
 
+
 class Creature(ABC):
     def __init__(self, name: str, type: str) -> None:
+        super().__init__()
         self.name = name
         self.type = type
 
@@ -11,6 +13,3 @@ class Creature(ABC):
 
     def describe(self) -> str:
         return f"{self.name} is a {self.type} type Creature"
-    
-
-    
