@@ -1,7 +1,8 @@
 def healing_potion():
-    return "Healing potion brewed with '[created earth " \
-    "element]' and '[created air element]'"
+    return "Healing potion brewed with 'Earth element created' " \
+           "and 'Air element created'"
+
 
 def strength_potion():
-    return "Strength potion brewed with '[created fire "\
-    "element]' and '[created water element]'"
+    return "Strength potion brewed with 'Fire element created' " \
+           "and 'Water element created'"
