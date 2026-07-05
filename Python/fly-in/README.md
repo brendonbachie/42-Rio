@@ -62,7 +62,51 @@ Sample maps for every difficulty tier (as shipped with the subject) live
 under [maps/](maps/). Tests (not graded, kept for our own confidence) can be
 run with `pytest`.
 
-## Algorithm & implementation strategy
+## Example
+
+Input (`maps/easy/02_simple_fork.txt`):
+
+```
+nb_drones: 4
+
+start_hub: start 0 0 [color=green]
+hub: junction 1 0 [color=yellow max_drones=2]
+hub: path_a 2 1 [color=blue]
+hub: path_b 2 -1 [color=blue]
+end_hub: goal 3 0 [color=red]
+
+connection: start-junction [max_link_capacity=2]
+connection: junction-path_a
+connection: junction-path_b
+connection: path_a-goal
+connection: path_b-goal
+```
+
+Command:
+
+```bash
+python main.py maps/easy/02_simple_fork.txt --no-terminal
+```
+
+(the actual default run also prints ANSI colors; `--no-terminal` here only to
+keep this example plain text). Output — one line per turn, drones that don't
+move that turn are simply omitted from the line:
+
+```
+D1-junction D2-junction
+D1-path_a D2-path_b D3-junction D4-junction
+D1-goal D2-goal D3-path_a D4-path_b
+D3-goal D4-goal
+```
+
+All 4 drones start together at `start` (unlimited capacity there). `junction`
+allows 2 drones at once (`max_drones=2`) and the `start-junction` connection
+allows 2 at once too (`max_link_capacity=2`), so drones move through it in
+pairs; each pair then splits across `junction`'s two branches (`path_a`/
+`path_b`, each capacity 1) so both branches are used in parallel instead of
+queuing on a single one. All 4 drones are delivered to `goal` in 4 turns.
+
+## Algorithm explanation
 
 The project is split into small, single-responsibility, fully-typed classes:
 

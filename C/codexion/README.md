@@ -83,12 +83,16 @@ Example (feasible parameters — runs to completion without burnout):
 
 - **Starvation prevention / fair arbitration**: each dongle keeps a small priority
   queue (a custom binary heap, see `heap.c`/`heap_utils.c`) of pending requests. Under
-  `fifo`, requests are served in arrival order; under `edf`, the request with the
-  earliest burnout deadline (`last_compile_start + time_to_burnout`) is served first.
-  Ties are broken deterministically by arrival time, then by coder id. Since each
-  dongle is only ever contested by its two fixed neighboring coders, this guarantees
-  that a coder who loses a round has strictly higher priority on the next one under
-  `edf`, preventing indefinite starvation when parameters are feasible.
+  `fifo`, requests are served in arrival order, ties (identical arrival time) broken
+  by the lower `coder_id`. Under `edf`, the request with the earliest burnout deadline
+  (`last_compile_start + time_to_burnout`) is served first; on a deadline tie, the
+  higher `coder_id` is preferred, which is a deterministic, easy-to-verify-by-code-
+  inspection tie-breaker for the (rare, timestamp-precision-dependent) case of two
+  equal deadlines — this happens naturally for every coder's very first request, since
+  all coders start with the same deadline (`start_time + time_to_burnout`) before any
+  of them has compiled. Since each dongle is only ever contested by its two fixed
+  neighboring coders, a coder who loses a round has strictly higher priority on the
+  next one under `edf`, preventing indefinite starvation when parameters are feasible.
 
 - **Dongle cooldown**: releasing a dongle does not make it immediately available again.
   `release_dongle` sets `free_at = now + dongle_cooldown`; `acquire_dongle` only grants
