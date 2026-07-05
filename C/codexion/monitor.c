@@ -61,20 +61,20 @@ static void	wake_all_dongles(t_data *data)
 
 void	*monitor_thread(void *arg)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)arg;
 	while (1)
 	{
 		pthread_mutex_lock(&data->state_mutex);
 		if (check_burnout(data))
-	    		data->burnout_flag = 1;
+			data->burnout_flag = 1;
 		else if (check_completion(data))
-	    		data->completion_flag = 1;
+			data->completion_flag = 1;
 		if (data->burnout_flag || data->completion_flag)
 		{
-	    		pthread_mutex_unlock(&data->state_mutex);
-	    		break ;
+			pthread_mutex_unlock(&data->state_mutex);
+			break ;
 		}
 		pthread_mutex_unlock(&data->state_mutex);
 		usleep(500);

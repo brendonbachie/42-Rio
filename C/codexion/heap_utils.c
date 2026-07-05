@@ -22,9 +22,7 @@ int	comp_higher_priority(t_request a, t_request b, t_scheduler sched)
 	}
 	if (a.deadline != b.deadline)
 		return (a.deadline < b.deadline);
-	if (a.arrival_time != b.arrival_time)
-		return (a.arrival_time < b.arrival_time);
-	return (a.id < b.id);
+	return (a.id > b.id);
 }
 
 long	heap_peek_id(t_heap *heap)
