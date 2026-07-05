@@ -1,4 +1,4 @@
-PYTHON := python
+PYTHON := python3
 MAP ?= maps/easy/01_linear_path.txt
 
 .PHONY: install run debug clean lint lint-strict
@@ -7,7 +7,7 @@ install:
 	$(PYTHON) -m pip install -r requirements.txt
 
 run:
-	$(PYTHON) main.py $(MAP)
+	$(PYTHON) main.py
 
 debug:
 	$(PYTHON) -m pdb main.py $(MAP)
