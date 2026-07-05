@@ -1,0 +1,7 @@
+# Runtime dependency: gives reliable ANSI colors on older Windows terminals.
+colorama>=0.4.6
+
+# Development tooling (linting, type checking, tests).
+flake8>=7.0.0
+mypy>=1.8.0
+pytest>=8.0.0

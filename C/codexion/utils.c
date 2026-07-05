@@ -1,23 +1,41 @@
 #include "codexion.h"
 
-int parser_numbers(char **v)
+int is_valid_number(char *s)
 {
     int i;
+
+    i = 0;
+    if (s[i] == '-' || s[i] == '+')
+        i++;
+    if (!s[i])
+        return (0);
+    while (s[i])
+    {
+        if (s[i] < '0' || s[i] > '9')
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+int parser_numbers(char **v)
+{
     int idx;
+    long value;
 
     idx = 1;
-
     while (idx < 8)
     {
-        i = 0;
-        i = atoi(v[idx]);
-        if ((idx < 3) && i <= 0)
-            return 0;
-        if ((idx >= 3 && idx < 8) && i < 0)
-            return 0;
+        if (!is_valid_number(v[idx]))
+            return (0);
+        value = atoi(v[idx]);
+        if (idx < 3 && value <= 0)
+            return (0);
+        if (idx >= 3 && idx < 8 && value < 0)
+            return (0);
         idx++;
     }
-    return 1;
+    return (1);
 }
 
 void parser(char **v)
@@ -36,8 +54,8 @@ void parser(char **v)
 
 t_dongle *init_dongles(t_data *data)
 {
-    t_dongle *dongles;
-    long i;
+    t_dongle    *dongles;
+    long        i;
 
     dongles = malloc(sizeof(t_dongle) * data->number_of_coders);
     if (!dongles)
@@ -47,9 +65,13 @@ t_dongle *init_dongles(t_data *data)
     {
         dongles[i].id = i;
         pthread_mutex_init(&dongles[i].mutex, NULL);
-        dongles[i].is_available = 1;
+        pthread_cond_init(&dongles[i].cond, NULL);
+        dongles[i].is_taken = 0;
         dongles[i].cooldown = data->dongle_cooldown;
-        dongles[i].lastpickup = 0;
+        dongles[i].free_at = data->start_time;
+        dongles[i].queue.requests = malloc(sizeof(t_request) * data->number_of_coders);
+        dongles[i].queue.size = 0;
+        dongles[i].queue.capacity = data->number_of_coders;
         i++;
     }
     return (dongles);
@@ -58,7 +80,7 @@ t_dongle *init_dongles(t_data *data)
 t_coder *init_coders(t_data *data)
 {
     t_coder *coders;
-    long i;
+    long    i;
 
     coders = malloc(sizeof(t_coder) * data->number_of_coders);
     if (!coders)
@@ -66,40 +88,13 @@ t_coder *init_coders(t_data *data)
     i = 0;
     while (i < data->number_of_coders)
     {
-        coders[i].id = i;
+        coders[i].id = i + 1;
         coders[i].left_dongle = &data->dongle[i];
         coders[i].right_dongle = &data->dongle[(i + 1) % data->number_of_coders];
         coders[i].compiles_done = 0;
-        coders[i].last_compile_time = 0;
+        coders[i].last_compile_start = data->start_time;
         coders[i].data = data;
         i++;
     }
     return (coders);
-}
-
-
-t_data *init_data(char **v)
-{
-    t_data *data;
-
-    data = malloc(sizeof(t_data));
-    if (!data)
-        return (NULL);
-    data->number_of_coders = atoi(v[1]);
-    data->time_to_burnout = atoi(v[2]);
-    data->time_to_compile = atoi(v[3]);
-    data->time_to_debug = atoi(v[4]);
-    data->time_to_refactor = atoi(v[5]);
-    data->number_of_compiles_required = atoi(v[6]);
-    data->dongle_cooldown = atoi(v[7]);
-    if (strcmp(v[8], "edf") == 0)
-        data->scheduler = EDF;
-    else
-        data->scheduler = FIFO;
-    data->burnout_flag = 0;
-    pthread_mutex_init(&data->print_mutex, NULL);
-    data->dongle = init_dongles(data);
-    data->coders = init_coders(data);
-    data->start_time = get_time();
-    return (data);
 }
