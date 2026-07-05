@@ -1,70 +1,72 @@
 #include "codexion.h"
 
-void    print_status(t_coder *coder, char *status)
+void print_status(t_coder *coder, char *status)
 {
     t_time current_time;
 
     pthread_mutex_lock(&coder->data->print_mutex);
     current_time = get_time() - coder->data->start_time;
-    printf("%ld %ld %s", current_time, coder->id, status);
+    printf("%lld %ld%s", current_time, coder->id, status);
     pthread_mutex_unlock(&coder->data->print_mutex);
 }
 
-void    *coder_routine(void *arg)
+int simulation_over(t_data *data)
 {
-    t_coder *coder = (t_coder *)arg;
-    static bool dongles[2] = {false, false};
+    int over;
 
-    while (!(coder->data->burnout_flag))
+    pthread_mutex_lock(&data->state_mutex);
+    over = data->burnout_flag || data->completion_flag;
+    pthread_mutex_unlock(&data->state_mutex);
+    return (over);
+}
+
+static void start_compiling(t_coder *coder)
+{
+    pthread_mutex_lock(&coder->data->state_mutex);
+    coder->last_compile_start = get_time();
+    pthread_mutex_unlock(&coder->data->state_mutex);
+    print_status(coder, " is compiling\n");
+}
+
+static void finish_compiling(t_dongle *first, t_dongle *second, t_coder *coder)
+{
+    ft_usleep(coder->data->time_to_compile);
+    release_dongle(second);
+    release_dongle(first);
+    pthread_mutex_lock(&coder->data->state_mutex);
+    coder->compiles_done++;
+    pthread_mutex_unlock(&coder->data->state_mutex);
+}
+
+void *coder_routine(void *arg)
+{
+    t_coder     *coder;
+    t_data      *data;
+    t_dongle    *first;
+    t_dongle    *second;
+
+    coder = (t_coder *)arg;
+    data = coder->data;
+    pick_order(coder, &first, &second);
+    while (!simulation_over(data))
     {
-        dongles[0] = take_
-            if (dongles[0] && dongles[1])
-            {
-                coder->last_compile_time = get_time();
-                coder->compiles_done++;
-                print_status(coder, " is compiling\n");
-                usleep(coder->data->time_to_compile * 1000);
-                release_dongles(coder);
-                print_status(coder, " is debugging\n");
-                usleep(coder->data->time_to_debug * 1000);
-                print_status(coder, " is refactoring\n");
-                usleep(coder->data->time_to_refactor * 1000);
-            }
+        if (!acquire_dongle(first, coder))
+            break ;
+        if (!acquire_dongle(second, coder))
+        {
+            release_dongle(first);
+            break ;
+        }
+        start_compiling(coder);
+        finish_compiling(first, second, coder);
+        if (simulation_over(data))
+            break ;
+        print_status(coder, " is debugging\n");
+        ft_usleep(data->time_to_debug);
+        if (simulation_over(data))
+            break ;
+        print_status(coder, " is refactoring\n");
+        ft_usleep(data->time_to_refactor);
     }
     return (NULL);
 }
-t_request comp_scheduler(t_request a, t_request b, t_scheduler sched)
-{
-    if (sched == FIFO)
-    {
-        if (a.arrival_time < b.arrival_time)
-            return (1);
-        else
-            return (0);
-    }
-    else if (sched == EDF)
-    {
-        if (a.deadline < b.deadline)
-            return (1);
-        else
-            return (0);
-    }
-    return (0);
-}
-
-t_request *get_next_request(t_data *data)
-{
-    t_request *next_request = NULL;
-    t_heap *heap = data->heap;
-    int i;
-
-    while (heap->size > 0)
-    {
-        if (comp_scheduler(heap->requests[0], next_request, data->scheduler))
-            next_request = heap->requests[0];
-        i++;
-    }
-    return (next_request);
-}
-
-    
