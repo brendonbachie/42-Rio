@@ -10,7 +10,7 @@ def _split_long_text(
     file_path: str,
     base_offset: int,
     max_chunk_size: int,
-    overlap: int = 200,
+    overlap: int = 400,
 ) -> List[Chunk]:
     """Split a text span into overlapping chunks.
 

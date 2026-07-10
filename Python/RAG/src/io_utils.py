@@ -4,9 +4,11 @@ from pathlib import Path
 from typing import List
 
 from src.models import (
+    MinimalAnswer,
     MinimalSearchResults,
     RagDataset,
     StudentSearchResults,
+    StudentSearchResultsAndAnswer,
 )
 
 
@@ -58,6 +60,56 @@ def save_search_results(
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / Path(dataset_path).name
     payload = StudentSearchResults(search_results=results, k=k)
+    with out_path.open("w", encoding="utf-8") as handle:
+        handle.write(payload.model_dump_json(indent=2))
+    return str(out_path)
+
+
+def load_student_search_results(path: str) -> StudentSearchResults:
+    """Load a StudentSearchResults JSON file.
+
+    Args:
+        path: Path to the search results JSON.
+
+    Returns:
+        The parsed search results.
+
+    Raises:
+        FileNotFoundError: If the file does not exist.
+        ValueError: If the JSON is malformed or fails validation.
+    """
+    file = Path(path)
+    if not file.exists():
+        raise FileNotFoundError(f"Search results not found: {path}")
+    try:
+        with file.open("r", encoding="utf-8") as handle:
+            raw = json.load(handle)
+        return StudentSearchResults.model_validate(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Malformed JSON in {path}: {exc}") from exc
+
+
+def save_answers(
+    results: List[MinimalAnswer],
+    k: int,
+    source_path: str,
+    save_directory: str,
+) -> str:
+    """Write a StudentSearchResultsAndAnswer JSON file.
+
+    Args:
+        results: Per-question answers.
+        k: Number of results requested per question.
+        source_path: Original search-results path (used for the filename).
+        save_directory: Directory to write the output into.
+
+    Returns:
+        The path of the written file.
+    """
+    out_dir = Path(save_directory)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / Path(source_path).name
+    payload = StudentSearchResultsAndAnswer(search_results=results, k=k)
     with out_path.open("w", encoding="utf-8") as handle:
         handle.write(payload.model_dump_json(indent=2))
     return str(out_path)

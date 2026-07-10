@@ -74,7 +74,7 @@ def build_index(
     raw_dir: str = "data/raw",
     processed_dir: str = "data/processed",
     max_chunk_size: int = 2000,
-    docs_chunk_size: int = 1000,
+    docs_chunk_size: int = 700,
 ) -> Tuple[int, int]:
     """Build the BM25 index over the corpus and persist it.
 
