@@ -100,3 +100,19 @@ class StudentSearchResultsAndAnswer(BaseModel):
 
     search_results: List[MinimalAnswer]
     k: int
+
+
+class Chunk(BaseModel):
+    """A chunk of a source file, with its character span in the original.
+
+    Attributes:
+        file_path: Path to the source file, exactly as in the corpus.
+        text: The chunk's textual content.
+        first_character_index: Start offset in the original file.
+        last_character_index: End offset in the original file.
+    """
+
+    file_path: str
+    text: str
+    first_character_index: int
+    last_character_index: int
