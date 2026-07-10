@@ -42,6 +42,15 @@ make install
 The first run will download the `Qwen/Qwen3-0.6B` weights from the Hugging
 Face Hub (a few hundred MB) unless they are already cached locally.
 
+`pyproject.toml` pins `torch` to the CPU-only wheel index
+(`[tool.uv.sources] torch = { index = "pytorch-cpu" }`), instead of the
+default CUDA build. The default build drags in several GB of NVIDIA CUDA
+libraries (cuBLAS, cuDNN, cuFFT, NCCL, ...) that go completely unused
+whenever no working CUDA driver is present - the SDK already falls back to
+CPU automatically in that case. If your machine *does* have a working CUDA
+setup and you want GPU acceleration, remove that override (and the matching
+`[[tool.uv.index]]` entry) and re-run `uv sync`.
+
 ### Run
 
 ```sh

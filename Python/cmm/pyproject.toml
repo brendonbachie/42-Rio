@@ -7,6 +7,7 @@ dependencies = [
     "pydantic>=2.6",
     "numpy>=1.26",
     "llm-sdk",
+    "torch>=2.0.0",
 ]
 
 [dependency-groups]
@@ -18,6 +19,16 @@ dev = [
 
 [tool.uv.sources]
 llm-sdk = { path = "llm_sdk", editable = true }
+# CPU-only torch build: avoids downloading/installing several GB of NVIDIA
+# CUDA libraries (cublas, cudnn, cufft, nccl, ...) that go unused anyway
+# whenever no working CUDA driver is present - the SDK already falls back
+# to CPU automatically in that case (see llm_sdk/llm_sdk/__init__.py).
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [build-system]
 requires = ["hatchling"]
