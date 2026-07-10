@@ -8,7 +8,9 @@ dependencies = [
     "fire>=0.7.1",
     "pydantic>=2.13.4",
     "rank-bm25>=0.2.2",
+    "torch>=2.13.0",
     "tqdm>=4.68.4",
+    "transformers>=5.13.0",
 ]
 
 [dependency-groups]
@@ -22,3 +24,11 @@ exclude = [
     "data/",
     "\\.venv/",
 ]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

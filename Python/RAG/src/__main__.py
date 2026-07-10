@@ -49,6 +49,26 @@ class RagCLI:
                 f"{source.last_character_index}]"
             )
 
+    def answer(
+        self,
+        query: str,
+        k: int = 5,
+        processed_dir: str = "data/processed",
+    ) -> None:
+        """Answer a single query using the retrieved context.
+
+        Args:
+            query: The question to answer.
+            k: Number of sources to retrieve for context.
+            processed_dir: Directory containing the index.
+        """
+        from src.generator import Generator
+
+        retriever = Retriever(processed_dir)
+        sources, texts = retriever.search_with_text(query, k)
+        generator = Generator()
+        print(generator.answer(query, sources, texts))
+
     def search_dataset(
         self,
         dataset_path: str,
@@ -83,6 +103,54 @@ class RagCLI:
         )
         print(f"Saved student_search_results to {out_path}")
 
+    def answer_dataset(
+        self,
+        student_search_results_path: str,
+        save_directory: str = "data/output/search_results_and_answer",
+    ) -> None:
+        """Generate answers for a dataset of search results.
+
+        Args:
+            student_search_results_path: Path to a StudentSearchResults
+                JSON produced by search_dataset.
+            save_directory: Directory to write the output into.
+        """
+        from src.generator import Generator, read_source_text
+        from src.io_utils import load_student_search_results, save_answers
+        from src.models import MinimalAnswer
+
+        search_results = load_student_search_results(
+            student_search_results_path
+        )
+        generator = Generator()
+
+        answers = []
+        for item in tqdm(
+            search_results.search_results, desc="Answering", unit="q"
+        ):
+            texts = [
+                read_source_text(s) for s in item.retrieved_sources
+            ]
+            answer_text = generator.answer(
+                item.question, item.retrieved_sources, texts
+            )
+            answers.append(
+                MinimalAnswer(
+                    question_id=item.question_id,
+                    question=item.question,
+                    retrieved_sources=item.retrieved_sources,
+                    answer=answer_text,
+                )
+            )
+
+        out_path = save_answers(
+            answers,
+            search_results.k,
+            student_search_results_path,
+            save_directory,
+        )
+        print(f"Saved student_search_results_and_answer to {out_path}")
+
     def evaluate(
         self,
         student_search_results_path: str,
@@ -102,8 +170,13 @@ class RagCLI:
 
 
 def main() -> None:
-    """Launch the Fire CLI."""
-    fire.Fire(RagCLI)
+    """Launch the Fire CLI, turning expected errors into clean messages."""
+    try:
+        fire.Fire(RagCLI)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"Error: {exc}")
+    except KeyboardInterrupt:
+        print("\nInterrupted.")
 
 
 if __name__ == "__main__":
