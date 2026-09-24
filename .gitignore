@@ -6,3 +6,7 @@ a.out
 # Python
 __pycache__/
 *.pyc
+
+# Documentos pessoais / de avaliação
+*[Rr]egua*.pdf
+cv_*.pdf
