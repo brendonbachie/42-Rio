@@ -10,3 +10,7 @@ __pycache__/
 # Documentos pessoais / de avaliação
 *[Rr]egua*.pdf
 cv_*.pdf
+
+# Binários de avaliação da 42 e headers pré-compilados
+moulinette*
+*.gch
