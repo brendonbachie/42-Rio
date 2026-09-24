@@ -1,0 +1,8 @@
+# Build artifacts
+*.o
+*.a
+a.out
+
+# Python
+__pycache__/
+*.pyc
